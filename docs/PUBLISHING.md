@@ -18,4 +18,4 @@ Original SHA a06ece34d9a084d529cfa406f22b0436a746ae98 is preserved at [archive/p
 
 For an application regression, pin the last verified constellation SHA through a normal root commit and confirm CI plus version.json.
 
-To return fully to the old pavilion, inspect subsequent changes and normally revert the root rollout commit. This restores its previous publisher without rewriting history. Verify old checks/deployment and live root. Never force push or delete separate Pages projects.
+To return fully to the old pavilion, inspect subsequent changes and normally revert the original root rollout commit 8b84f2a53b69d5e2ac3d9204cd87b184c26915c4. This restores its previous publisher without rewriting history. Verify old checks/deployment and live root. Never force push or delete separate Pages projects.

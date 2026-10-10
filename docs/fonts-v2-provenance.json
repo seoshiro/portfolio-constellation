@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-10-10T18:36:15.249Z",
+  "files": [
+    [
+      "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf",
+      "portfolio-constellation/public/fonts/Manrope/Manrope.ttf"
+    ],
+    [
+      "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/OFL.txt",
+      "portfolio-constellation/public/fonts/Manrope/OFL.txt"
+    ],
+    [
+      "https://github.com/simpals/onest/releases/download/2.000/onest-2.000.zip",
+      "preflight-evidence/motion-v2/fonts/onest-2.000.zip"
+    ],
+    [
+      "https://raw.githubusercontent.com/simpals/onest/2.000/OFL.txt",
+      "portfolio-constellation/public/fonts/Onest/OFL.txt"
+    ]
+  ],
+  "packaged": [
+    {
+      "family": "Manrope",
+      "version": "Version 4.505",
+      "requiredText": "Beibars Ileskhan",
+      "missing": [],
+      "sha256": "6ac364bbdaf5e818d8ad6f10a5289b131dfa54252568a28d4ee4e8e7d6f86ef4",
+      "bytes": 31980
+    },
+    {
+      "family": "Onest",
+      "version": "Version 2.000",
+      "requiredText": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяӘ Ғ Қ Ң Ө Ұ Ү Һ І — ә ғ қ ң ө ұ ү һ і",
+      "missing": [],
+      "sha256": "8a8e89f70489275992969e26d9e9326a0496bac77b4cfa8dd0124bd79928c089",
+      "bytes": 44868
+    }
+  ],
+  "originals": [
+    {
+      "path": "public/fonts/Manrope/Manrope.ttf",
+      "bytes": 164700,
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6"
+    },
+    {
+      "path": "public/fonts/Onest/Onest.ttf",
+      "bytes": 193048,
+      "sha256": "16064c03256e1b6353138695a480c78572577d57f226f4b2dbd59d1915372414"
+    }
+  ]
+}

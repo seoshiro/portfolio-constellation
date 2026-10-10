@@ -1,0 +1,53 @@
+/* UI remains in screen space. Only the sky is projected by the scene camera. */
+@font-face{font-family:Manrope;src:url('/fonts/Manrope/Manrope.woff2') format('woff2');font-weight:200 800;font-display:swap}
+@font-face{font-family:Onest;src:url('/fonts/Onest/Onest.woff2') format('woff2');font-weight:100 900;font-display:swap}
+:root{--display:Onest,Arial,sans-serif;font-family:Onest,Arial,sans-serif;font-synthesis:none}
+h1,h2,h3{font-variation-settings:normal;font-weight:520}
+.hero-intro h1{font-family:Manrope,Arial,sans-serif;font-weight:525;font-size:clamp(72px,7.6vw,112px);letter-spacing:-.035em;line-height:.98}
+.hero-intro{width:37%;top:29%}.hero-description{font-size:clamp(17px,1.3vw,19px);line-height:1.5}
+.eyebrow{letter-spacing:.16em}.wordmark{font-weight:600;letter-spacing:-1.1px}
+nav a{font-size:16px}.preview-copy h2{font-weight:550;letter-spacing:.015em}
+.preview-copy>p:not(.eyebrow){font-size:16px;line-height:1.5}.preview-copy .text-link{font-size:16px}
+.enhanced .sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+.enhanced .constellation{transform-origin:50% 50%;will-change:auto;transition:none;justify-content:center}
+.constellation svg{overflow:visible;transition:opacity .2s}.constellation .constellation-label{font-size:13px;letter-spacing:.13em;color:#c7cbd3;transform:scale(var(--label-scale,1));transform-origin:center center;padding:6px 10px;white-space:nowrap}
+.constellation:hover .constellation-label,.constellation:focus-visible .constellation-label,.constellation.is-selected .constellation-label{color:#ffe2b6}
+.constellation .connections{stroke:#aeb1b9;stroke-width:.3;opacity:.52}.constellation .core{fill:#fff1d6}
+.connections line{stroke-dasharray:1;stroke-dashoffset:0}.constellation:hover .connections line,.constellation:focus-visible .connections line{animation:line-hover .23s ease-out both;animation-delay:calc(var(--edge,0)*14ms)}
+@keyframes line-hover{from{stroke-dashoffset:1;opacity:.3}to{stroke-dashoffset:0;opacity:1}}
+.constellation-tip{position:absolute;bottom:-54px;width:250px;left:50%;padding:10px 13px;transform:translate(-50%,8px) scale(var(--label-scale,1));transform-origin:50% 0;visibility:hidden;opacity:0;transition:opacity .18s,transform .18s,visibility .18s;text-align:left;background:#090c12ed;border:1px solid #bd9c6445;pointer-events:none;z-index:10;letter-spacing:0}
+.constellation-tip b{display:block;font-size:12px;color:#ffe4bc;font-weight:550;margin-bottom:4px}.constellation-tip small{display:block;font-size:13px;color:#c7cbd3;line-height:1.4}
+.constellation .constellation-tip{top:calc(100% + 8px);bottom:auto;letter-spacing:0;text-shadow:none}.is-selected .constellation-tip{display:none}
+.constellation-iter .constellation-tip,.constellation-forme .constellation-tip{left:auto;right:0;transform-origin:right top;transform:translate(0,8px)}.constellation-iter:hover .constellation-tip,.constellation-forme:hover .constellation-tip{transform:translate(0,0)}
+.constellation.is-selected .core{r:1.15}.constellation.is-selected .halo{opacity:.55}
+.constellation:hover,.constellation:focus-visible{z-index:12}.constellation:hover .constellation-tip,.constellation:focus-visible .constellation-tip{visibility:visible;opacity:1;transform:translate(-50%,0) scale(var(--label-scale,1))}
+.light-pulse{fill:none;stroke:#fff2d9;stroke-width:.7;opacity:0;stroke-dasharray:.14 .86;pointer-events:none}.is-selected .light-pulse{animation:light-pulse .52s ease-out both}
+@keyframes light-pulse{0%{opacity:0;stroke-dashoffset:1}20%{opacity:1}100%{opacity:0;stroke-dashoffset:-.3}}
+.scene-enter .stars{animation:star-enter .65s ease-out both}.scene-enter .connections line{animation:line-enter .72s ease-out both;animation-delay:calc(100ms + var(--edge,0)*20ms)}
+@keyframes star-enter{from{opacity:0}to{opacity:1}}@keyframes line-enter{from{stroke-dashoffset:1;opacity:0}to{stroke-dashoffset:0;opacity:1}}
+.camera-flight .constellation{will-change:transform}.camera-flight .constellation-tip{display:none}.camera-flight .hero-intro{opacity:calc(1 - var(--focus,0)*4)}
+.enhanced .project-preview{transition:none;visibility:visible}.project-preview[inert]{pointer-events:none}.project-preview:focus-within{border-color:#edc99a}
+.enhanced .atlas-projects{display:none;position:absolute;right:var(--gutter);bottom:17px;gap:6px 19px;max-width:65%;z-index:15;flex-wrap:wrap}
+.enhanced .has-selection .atlas-projects,.enhanced .camera-flight .atlas-projects{display:flex}.atlas-projects button{font-size:12px;font-weight:500;letter-spacing:.07em;padding:8px 2px;color:#bdc2cd;border-bottom:1px solid transparent}
+.enhanced .atlas-projects{bottom:96px}.enhanced .has-selection .constellation:not(.is-selected){pointer-events:none}.enhanced .has-selection .constellation:not(.is-selected) .constellation-label,.enhanced .camera-flight .constellation:not(.is-selected) .constellation-label{visibility:hidden}.has-selection .constellation:not(.is-selected) .constellation-tip{display:none}.atlas-footer,.map-clear,.project-preview{z-index:18}
+.atlas-projects button:hover,.atlas-projects button[aria-pressed=true]{color:#ffe2b6;border-bottom-color:#edc99a}
+.sun,.solar-glow{transition:none}.quiet-quality .halo{opacity:.045}.quiet-quality .meteor svg{filter:none}
+.meteors .meteor{height:28px;background:none;box-shadow:none;transform:rotate(var(--angle));transform-origin:var(--tail) 14px;animation:meteor-flight var(--duration) linear both;pointer-events:none;will-change:translate,opacity}
+.meteors .meteor:after{display:none}.meteor svg{overflow:visible;filter:drop-shadow(0 0 4px #ffe4b580)}.meteor-head{animation:meteor-head var(--duration) linear both}
+@keyframes meteor-flight{0%{opacity:0;translate:0 0}10%{opacity:var(--light)}82%{opacity:var(--light);translate:var(--dx) var(--dy)}100%{opacity:0;translate:var(--dx) var(--dy)}}
+@keyframes meteor-head{0%{opacity:0}10%,78%{opacity:1}87%,100%{opacity:0}}
+@media(min-width:601px) and (max-width:1100px){.hero-intro h1{font-size:clamp(62px,8.3vw,92px)}.hero-intro{width:41%}.project-preview{width:clamp(270px,31vw,330px);bottom:18%}.preview-copy>p:not(.eyebrow){font-size:15px}.atlas-heading{width:90%}.atlas-heading h2{font-size:32px}.enhanced .atlas-projects{max-width:65%;gap:5px 13px}}
+@media(min-width:1800px){.hero-intro h1{font-size:112px}.preview-copy h2{font-size:34px}.preview-copy>p:not(.eyebrow){font-size:17px}}
+@media(max-width:800px){nav a{font-size:14px}.hero-intro h1{font-size:clamp(60px,8.3vw,75px)}.constellation .constellation-label{font-size:12px;letter-spacing:.1em}.preview-copy .text-link{font-size:15px}}
+@media(max-width:600px){
+  .hero-intro h1{font-size:clamp(44px,14vw,60px);letter-spacing:-.035em;line-height:.98}.hero-intro{width:100%;top:auto;left:auto}.hero-description{font-size:17px}
+  .enhanced .hero{height:1100px;min-height:1100px;padding:48px var(--gutter) 30px;display:block}.enhanced .hero-intro{position:relative;pointer-events:none}.enhanced .hero-intro>*{pointer-events:auto}
+  .enhanced .exploring .hero-intro{display:none}.enhanced .atlas-heading{position:absolute;left:var(--gutter);top:46px;padding:0;width:calc(100% - 2*var(--gutter))}.atlas-heading h2{font-size:28px}.atlas-heading>p:last-child{font-size:14px}
+  .enhanced .constellation{position:absolute;display:flex;min-height:0;min-width:0}.enhanced .constellation svg{height:calc(100% - 27px);width:100%;max-width:none;min-height:0}
+  .enhanced .project-preview{position:absolute;left:var(--gutter);top:var(--preview-top,485px);bottom:auto;width:calc(100% - 2*var(--gutter));margin:0;grid-template-columns:90px 1fr;gap:14px;padding:15px}
+  .project-preview img{width:90px;height:90px}.preview-copy>p:not(.eyebrow){font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.preview-copy h2{font-size:23px}.preview-copy .text-link{font-size:14px}.preview-copy .eyebrow{font-size:9px}
+  .enhanced .atlas-projects{top:150px;left:var(--gutter);right:var(--gutter);bottom:auto;max-width:none;display:none;grid-template-columns:repeat(3,1fr);gap:4px 12px}.enhanced .has-selection .atlas-projects,.enhanced .camera-flight .atlas-projects{display:grid}.atlas-projects button{text-align:left;font-size:11px;padding:8px 0}
+  .enhanced .atlas-footer{position:absolute;left:var(--gutter);right:var(--gutter);bottom:50px;width:auto;margin:0}.enhanced .exploring .atlas-index{display:none}.enhanced .map-clear{position:absolute;left:var(--gutter);bottom:24px;margin:0}.enhanced .atlas-all{position:absolute;right:0;bottom:0}.constellation-tip{display:none}
+}
+@media(prefers-reduced-motion:reduce){.scene-enter .stars,.scene-enter .connections line,.light-pulse{animation:none!important}.constellation-tip{transition:none}}
+.reduced .light-pulse,.reduced .scene-enter .stars,.reduced .scene-enter .connections line{animation:none}.reduced .constellation:hover .connections line,.reduced .constellation:focus-visible .connections line{animation:none}

@@ -1,10 +1,10 @@
 import {copy} from './data/copy.ts';
 import {caseHref,rootHref,validLocale,featuredIds,type Locale} from './data/projects.ts';
-import {constellations} from './data/constellations.ts';
 import {preview} from './ui/render.ts';
 import {parseHash,selectionHash} from './state.ts';
 import {createScene} from './scene/scene.ts';
 import './style.css';
+import './motion.css';
 const locale=document.documentElement.lang as Locale,c=copy[locale];
 const id=document.body.dataset.project||null;
 const localePath=(l:Locale)=>id?caseHref(id,l):rootHref(l)+(location.pathname.endsWith('credits.html')?'credits.html':'');
@@ -29,15 +29,15 @@ motion.addEventListener('click',()=>{paused=!paused;set('atlas-motion',paused?'o
 function updateLanguages(){for(const a of document.querySelectorAll<HTMLAnchorElement>('[data-locale]')){const l=a.dataset.locale as Locale;const target=new URL(id?caseHref(id,l):rootHref(l)+(location.pathname.endsWith('credits.html')?'credits.html':''),location.origin);target.hash=location.hash;if(new URLSearchParams(location.search).has('flat'))target.search='?flat';a.href=target.href;}}
 function applyState(){if(!hero)return;if(location.hash==='#work'){history.replaceState(null,'',location.pathname+location.search+'#catalog');document.querySelector('#catalog')?.scrollIntoView();}const state=parseHash(location.hash);hero.classList.toggle('exploring',state.exploring);hero.classList.toggle('has-selection',!!state.selected);
   const aside=hero.querySelector<HTMLElement>('.project-preview')!;
-  aside.hidden=!state.selected;if(state.selected&&aside.dataset.project!==state.selected){aside.innerHTML=preview(locale,state.selected);aside.dataset.project=state.selected;wireImages(aside);}
+  if(state.selected)aside.hidden=false;else if(!scene)aside.hidden=true;if(state.selected&&aside.dataset.project!==state.selected){aside.innerHTML=preview(locale,state.selected);aside.dataset.project=state.selected;wireImages(aside);}
   const clear=hero.querySelector<HTMLElement>('.map-clear')!;clear.hidden=!state.exploring;
   for(const link of hero.querySelectorAll<HTMLElement>('[data-select]')){const selected=state.selected===link.dataset.select;link.classList.toggle('is-selected',selected);if(selected)link.setAttribute('aria-current','true');else link.removeAttribute('aria-current');}
-  const shape=constellations.find(k=>k.id===state.selected);scene?.select(shape?(shape.x+shape.w/2)/100:-1,shape?(shape.y+shape.h/2)/100:-1);
+  for(const button of hero.querySelectorAll<HTMLButtonElement>('[data-target]'))button.setAttribute('aria-pressed',String(button.dataset.target===state.selected));scene?.select(state.selected,state.exploring);
   hero.querySelector<HTMLElement>('.selection-announcement')!.textContent=state.selected?c.selected+': '+state.selected.toUpperCase():'';
   document.querySelector('[data-nav="atlas"]')?.classList.toggle('active',state.exploring);
 }
 function navigate(hash:string){history.pushState(null,'',hash||location.pathname+location.search);applyState();updateLanguages();}
-document.addEventListener('click',event=>{const target=event.target as HTMLElement;const selection=target.closest<HTMLAnchorElement>('[data-select]');if(selection&&hero){event.preventDefault();navigate(selectionHash(selection.dataset.select!));return;}
+document.addEventListener('click',event=>{const target=event.target as HTMLElement;const selection=target.closest<HTMLElement>('.constellation[data-select],.atlas-projects button[data-target]');if(selection&&hero){event.preventDefault();navigate(selectionHash(selection.dataset.select||selection.dataset.target!));return;}
   const explore=target.closest('[data-explore]');const atlasNav=target.closest<HTMLAnchorElement>('[data-nav="atlas"]');if(hero&&(explore||atlasNav)){event.preventDefault();navigate('#atlas');hero.scrollIntoView({behavior:allowed()?'smooth':'instant'});return;}
   if(target.closest('.map-clear')){const selected=parseHash(location.hash).selected;navigate('');if(selected)hero?.querySelector<HTMLElement>(`[data-select="${selected}"]`)?.focus({preventScroll:true});}
   const caseLink=target.closest<HTMLAnchorElement>('[data-case]');if(caseLink)set('atlas-focus',caseLink.dataset.case!,true);

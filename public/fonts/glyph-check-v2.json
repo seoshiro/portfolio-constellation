@@ -1,0 +1,18 @@
+[
+  {
+    "family": "Manrope",
+    "version": "Version 4.505",
+    "requiredText": "Beibars Ileskhan",
+    "missing": [],
+    "sha256": "6ac364bbdaf5e818d8ad6f10a5289b131dfa54252568a28d4ee4e8e7d6f86ef4",
+    "bytes": 31980
+  },
+  {
+    "family": "Onest",
+    "version": "Version 2.000",
+    "requiredText": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяӘ Ғ Қ Ң Ө Ұ Ү Һ І — ә ғ қ ң ө ұ ү һ і",
+    "missing": [],
+    "sha256": "8a8e89f70489275992969e26d9e9326a0496bac77b4cfa8dd0124bd79928c089",
+    "bytes": 44868
+  }
+]

@@ -13,6 +13,6 @@ SIDEREAL and ITER screens are fresh live captures in isolated Chrome profiles. A
 
 Eight remaining pairs of actual project screenshots were preserved from the author's old portfolio, exact a06ece34d9a084d529cfa406f22b0436a746ae98, public/assets/<project>.webp and <project>-detail.webp. All current applications were independently opened and compared.
 
-Geologica and Golos Text originate from official Google Fonts. Original TTFs, subset WOFF2s, provenance, glyph reports and SIL OFL 1.1 files are packaged in public/fonts. No remote fonts are loaded.
+The current display font is [Manrope Variable](https://github.com/google/fonts/tree/main/ofl/manrope), version 4.505, weight 525 for the Latin name. The current UI font is [Onest Variable 2.000](https://github.com/simpals/onest/releases/tag/2.000), whose official release adds Kazakh coverage. Original TTFs, local subset WOFF2s and each SIL OFL 1.1 license are packaged in public/fonts/Manrope and public/fonts/Onest. public/fonts/glyph-check-v2.json records the exact packaged cmap, versions, hashes and sizes. Older Geologica/Golos artifacts remain as release history and are not loaded by current UI. No remote fonts are loaded.
 
-The social image is an actual final hero capture. Lusion, Active Theory v5 and Stellarium informed light, depth and spatial clarity; their scenes/assets are not copied.
+The social image preserves the previous released hero capture. New refinement QA images and video remain private local artifacts and were not placed in public/assets. Lusion, Active Theory v5 and Stellarium informed light, depth and spatial clarity; their scenes/assets are not copied.

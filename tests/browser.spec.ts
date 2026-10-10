@@ -4,7 +4,7 @@ import {projects,locales,caseHref} from '../src/data/projects.ts';
 
 test('rapid selections, reload, history, case Escape and focus return',async({page})=>{
   await page.goto('/');
-  for(const id of ['sidereal','iter','orbit','ayqyn','forme','perch','sidereal'])await page.locator(`[data-select="${id}"]`).click();
+  for(const [index,id]of ['sidereal','iter','orbit','ayqyn','forme','perch','sidereal'].entries())await page.locator(index?`[data-target="${id}"]`:`[data-select="${id}"]`).click();
   await expect(page).toHaveURL(/#atlas\/sidereal$/);await expect(page.locator('.project-preview h2')).toHaveText('SIDEREAL');
   await page.reload();await expect(page.locator('.project-preview')).toBeVisible();
   await page.goBack();await expect(page.locator('.project-preview h2')).toHaveText('PERCH');await page.goForward();
@@ -64,10 +64,12 @@ test('reduced motion creates no continuous animation or meteor',async({page})=>{
   await page.clock.install();await page.goto('/');await page.clock.fastForward(60000);await expect(page.locator('.meteors i')).toHaveCount(0);await expect(page.locator('.motion')).toBeDisabled();
 });
 
-test('intermediate tablet widths keep all constellation labels selectable',async({page})=>{
+test('intermediate tablet widths preserve the focused group and all project switches',async({page})=>{
   test.setTimeout(60000);
   for(const width of [600,601,640,800,801,900,1024,1100]){await page.setViewportSize({width,height:1024});await page.goto('/#atlas/sidereal');
-    for(const id of ['sidereal','orbit','iter','ayqyn','forme','perch']){const label=page.locator(`[data-select="${id}"]>span`);await label.scrollIntoViewIfNeeded();const reachable=await label.evaluate(el=>{const r=el.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest('[data-select]')?.getAttribute('data-select');});expect(reachable,`${id} at ${width}`).toBe(id);await label.click();await expect(page.locator('.project-preview h2')).toHaveText(id.toUpperCase());}
+    for(const id of ['sidereal','orbit','iter','ayqyn','forme','perch']){await page.locator('[data-target="'+id+'"]').click();await expect(page.locator('.project-preview h2')).toHaveText(id.toUpperCase());
+      const label=page.locator('[data-select="'+id+'"]>.constellation-label');const r=await label.boundingBox();expect(r!.x).toBeGreaterThanOrEqual(0);expect(r!.x+r!.width).toBeLessThanOrEqual(width);expect(r!.y+r!.height).toBeLessThanOrEqual(1024);
+    }
   }
 });
 

@@ -1,5 +1,26 @@
 # Verification — Windows / Chrome
 
+## Current motion/typography refinement — 2026-10-10
+
+The final local run passed lint, strict TypeScript, ten content/state/camera unit tests, build, artifact checks and **24 production Chrome browser scenarios** (1.7 minutes). The static release has 40 HTML routes and 100,733 uncompressed JavaScript bytes against a 125,000-byte limit.
+
+Normal-motion fitting covers every featured project in RU/EN/KK at 360, 390, 768 and 1440px: 72 destinations, with actual star geometry and labels inside the viewport. Existing checks cover 1920px, intermediate tablet widths, touch, static fallback, routes, storage/images, focus/history, context loss and Axe A/AA. New checks cover interrupted camera travel, late card reveal, sparse fading meteors, pause during flight and real Chrome font selection.
+
+All 35 distinct external destinations were checked. Three GitHub documentation URLs still returned 503 to the HTTP fetch after bounded retries, then opened successfully with HTTP 200 and their expected repository titles in installed Chrome. Every demo/source destination responded 200. The private probe records both observations; browser results were not substituted silently for the failed fetches.
+
+Independent review corrected a click-delegation collision and overlapping hit areas, then verified all 18 ordinary All projects clicks (six projects at 390/768/1440), case/map return, font loading, reduced motion and renderer sleep. Actual meteor first cues were 2548/2737ms; following cues 11768/12491ms. Camera arrival was 1088–1094ms in that pass. A separate concurrent local probe observed 1217ms under QA load; these are observations, not a hardware guarantee.
+
+Manrope renders all 15 Latin name glyphs; Onest 2.000 alone renders the full Kazakh proof string in Chrome. Packaged cmap reports have no missing required letters. A separate decorative star beside the name can use a one-glyph symbol font.
+
+Private BEFORE/AFTER screenshots, transition video and section screenshots are outside the repository in preflight-evidence/motion-v2. New QA media was not published as public/assets; the prior social image is unchanged. The current Library helper cannot upload them, so local artifacts are preserved. See [MOTION](MOTION.md), [assets](ASSETS.md) and [publishing](PUBLISHING.md).
+
+Physical phones, Safari, native Kazakh editorial review and physical low-end GPU benchmarking are still unavailable. Hidden-tab audit invokes the visibility handler; it is not a physical browser-tab switching test.
+
+## Original constellation release observations
+
+The following records the predecessor release and remains historical; its performance numbers were not remeasured for this refinement.
+
+
 The full brief and all three original references were read and visually inspected. Exact old root history was archived before application work. Standalone repositories were read only.
 
 ## Production checks

@@ -2,7 +2,7 @@
 
 Original portfolio for Beibars Ileskhan at [seoshiro.github.io](https://seoshiro.github.io/). Six manually designed constellations open real previews; eleven complete cases and an ordinary HTML catalogue work independently of decorative WebGL.
 
-RU / EN / KK have useful static routes. Language retains the selected project, section or case. Original procedural space, an attributed NASA/SDO solar image, gentle layer parallax and rare fading meteors provide depth. Text stays still. Motion respects reduced motion and data saving and can be paused.
+RU / EN / KK have useful static routes. Language retains the selected project, section or case. Original procedural space, an attributed NASA/SDO solar image, three star-depth planes, a separate solar plane and constellation camera moves provide depth. A pointed meteor appears about 2.3–2.8 seconds after fonts are ready; later cues are 7–14 seconds apart. Text stays still. Motion respects reduced motion and data saving and can be paused.
 
 ## Local work
 
@@ -23,7 +23,7 @@ npm run preview
 npm run capture
 ```
 
-Preview: http://127.0.0.1:5318/. Windows QA uses installed Chrome; CI uses Playwright Chromium. Capture requires a running preview and creates actual screenshots in evidence/screenshots, plus the social image from the real hero. Builds require no asset download. scripts/bake.ts regenerates the original procedural fallback; optional SOLAR_SOURCE specifies the original licensed solar file.
+Preview: http://127.0.0.1:5318/. Windows QA uses installed Chrome; CI uses Playwright Chromium. Capture requires a running preview and creates actual screenshots in evidence/screenshots, Only CAPTURE_SOCIAL=1 additionally replaces the public social image; QA screenshots stay in ignored local evidence. Builds require no asset download. scripts/bake.ts regenerates the original procedural fallback; optional SOLAR_SOURCE specifies the original licensed solar file.
 
 ## Source
 
@@ -34,7 +34,7 @@ Preview: http://127.0.0.1:5318/. Windows QA uses installed Chrome; CI uses Playw
 - public: real screenshots, local fonts and licenses.
 - tests: content/state and production browser verification.
 
-Geologica supplies expressive display type; Golos Text handles long copy. Both packaged fonts pass actual cmap checks for EN/RU/KK, including Әә Ғғ Ққ Ңң Өө Ұұ Үү Һһ Іі. SIL OFL files are included.
+The name uses Manrope Variable at weight 525. Onest Variable 2.000 handles UI and EN/RU/KK copy. Actual packaged cmap and Chrome platform-font checks include Ә Ғ Қ Ң Ө Ұ Ү Һ І / ә ғ қ ң ө ұ ү һ і without system fallback. Both fonts are local, free SIL OFL 1.1 releases. See [motion and typography](docs/MOTION.md).
 
 SIDEREAL is a musical instrument. ITER models a fictitious educational building. AYQYN is a prototype with human review and no winning award. AURA is excluded. Cases use actual project sources/screenshots.
 
