@@ -6,12 +6,21 @@ const idle=async(page:import('@playwright/test').Page)=>expect(page.locator('.he
 
 test('camera enlarges real geometry, reveals the card late and survives interrupted selection',async({page})=>{
   await page.goto('/');await page.evaluate(()=>document.fonts.ready);
-  const name=await page.locator('h1').boundingBox();await page.locator('[data-select="orbit"]').click();
-  await expect(page.locator('.hero')).toHaveAttribute('data-camera','moving');
-  await page.waitForTimeout(200);expect(Number(await page.locator('.project-preview').evaluate(el=>getComputedStyle(el).opacity))).toBe(0);
-  const before=Number(await page.locator('.hero').getAttribute('data-zoom'));expect(before).toBeGreaterThan(1);
-  await page.locator('[data-target="iter"]').click();
-  const after=Number(await page.locator('.hero').getAttribute('data-zoom'));expect(Math.abs(after-before)).toBeLessThan(.3);
+  const name=await page.locator('h1').boundingBox();
+  // Observe inside the browser: software GPU/IPC latency must not turn a 200ms
+  // test-side sleep into a measurement taken after the whole 1080ms flight.
+  const proof=await page.evaluate(()=>new Promise<{samples:{elapsed:number;zoom:number;opacity:number}[];retarget:{before:number;after:number;elapsed:number}}>(resolve=>{
+    const hero=document.querySelector<HTMLElement>('.hero')!,aside=hero.querySelector<HTMLElement>('.project-preview')!;
+    const started=performance.now(),samples:{elapsed:number;zoom:number;opacity:number}[]=[];let retarget={before:0,after:0,elapsed:0};
+    const observer=new MutationObserver(()=>{
+      if(hero.dataset.camera==='moving'&&hero.dataset.cameraTarget==='orbit')samples.push({elapsed:performance.now()-started,zoom:Number(hero.dataset.zoom),opacity:Number(getComputedStyle(aside).opacity)});
+      if(hero.dataset.camera==='idle'&&hero.dataset.cameraTarget==='iter'){observer.disconnect();resolve({samples,retarget});}
+    });observer.observe(hero,{attributes:true,subtree:true,attributeFilter:['style','data-zoom','data-camera']});
+    hero.querySelector<HTMLElement>('[data-select="orbit"]')!.click();
+    setTimeout(()=>{const before=Number(hero.dataset.zoom);hero.querySelector<HTMLElement>('[data-target="iter"]')!.click();retarget={before,after:Number(hero.dataset.zoom),elapsed:performance.now()-started};},350);
+  }));
+  const early=proof.samples.filter(sample=>sample.elapsed<800);expect(early.length).toBeGreaterThan(0);expect(early.every(sample=>sample.opacity===0)).toBe(true);
+  expect(proof.samples.some(sample=>sample.zoom>1)).toBe(true);expect(proof.retarget.elapsed).toBeLessThan(1000);expect(Math.abs(proof.retarget.after-proof.retarget.before)).toBeLessThan(.01);
   await idle(page);expect(Number(await page.locator('.hero').getAttribute('data-zoom'))).toBeGreaterThan(1.7);
   await expect(page.locator('.project-preview h2')).toHaveText('ITER');await expect(page.locator('.project-preview')).not.toHaveAttribute('inert');
   await page.keyboard.press('Escape');await idle(page);expect(Number(await page.locator('.hero').getAttribute('data-zoom'))).toBe(1);
