@@ -1,0 +1,27 @@
+[
+  {
+    "name": "DESCRIPTION.en_us.html",
+    "sha": "1f1a27cac04c9afc6751077fb5d2d92d72a52a0b",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/golostext/DESCRIPTION.en_us.html"
+  },
+  {
+    "name": "GolosText[wght].ttf",
+    "sha": "05ee5ecc570b97818e24e58693662cd8294fdfc9",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/golostext/GolosText%5Bwght%5D.ttf"
+  },
+  {
+    "name": "METADATA.pb",
+    "sha": "461e57b0a113b88f12b2346369934c98a214d17c",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/golostext/METADATA.pb"
+  },
+  {
+    "name": "OFL.txt",
+    "sha": "4db2dc99dd31ec2dd9655d3b71565a9959394ab1",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/golostext/OFL.txt"
+  },
+  {
+    "name": "upstream_info.md",
+    "sha": "3921f28d50f787a22c1c4fda2354604588177684",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/golostext/upstream_info.md"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "DESCRIPTION.en_us.html",
+    "sha": "909a5cfa8e8d80ee9ccb6ce0eca5481dbc9197ab",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/geologica/DESCRIPTION.en_us.html"
+  },
+  {
+    "name": "Geologica[CRSV,SHRP,slnt,wght].ttf",
+    "sha": "9e7771e32575873bba48b16b6ef1696b63087a2a",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/geologica/Geologica%5BCRSV%2CSHRP%2Cslnt%2Cwght%5D.ttf"
+  },
+  {
+    "name": "METADATA.pb",
+    "sha": "cc9e171660d480c5a4ee9a1f90220da84009fe85",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/geologica/METADATA.pb"
+  },
+  {
+    "name": "OFL.txt",
+    "sha": "ebe73cf731875468cbc35c1d8857ac037328918f",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/geologica/OFL.txt"
+  },
+  {
+    "name": "upstream_info.md",
+    "sha": "9e7cdbe07c559b57f832634acd2489bb30ac2d46",
+    "download_url": "https://raw.githubusercontent.com/google/fonts/main/ofl/geologica/upstream_info.md"
+  }
+]

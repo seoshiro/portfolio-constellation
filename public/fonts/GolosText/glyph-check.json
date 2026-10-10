@@ -1,0 +1,20 @@
+{
+  "font": "GolosText[wght].ttf",
+  "family": "Golos Text",
+  "glyphCount": 643,
+  "samples": {
+    "en": {
+      "text": "Beibars Ileskhan SIDEREAL ITER ORBIT Projects About Contact",
+      "missing": []
+    },
+    "ru": {
+      "text": "Бейбарс Илесхан Проекты Обо мне Контакты Звёздный атлас",
+      "missing": []
+    },
+    "kk": {
+      "text": "Бейбарыс Ілесхан Жобалар Мен туралы Байланыс Әә Ғғ Ққ Ңң Өө Ұұ Үү Һһ Іі",
+      "missing": []
+    }
+  },
+  "license": "C:\\Users\\gokusen\\Documents\\Codex\\2026-10-10\\task-2\\preflight-evidence\\font\\golostext\\OFL.txt"
+}
