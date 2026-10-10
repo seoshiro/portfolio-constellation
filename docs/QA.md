@@ -16,7 +16,7 @@ Private BEFORE/AFTER screenshots, transition video and section screenshots are o
 
 Physical phones, Safari, native Kazakh editorial review and physical low-end GPU benchmarking are still unavailable. Hidden-tab audit invokes the visibility handler; it is not a physical browser-tab switching test.
 
-The first Linux refinement CI passed 23 of 24 scenarios; its software GPU delayed test-side browser round trips, so a card sample requested after a 200ms sleep arrived after the complete flight. The camera timing regression now observes opacity/zoom inside the browser and interrupts at a browser-side 350ms timer. It still checks early card invisibility and position continuity without depending on IPC speed. Real capture/audit timings remain separate observations.
+The first two Linux refinement CI runs passed 23 of 24 scenarios. A test-side 200ms sleep sampled after completion; a browser-side 350ms timer then retargeted before the first enlarged frame was observed. The isolated geometry/card timing regression now uses the real flat-fallback camera, records opacity/zoom inside the browser and interrupts on observable partial enlargement. It still checks early card invisibility and position continuity. All 72 normal-motion fit destinations and the other rendering checks retain WebGL; actual Windows capture/audit timings remain separate observations.
 
 ## Original constellation release observations
 
