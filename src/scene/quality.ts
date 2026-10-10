@@ -1,0 +1,1 @@
+export function quality(width:number,height:number,dpr:number,saveData=false){const ratio=Math.min(saveData?1:1.35,dpr,Math.sqrt(1600000/Math.max(1,width*height)));return {ratio,width:Math.max(1,Math.floor(width*ratio)),height:Math.max(1,Math.floor(height*ratio))};}

@@ -1,0 +1,3 @@
+import js from '@eslint/js';
+import ts from 'typescript-eslint';
+export default ts.config({ignores:['dist/**','node_modules/**','evidence/**','test-results/**','playwright-report/**']},js.configs.recommended,...ts.configs.recommended,{files:['**/*.{ts,mjs}'],languageOptions:{globals:Object.fromEntries(['document','window','navigator','localStorage','sessionStorage','requestAnimationFrame','cancelAnimationFrame','IntersectionObserver','ResizeObserver','HTMLElement','HTMLImageElement','HTMLCanvasElement','WebGLRenderingContext','URL','URLSearchParams','console','process','fetch','AbortSignal','setTimeout','clearTimeout','performance','history','location','matchMedia','devicePixelRatio','Event','KeyboardEvent','PointerEvent'].map(n=>[n,'readonly']))}});

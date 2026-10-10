@@ -1,0 +1,70 @@
+[
+  {
+    "id": "sidereal",
+    "url": "https://seoshiro.github.io/sidereal/",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "width": 1920,
+    "height": 1080,
+    "format": "webp",
+    "capture": "Live application in an isolated Chrome profile"
+  },
+  {
+    "id": "sidereal-detail",
+    "url": "https://seoshiro.github.io/sidereal/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "width": 390,
+    "height": 844,
+    "format": "webp",
+    "capture": "Live application in an isolated Chrome profile"
+  },
+  {
+    "id": "iter",
+    "url": "https://iter-navigator.vercel.app/",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "width": 1440,
+    "height": 1000,
+    "format": "webp",
+    "capture": "Live application in an isolated Chrome profile"
+  },
+  {
+    "id": "iter-detail",
+    "url": "https://iter-navigator.vercel.app/",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "width": 1440,
+    "height": 1000,
+    "format": "webp",
+    "capture": "Live application in an isolated Chrome profile"
+  },
+  {
+    "id": "ayqyn",
+    "sourceRepository": "seoshiro/ayqyn-local",
+    "sourceCommit": "0d0229fbc2a9ab4c4ad5a837e505970067f2cdca",
+    "file": "docs/media/ayqyn-review-ru-v024.png",
+    "width": 1800,
+    "height": 1200,
+    "format": "webp",
+    "capture": "Author-provided Electron screenshot from isolated test profile; no physical camera verification"
+  },
+  {
+    "id": "ayqyn-detail",
+    "sourceRepository": "seoshiro/ayqyn-local",
+    "sourceCommit": "0d0229fbc2a9ab4c4ad5a837e505970067f2cdca",
+    "file": "docs/media/ayqyn-overview-ru-v024.png",
+    "width": 1800,
+    "height": 1200,
+    "format": "webp",
+    "capture": "Author-provided Electron screenshot from isolated test profile; no physical camera verification"
+  }
+]

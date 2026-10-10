@@ -1,0 +1,95 @@
+[
+  {
+    "id": "orbit",
+    "actions": [
+      "Radio relay",
+      "Silver",
+      "Fold/unfold solar wings",
+      "Orbit",
+      "RU"
+    ],
+    "url": "https://seoshiro.github.io/orbit-studio/",
+    "errors": [],
+    "bodyCharacters": 2380
+  },
+  {
+    "id": "ayqyn",
+    "actions": [
+      "Открыть пример",
+      "Проверка событий",
+      "Open licensed fixture, event review and Kazakh locale"
+    ],
+    "url": "https://seoshiro.github.io/ayqyn-local/replay/#review",
+    "errors": [],
+    "bodyCharacters": 644
+  },
+  {
+    "id": "forme",
+    "actions": [
+      "Открыть студию"
+    ],
+    "url": "https://forme-studio-coral.vercel.app/",
+    "errors": [],
+    "bodyCharacters": 1302
+  },
+  {
+    "id": "perch",
+    "actions": [
+      "Plan",
+      "Kazakh locale"
+    ],
+    "url": "https://seoshiro.github.io/perch-studio/",
+    "errors": [],
+    "bodyCharacters": 1449
+  },
+  {
+    "id": "reson",
+    "actions": [
+      "Tall",
+      "Oak",
+      "Copper"
+    ],
+    "url": "https://seoshiro.github.io/reson-studio/",
+    "errors": [],
+    "bodyCharacters": 1633
+  },
+  {
+    "id": "lumen",
+    "actions": [
+      "ҚАЗ",
+      "Scroll narrative"
+    ],
+    "url": "https://seoshiro.github.io/lumen-lens/?lang=kk",
+    "errors": [],
+    "bodyCharacters": 1319
+  },
+  {
+    "id": "selvedge",
+    "actions": [
+      "Back",
+      "Edit print width to 28"
+    ],
+    "url": "https://seoshiro.github.io/selvedge-studio/",
+    "errors": [],
+    "bodyCharacters": 2747
+  },
+  {
+    "id": "guidecheck",
+    "actions": [
+      "Next step",
+      "All steps filter"
+    ],
+    "url": "https://seoshiro.github.io/guidecheck/",
+    "errors": [],
+    "bodyCharacters": 2441
+  },
+  {
+    "id": "archiveguard",
+    "actions": [
+      "Import built-in synthetic sample"
+    ],
+    "url": "https://seoshiro.github.io/archiveguard/",
+    "errors": [],
+    "bodyCharacters": 355
+  }
+]

@@ -1,7 +1,7 @@
 {
-  "font": "Geologica[CRSV,SHRP,slnt,wght].ttf",
+  "font": "Geologica.woff2",
   "family": "Geologica Thin",
-  "glyphCount": 973,
+  "glyphCount": 491,
   "samples": {
     "en": {
       "text": "Beibars Ileskhan SIDEREAL ITER ORBIT Projects About Contact",
@@ -16,5 +16,5 @@
       "missing": []
     }
   },
-  "license": "C:\\Users\\gokusen\\Documents\\Codex\\2026-10-10\\task-2\\preflight-evidence\\font\\geologica\\OFL.txt"
+  "license": "portfolio-constellation\\public\\fonts\\Geologica\\OFL.txt"
 }

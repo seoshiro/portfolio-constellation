@@ -1,4 +1,6 @@
-# Windows preflight — 2026-10-10
+# Historical Windows preflight — 2026-10-10
+
+**Resolved later:** readable originals were supplied in the local Downloads folder and all three pixel sets inspected. The application was then implemented and checked. See ASSETS.md, QA.md and PUBLISHING.md for the completed state; the text below preserves the historical preparation checkpoint.
 
 ## Preserved baseline
 

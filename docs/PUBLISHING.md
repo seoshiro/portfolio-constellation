@@ -1,27 +1,21 @@
-# Publishing and rollback design
+# Publishing and rollback
 
-This is a proposed scheme. It has not been activated.
+Sources live in seoshiro/portfolio-constellation. [seoshiro.github.io](https://seoshiro.github.io/) uses the existing root repository's Pages environment. Standalone project repositories and deployments are separate and unchanged.
 
-## Separation
+## Release
 
-Keep the new application sources and their verification workflow in `seoshiro/portfolio-constellation`. Preserve the existing root repository's full history and archival branch. Public standalone project repositories and Pages deployments must stay untouched.
+1. Complete lint, typecheck, content/state tests, build, artifact checks, browser QA, real screenshot inspection and independent review.
+2. Commit/push verified source. Confirm remote SHA and successful verify.yml CI for that exact revision.
+3. Update the root's single .github/workflows/publish.yml source ref and PORTFOLIO_COMMIT to the same **40-character SHA**, with its README release record, in a normal descendant commit.
+4. The root checks out that public source without cross-repository write credentials, repeats verification, builds and deploys dist through its existing Pages environment. There is no second pavilion publisher. Source branches must never be used as unpinned release refs.
+5. Confirm remote root SHA, source/root CI, live root/case/localized URLs, version.json source SHA and standalone project URLs. The old artifact remains live until new deployment succeeds.
 
-After the completed application passes local, browser and independent visual checks, commit it and run CI in the new repository. Record its exact 40-character Git SHA.
+The root README records its pinned source and rollout commit. /version.json and portfolio-build HTML metadata identify the deployed source. Existing /projects/<id>.html routes remain; #work resolves to the catalogue.
 
-In `seoshiro/seoshiro.github.io`, replace the current `.github/workflows/publish.yml` in a normal descendant commit. The replacement should check out `seoshiro/portfolio-constellation` at that explicit verified SHA with `persist-credentials: false`, run its required checks and build, upload only its static `dist` artifact and deploy through the root repository's existing GitHub Pages environment. A publicly readable source checkout requires no cross-repository write token. Keep action versions pinned to audited SHAs.
+## Restore
 
-Do not leave the old pavilion workflow alongside the new one. Root `main` should contain only one active Pages publisher. The main root site must remain on the old deployed artifact until the new pipeline succeeds. Document the new-source SHA in the deployed release manifest and root repository README.
+Original SHA a06ece34d9a084d529cfa406f22b0436a746ae98 is preserved at [archive/pre-constellation-2026-10-10](https://github.com/seoshiro/seoshiro.github.io/tree/archive/pre-constellation-2026-10-10). A complete verified local Git bundle preserves history; SHA256 B7809E35D68646A127811E1746DA2CEC17253613ECDE14C04083257ABEF2CE92.
 
-The new repository can run its own verification CI. It should not independently deploy to the user-site root or use an automatic unpinned main checkout in the root publisher. New releases update the root publisher's SHA through a normal commit after the new revision passes checks.
+For an application regression, pin the last verified constellation SHA through a normal root commit and confirm CI plus version.json.
 
-Preserve `/projects/<existing-id>/` routes or provide useful static redirects to equivalent cases. Build all canonical URLs for `https://seoshiro.github.io/`. Verify the separate `/sidereal/`, `/orbit-studio/`, and other project Pages roots before and after rollout.
-
-## Rollback
-
-Baseline: `a06ece34d9a084d529cfa406f22b0436a746ae98`, archived as [`archive/pre-constellation-2026-10-10`](https://github.com/seoshiro/seoshiro.github.io/tree/archive/pre-constellation-2026-10-10). A verified complete Git bundle also exists locally.
-
-For a broken constellation release, update the root publisher to the last verified new-source SHA through a normal commit and inspect CI plus the deployed manifest.
-
-For a full return to the previous pavilion, use a normal revert of the root rollout commit after checking subsequent changes. This restores the old publishing workflow without rewriting history. Verify the restored source/build checks and root live page. Never force push or delete unrelated Pages projects.
-
-The final implementation and exact rollout/rollback commit SHAs must replace this proposal once a verified release exists.
+To return fully to the old pavilion, inspect subsequent changes and normally revert the root rollout commit. This restores its previous publisher without rewriting history. Verify old checks/deployment and live root. Never force push or delete separate Pages projects.

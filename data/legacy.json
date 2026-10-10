@@ -1,0 +1,646 @@
+{
+  "projects": [
+    {
+      "id": "orbit",
+      "name": "ORBIT",
+      "category": "EDUCATIONAL TOOLS",
+      "stack": [
+        "TypeScript",
+        "Three.js",
+        "Orbital mechanics",
+        "LocalStorage"
+      ],
+      "live": "https://seoshiro.github.io/orbit-studio/",
+      "source": "https://github.com/seoshiro/orbit-studio",
+      "evidence": "https://github.com/seoshiro/orbit-studio/blob/main/docs/VERIFICATION.md",
+      "color": "#c1afff",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "reson",
+      "name": "RESON",
+      "category": "01 / PRODUCT DESIGN TOOLS",
+      "stack": [
+        "TypeScript",
+        "Three.js",
+        "WebGL",
+        "LocalStorage"
+      ],
+      "live": "https://seoshiro.github.io/reson-studio/",
+      "source": "https://github.com/seoshiro/reson-studio",
+      "evidence": "https://github.com/seoshiro/reson-studio/blob/main/docs/AUDITS.md",
+      "color": "#b68962",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "lumen",
+      "name": "LUMEN",
+      "category": "02 / INTERACTIVE PRODUCT STUDIES",
+      "stack": [
+        "TypeScript",
+        "Three.js",
+        "WebGL",
+        "Scroll choreography"
+      ],
+      "live": "https://seoshiro.github.io/lumen-lens/",
+      "source": "https://github.com/seoshiro/lumen-lens",
+      "evidence": "https://github.com/seoshiro/lumen-lens/blob/main/README.md",
+      "color": "#bdb5a3",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "perch",
+      "name": "PERCH",
+      "category": "01 / SPATIAL TOOLS",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Three.js",
+        "SVG"
+      ],
+      "live": "https://seoshiro.github.io/perch-studio/",
+      "source": "https://github.com/seoshiro/perch-studio",
+      "evidence": "https://github.com/seoshiro/perch-studio/blob/main/docs/AUDITS.md",
+      "color": "#b9c18f",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "forme",
+      "name": "FORME",
+      "category": "02 / VISUAL DIRECTION",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Web Workers",
+        "IndexedDB"
+      ],
+      "live": "https://forme-studio-coral.vercel.app/",
+      "source": "https://github.com/seoshiro/forme-studio",
+      "evidence": "https://github.com/seoshiro/forme-studio/blob/main/docs/ENGINEERING.md",
+      "color": "#b49c82",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "selvedge",
+      "name": "SELVEDGE",
+      "category": "03 / CREATIVE TOOLS",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Canvas",
+        "IndexedDB"
+      ],
+      "live": "https://seoshiro.github.io/selvedge-studio/",
+      "source": "https://github.com/seoshiro/selvedge-studio",
+      "evidence": "https://github.com/seoshiro/selvedge-studio/blob/main/docs/VERIFICATION.md",
+      "color": "#aec2b3",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "guidecheck",
+      "name": "GuideCheck",
+      "category": "04 / REVIEW SYSTEMS",
+      "stack": [
+        "TypeScript",
+        "IndexedDB",
+        "SQLite",
+        "Playwright"
+      ],
+      "live": "https://seoshiro.github.io/guidecheck/",
+      "source": "https://github.com/seoshiro/guidecheck",
+      "evidence": "https://github.com/seoshiro/guidecheck/blob/main/VALIDATION.md",
+      "color": "#a3b9cf",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "archiveguard",
+      "name": "ArchiveGuard",
+      "category": "05 / FILE INTEGRITY",
+      "stack": [
+        "TypeScript",
+        "Web Workers",
+        "Web Crypto",
+        "EXIF"
+      ],
+      "live": "https://seoshiro.github.io/archiveguard/",
+      "source": "https://github.com/seoshiro/archiveguard",
+      "evidence": "https://github.com/seoshiro/archiveguard/blob/main/docs/VALIDATION.md",
+      "color": "#bdaccc",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "dimensions": {
+    "orbit": {
+      "main": [
+        1440,
+        1000
+      ],
+      "preview": [
+        1440,
+        1000
+      ],
+      "detail": [
+        1440,
+        1000
+      ]
+    },
+    "reson": {
+      "main": [
+        1440,
+        1000
+      ],
+      "preview": [
+        1440,
+        1000
+      ],
+      "detail": [
+        1440,
+        1000
+      ]
+    },
+    "lumen": {
+      "main": [
+        1440,
+        1000
+      ],
+      "preview": [
+        1440,
+        1000
+      ],
+      "detail": [
+        1440,
+        1000
+      ]
+    },
+    "perch": {
+      "main": [
+        1440,
+        1000
+      ],
+      "preview": [
+        1440,
+        1000
+      ],
+      "detail": [
+        980,
+        620
+      ]
+    },
+    "forme": {
+      "main": [
+        1366,
+        820
+      ],
+      "preview": [
+        1366,
+        820
+      ],
+      "detail": [
+        1366,
+        1518
+      ]
+    },
+    "selvedge": {
+      "main": [
+        1440,
+        1000
+      ],
+      "preview": [
+        1440,
+        1000
+      ],
+      "detail": [
+        850,
+        822
+      ]
+    },
+    "guidecheck": {
+      "main": [
+        1440,
+        1866
+      ],
+      "preview": [
+        1440,
+        1050
+      ],
+      "detail": [
+        390,
+        870
+      ]
+    },
+    "archiveguard": {
+      "main": [
+        1280,
+        2209
+      ],
+      "preview": [
+        1220,
+        820
+      ],
+      "detail": [
+        1280,
+        1475
+      ]
+    }
+  },
+  "projectCopy": {
+    "ru": {
+      "reson": {
+        "category": "ИНСТРУМЕНТЫ ПРОДУКТОВОГО ДИЗАЙНА",
+        "title": "Один объект.\nВаш характер.",
+        "summary": "Авторская студия дизайна колонки. Настройка материалов и пропорций, изучение конструкции в 3D и сравнение вариантов, сохранённых в браузере.",
+        "alt": "Студия RESON с авторской моделью колонки из ореха и настройками материалов",
+        "detailAlt": "Разобранная конструкция RESON: корпус, диффузоры, корзины и магниты динамиков",
+        "input": "Выберите форму корпуса, отделку, кольца динамиков, переднюю панель, основание и размеры концепта. Сохраните варианты с уникальными именами или импортируйте проверенную JSON-коллекцию.",
+        "output": "Авторский 3D-концепт, обратимая последовательность разборки, миниатюры сохранённых вариантов, сравнение рядом и переносимая JSON-коллекция.",
+        "decisions": [
+          "Процедурная геометрия Three.js моделирует полый корпус, панель, диффузор, подвес, корзину, магнит, задние клеммы и деревянную решётку. Это визуальный концепт.",
+          "Рендеринг выполняется при изменении вида и останавливается вне экрана. Отдельные области для модели и текста сохраняют читаемость при прокрутке в обе стороны, изменении размера и ориентации.",
+          "Данные коллекции ограничены и проверяются, импорт требует просмотра перед заменой. Отмена восстанавливает настройки и действия с коллекцией; при сбое памяти доступен экспорт."
+        ],
+        "limit": "Только иллюстрация внешнего вида и устройства. Без акустического расчёта, измеренной АЧХ, подбора электроники и чертежей. Локальная память браузера, шесть вариантов и JSON-копии; без облачной синхронизации.",
+        "caption": "Реальный скриншот RESON: корпус из ореха, медные кольца и открытые динамики."
+      },
+      "lumen": {
+        "category": "ИНТЕРАКТИВНЫЕ ИССЛЕДОВАНИЯ ПРОДУКТОВ",
+        "title": "Один объектив.\nДевять слоёв движения.",
+        "summary": "Авторское исследование объектива: подвижная диафрагма, открывающийся футляр, разделение девяти групп при прокрутке и полная обратная сборка.",
+        "alt": "Исследование объектива LUMEN L-01: авторская модель над презентационным футляром",
+        "detailAlt": "Оптическая сборка LUMEN, разделённая на девять смоделированных групп",
+        "input": "Прокручивайте страницу, используйте кнопки глав или клавиатуру и изучайте галерею на английском, русском или казахском.",
+        "output": "Авторские процедурные модели объектива и футляра, обратимая анимация сборки, подвижная диафрагма и адаптивное исследование со статичным резервным видом.",
+        "decisions": [
+          "Объектив, оптические группы, диафрагма и футляр с шарниром созданы процедурно. Коммерческие модели и изображения производителей не встроены.",
+          "Общая шкала прокрутки разделяет девять групп и собирает их обратно. Движение проверено непрерывно в обе стороны, с прерыванием прокрутки и изменением экрана.",
+          "Уменьшенная анимация, клавиатурные кнопки глав, адаптивные подписи и резервный вид без WebGL сохраняют доступность. Шрифты и ресурсы размещены локально."
+        ],
+        "limit": "Иллюстративный вымышленный объектив, а не оптический расчёт, чертёж или подтверждённые характеристики. Проверены Chrome на компьютере и эмуляция мобильных экранов; Safari на физическом устройстве не проверялся.",
+        "caption": "Реальный скриншот LUMEN: объектив L-01 и презентационный футляр."
+      },
+      "orbit": {
+        "category": "Учебные инструменты",
+        "title": "Один спутник.\nНовый взгляд.",
+        "summary": "Студия спутниковых миссий: настройте авторский аппарат, изучите круговую орбиту, разберите конструкцию и сравните сохранённые проекты.",
+        "alt": "Реальный интерфейс ORBIT: золотистый спутник с раскрытыми солнечными панелями и настройками миссии.",
+        "detailAlt": "Исследование конструкции ORBIT: разнесённые компоненты спутника и пояснение к учебной главе.",
+        "input": "Выберите пример миссии, высоту и наклонение. Смените условную полезную нагрузку и покрытие, сложите панели, управляйте модельным временем и сохраняйте миссии с названиями. Проверьте импорт JSON перед объединением или заменой данных.",
+        "output": "Интерактивный спутник и плоскость орбиты, рассчитанные скорость и период, обратимые главы разборки и переносимая локальная библиотека со сравнением двух миссий.",
+        "decisions": [
+          "Спутник, схематичная Земля и орбита созданы процедурно. Земля и траектория имеют общий масштаб; движущийся маркер спутника увеличен для наглядности и подписан.",
+          "Круговая модель двух тел использует константы NASA/JPL и независимо проверенные уравнения. Наклонение поворачивает плоскость, включая полярные и ретроградные орбиты. Интерфейс объясняет допущения и отличает модельное время от реального слежения.",
+          "Сохранённые проекты проходят строгую проверку; импорт атомарный, замена явная, действия можно отменить. Блокировка хранилища, повреждённые данные и изменения в другой вкладке показаны пользователю. Клавиатура, уменьшенное движение, SVG и восстановление WebGL сохраняют доступ к исследованию."
+        ],
+        "limit": "Идеализированная учебная модель: без сопротивления атмосферы, вращения Земли, телеметрии, оценки готовности к полёту и расчёта энергобаланса. Проверены Chrome на компьютере и эмуляция мобильных экранов; физические телефоны и Safari не проверялись.",
+        "caption": "Настоящий снимок ORBIT: авторский спутник и настройки миссии."
+      },
+      "perch": {
+        "category": "ПРОСТРАНСТВЕННЫЕ ИНСТРУМЕНТЫ",
+        "title": "Одна комната.\nНесколько вариантов.",
+        "summary": "Локальный планировщик мебели с общими 2D- и 3D-видами. Задайте комнату, расставьте 12 параметрических типов мебели и сравните варианты до перестановки.",
+        "alt": "Настоящая студия PERCH: меблированная гостиная в 3D рядом с её 2D-планом и размерами",
+        "detailAlt": "Настоящее сравнение двух независимых вариантов расстановки гостиной в PERCH",
+        "input": "Прямоугольная комната, её размеры и проёмы, а также мебель, для которой нужно найти место.",
+        "output": "Редактируемые варианты расстановки, замечания о размещении, JSON-проект, SVG-план с размерами, PNG из 3D-вида и отчёт для печати.",
+        "decisions": [
+          "Единая модель комнаты управляет SVG-планом и оригинальной мебелью Three.js. Числовые правки, перетаскивание на плане и выбор в 3D синхронизированы.",
+          "Поворот мебели, границы комнаты, высота потолка и открывание дверей внутрь учитываются в предупреждениях. Копии независимы; изменения можно отменять и повторять.",
+          "Локальное сохранение в браузере включает резервную копию. Сцена рисуется по запросу; план и формы работают без WebGL. Весь интерфейс доступен на английском, русском и казахском."
+        ],
+        "limit": "Эскиз расстановки для прямоугольных комнат, а не строительный документ или оценка безопасности. Материалы и свет условны; замечания не подтверждают нормы проходов. Облачной синхронизации и совместной работы нет. Для переноса на другое устройство экспортируйте JSON.",
+        "caption": "Свежие снимки работающей студии и двух вариантов расстановки на примере её демонстрационной комнаты."
+      },
+      "forme": {
+        "category": "ВИЗУАЛЬНОЕ НАПРАВЛЕНИЕ",
+        "title": "От референсов\nк направлению.",
+        "summary": "Собрать изображения, составить мудборд и перенести его цвета и типографику в дизайн-набор.",
+        "alt": "Редактор FORME с архитектурными референсами, заметками и цветами",
+        "detailAlt": "Дизайн-набор FORME с ролями цветов и типографикой",
+        "input": "Изображения, заметки, ссылки и идея, которая ещё не сложилась в целое.",
+        "output": "Редактируемый мудборд, PNG-композиция, дизайн-токены, CSS-переменные и переносимый проект .forme.",
+        "decisions": [
+          "Единая модель документа связывает библиотеку референсов, редактор и дизайн-набор.",
+          "Надпись «Сохранено» появляется после транзакции IndexedDB. Web Locks и проверка ревизий защищают изменения между вкладками.",
+          "Изображения обрабатываются в worker. Импорт архива проверяет пути, размеры, CRC, схему и принадлежность изображений."
+        ],
+        "limit": "Холст 1400 × 1000 и работа в одном браузере. Нет совместного облачного редактирования или бесконечного холста. Интерфейс проекта на русском.",
+        "caption": "Реальные редактор и дизайн-набор с демонстрационной коллекцией из репозитория."
+      },
+      "selvedge": {
+        "category": "ИНСТРУМЕНТЫ ДЛЯ ТВОРЧЕСТВА",
+        "title": "Одна графика.\nЦелая коллекция.",
+        "summary": "Рабочая среда для размещения графики на одежде, подбора цветов, сравнения версий и визуального согласования.",
+        "alt": "SELVEDGE с иллюстрацией футболки и настройками размещения графики",
+        "detailAlt": "Сравнение сохранённых версий SELVEDGE с авторской графикой After Hours",
+        "input": "Графика и решения о цвете изделия, размещении и масштабе принта.",
+        "output": "Согласованная коллекция, именованные версии, PNG-обзор, PDF-макет и редактируемый файл проекта.",
+        "decisions": [
+          "Размещение поддерживает перетаскивание и числовые поля. На сенсорном экране перемещение включается отдельно.",
+          "Локальные транзакции и проверка ревизий защищают работу от перезаписи другой вкладкой.",
+          "Canvas-экспорт использует геометрию проекта. Весь интерфейс доступен на английском, русском и казахском."
+        ],
+        "limit": "Визуальный макет, не производственная спецификация и не сертифицированный печатный файл. Размеры, цвет и способ печати нужно подтвердить с типографией.",
+        "caption": "Реальные экраны рабочей среды и версий с оригинальной демонстрационной графикой."
+      },
+      "guidecheck": {
+        "category": "СИСТЕМЫ ПРОВЕРКИ",
+        "title": "Что изменилось.\nЧто проверили.",
+        "summary": "Сравнение версий инструкций и история ручных проверок, привязанная к конкретным шагам.",
+        "alt": "GuideCheck на компьютере: версии инструкций и статусы ручной проверки",
+        "detailAlt": "Мобильный GuideCheck с элементами ручной проверки",
+        "input": "Инструкция, её новая версия и необходимость отличить изменение от проверенного результата.",
+        "output": "Детерминированное сравнение, неизменяемая история проверок, исправления и переносимые резервные копии.",
+        "decisions": [
+          "Постоянные ID связывают шаги между версиями. Изменения текста, ссылок, скриншотов и порядка видны явно.",
+          "Результат проверки переносится, только если шаг и контекст инструкции полностью совпадают.",
+          "Браузерная версия использует атомарные транзакции IndexedDB. Необязательная локальная версия хранит данные в SQLite."
+        ],
+        "limit": "Проверки — заявления человека, а не автоматическая верификация или независимое подтверждение личности. Нет совместной синхронизации.",
+        "caption": "Скриншоты настоящей браузерной рабочей среды из репозитория."
+      },
+      "archiveguard": {
+        "category": "ЦЕЛОСТНОСТЬ ФАЙЛОВ",
+        "title": "Сохранить фото.\nПроверить даты.",
+        "summary": "Сравнение дат JPEG с JSON из Google Photos, явное разрешение конфликтов и экспорт проверенных копий.",
+        "alt": "ArchiveGuard сравнивает метаданные JPEG и даты из JSON",
+        "detailAlt": "Проверенный пакет экспорта ArchiveGuard и сводка",
+        "input": "Выбранные JPEG и JSON из распакованного экспорта Google Photos с возможными расхождениями дат.",
+        "output": "Новые копии JPEG, манифест и отчёты CSV/HTML с каждым входным файлом и решением.",
+        "decisions": [
+          "Неоднозначные совпадения и конфликты требуют явного решения. Дата загрузки не подменяет дату съёмки.",
+          "Worker проверяет ограниченные структуры JPEG/EXIF и готовит экспорт без повторного кодирования пикселей.",
+          "Независимое чтение метаданных и хеши байтов вне EXIF проверяют копии до появления скачивания."
+        ],
+        "limit": "Проверка выборки JPEG, не универсальное восстановление архива. Оригиналы не меняются. Нет ZIP-входа, HEIC, RAW, определения часового пояса или облачной обработки.",
+        "caption": "Реальные экраны конфликтов и экспорта с синтетическими файлами."
+      }
+    },
+    "en": {
+      "reson": {
+        "category": "PRODUCT DESIGN TOOLS",
+        "title": "An object.\nYour expression.",
+        "summary": "An original loudspeaker design studio. Configure materials and proportions, explore the construction in 3D, and compare named alternatives saved in your browser.",
+        "alt": "RESON studio with an original walnut loudspeaker model and material controls",
+        "detailAlt": "RESON construction study with the cabinet, driver cones, baskets and magnets separated",
+        "input": "Choose a cabinet shape, finish, driver trim, grille, base and concept dimensions. Save alternatives with unique names or import a validated JSON collection.",
+        "output": "A live original 3D concept, a reversible construction sequence, saved design thumbnails, side-by-side comparisons and a portable JSON collection.",
+        "decisions": [
+          "Procedural Three.js geometry models a hollow enclosure, baffle, cone, surround, basket, magnet, rear terminals and optional wooden grille. The model remains a visual concept.",
+          "Rendering runs when a view changes and pauses outside the viewport. Separate canvas areas keep explanatory text clear throughout forward and reverse scrolling, resize and orientation changes.",
+          "Collections use bounded, validated data with reviewed replacement imports. Undo restores configuration and collection actions; storage failures keep export available."
+        ],
+        "limit": "Illustrative appearance and construction only. No acoustic simulation, measured frequency response, electronic component selection or fabrication blueprint. Browser-local storage, six saved alternatives and JSON backups; no cloud sync.",
+        "caption": "Actual RESON studio capture: walnut cabinet, copper driver trim and exposed front."
+      },
+      "lumen": {
+        "category": "INTERACTIVE PRODUCT STUDIES",
+        "title": "A lens.\nNine layers of motion.",
+        "summary": "An original optical lens study with a moving iris, an opening case, nine-group scroll-driven separation and a complete return to the assembled form.",
+        "alt": "LUMEN L-01 lens study showing the original lens model above its presentation case",
+        "detailAlt": "LUMEN optical assembly separated into its nine modeled groups",
+        "input": "Scroll naturally through the lens, use chapter controls or the keyboard, and explore the gallery in English, Russian or Kazakh.",
+        "output": "An original procedural lens and case, reversible assembly choreography, a moving iris and a responsive editorial study with a static fallback.",
+        "decisions": [
+          "The lens, optical groups, moving iris and hinged case are original procedural geometry. No commercial model or manufacturer imagery is embedded.",
+          "A shared scroll timeline separates nine modeled groups and reassembles them. Motion was reviewed continuously in both directions, including interrupted scrolling and viewport changes.",
+          "Reduced motion, keyboard chapter controls, responsive captions and a no-WebGL fallback preserve access to the study. Local fonts and assets keep the published site self-contained."
+        ],
+        "limit": "An illustrative fictional lens, not an optical simulation, manufacturing drawing or validated performance claim. Desktop Chrome and emulated mobile contexts were tested; physical-device Safari was not tested.",
+        "caption": "Actual LUMEN capture: the L-01 lens and its presentation case."
+      },
+      "orbit": {
+        "category": "Educational tools",
+        "title": "One spacecraft.\nA different perspective.",
+        "summary": "A satellite mission studio: configure an original spacecraft, explore a circular orbit, reveal its construction, and compare locally saved studies.",
+        "alt": "Actual ORBIT studio with an original gold spacecraft, deployed solar wings and mission controls.",
+        "detailAlt": "ORBIT construction study with separated spacecraft components and an educational chapter annotation.",
+        "input": "Choose a study preset, altitude and inclination. Switch the conceptual payload and blanket, fold the wings, control model time, and save named missions. Review JSON imports before merging or replacing local data.",
+        "output": "An interactive spacecraft and orbital plane, calculated circular speed and period, reversible construction chapters, and a portable local library with two-mission comparison.",
+        "decisions": [
+          "The spacecraft, schematic Earth and orbit are original parametric geometry. Earth and the path share one scale; the moving spacecraft marker is enlarged and labelled for visibility.",
+          "A circular two-body model uses NASA/JPL constants and independently checked equations. Inclination rotates the plane, including polar and retrograde orbits. The interface states its assumptions and distinguishes elapsed model time from real tracking.",
+          "Saved studies have strict validation, atomic import, explicit replacement and undo. Blocked storage, corrupt data and changes from another tab are handled visibly. Keyboard controls, reduced motion, SVG fallback and context recovery preserve the learning workflow."
+        ],
+        "limit": "An idealized educational model, with no drag, Earth rotation, telemetry, flight-readiness claim or power simulation. Desktop Chrome and emulated mobile contexts were tested; physical phones and Safari were not tested.",
+        "caption": "Actual ORBIT capture: the original spacecraft and its mission configuration."
+      },
+      "perch": {
+        "category": "SPATIAL TOOLS",
+        "title": "A room.\nA few possibilities.",
+        "summary": "A local-first furniture planner with linked 2D and 3D views. Shape the room, arrange 12 parametric furniture types, and compare layouts before moving anything.",
+        "alt": "Actual PERCH studio showing a furnished living room in 3D beside its dimensioned 2D plan",
+        "detailAlt": "Actual PERCH comparison of two independently editable living-room layouts",
+        "input": "A rectangular room, its measurements and openings, and furniture you want to make space for.",
+        "output": "Editable layout alternatives, fit notes, a portable JSON project, a dimensioned SVG plan, a 3D PNG, and a printable room report.",
+        "decisions": [
+          "One room model drives the SVG plan and original Three.js furniture. Numeric edits, plan dragging, and 3D selection stay in sync.",
+          "Rotated footprints, room bounds, ceiling height, and inward door swings produce fit warnings. Copies remain independent; undo and redo preserve the editing history.",
+          "Browser-local saves include a recovery backup. Rendering runs on demand; the plan and forms remain usable without WebGL. The whole workspace supports English, Russian, and Kazakh."
+        ],
+        "limit": "A furnishing study for rectangular rooms, not a construction or safety document. Materials and light are illustrative; fit notes do not certify walking clearance. No cloud sync or collaboration. Export JSON to move work between devices.",
+        "caption": "Fresh captures of the live studio and two layout alternatives, using its furnished demo room."
+      },
+      "forme": {
+        "category": "VISUAL DIRECTION",
+        "title": "From references\nto a direction.",
+        "summary": "Collect images, compose a moodboard, and carry its colors and typography into a reusable design kit.",
+        "alt": "Real FORME moodboard editor with architectural references, notes and color swatches",
+        "detailAlt": "FORME design kit with semantic color roles and a typography preview",
+        "input": "A collection of images, notes, links, and an idea that hasn’t quite come together.",
+        "output": "An editable moodboard, a PNG composition, design tokens, CSS variables, and a portable .forme project.",
+        "decisions": [
+          "One document model connects the reference library, composition editor, and design kit.",
+          "IndexedDB commits before showing “Saved”; Web Locks and revision checks protect edits across tabs.",
+          "Images are processed in a worker. Archive imports validate paths, sizes, CRC, schema, and image ownership."
+        ],
+        "limit": "A fixed 1400 × 1000 board and a single-browser workspace. No cloud collaboration or infinite canvas. The live interface is in Russian.",
+        "caption": "The actual editor and design kit, using the repository’s demo collection."
+      },
+      "selvedge": {
+        "category": "CREATIVE TOOLS",
+        "title": "One graphic.\nA whole collection.",
+        "summary": "An apparel workroom for artwork placement, colorways, revision comparison, and a clear visual handoff.",
+        "alt": "Real SELVEDGE workroom with an illustrated tee and artwork placement controls",
+        "detailAlt": "SELVEDGE named revision comparison using the original After Hours graphic",
+        "input": "One piece of artwork and several choices about garment color, placement, and scale.",
+        "output": "A coordinated collection, named revisions, a PNG overview, a PDF visual proof, and an editable project file.",
+        "decisions": [
+          "Artwork placement supports both dragging and numeric controls; touch movement is deliberately opt-in.",
+          "Transactional local saves and revision checks prevent another tab from silently replacing work.",
+          "Canvas exports use the same project geometry as the workroom. The complete interface supports English, Russian, and Kazakh."
+        ],
+        "limit": "A visual proof, not a manufacturing specification or certified print-ready file. Confirm physical dimensions, color, and print method with a printer.",
+        "caption": "Actual workroom and revision screens with original synthetic artwork."
+      },
+      "guidecheck": {
+        "category": "REVIEW SYSTEMS",
+        "title": "What changed.\nWhat was checked.",
+        "summary": "Compare guide revisions and keep human review evidence attached to the exact steps it belongs to.",
+        "alt": "Real GuideCheck desktop workspace showing instruction revisions and review states",
+        "detailAlt": "GuideCheck mobile workspace with review controls",
+        "input": "An instruction guide, its next revision, and the need to distinguish a change from a verified result.",
+        "output": "A deterministic comparison, append-only review history, corrections, and portable workspace backups.",
+        "decisions": [
+          "Stable step IDs match revisions. Changed instructions, links, screenshots, and order are explicit.",
+          "Review evidence carries forward only when the step and guide context remain exactly unchanged.",
+          "The browser edition uses atomic IndexedDB transactions. An optional loopback edition stores the workspace in SQLite."
+        ],
+        "limit": "Reviews are human statements, not automatic verification or independently authenticated proof. The workspace is single-device; it has no collaborative sync.",
+        "caption": "Repository screenshots of the real browser workspace."
+      },
+      "archiveguard": {
+        "category": "FILE INTEGRITY",
+        "title": "Keep the photo.\nQuestion the metadata.",
+        "summary": "Compare JPEG capture dates with Google Photos sidecars, resolve exceptions, and export verified new copies.",
+        "alt": "Real ArchiveGuard conflict review comparing JPEG metadata and sidecar capture dates",
+        "detailAlt": "ArchiveGuard verified export package and audit summary",
+        "input": "Selected JPEGs and JSON sidecars from an unpacked Google Photos export, with dates that may disagree.",
+        "output": "New JPEG copies, a manifest, and CSV/HTML audit reports recording each input and decision.",
+        "decisions": [
+          "Uncertain matches and date conflicts require explicit decisions. Upload dates never stand in for capture dates.",
+          "A worker validates bounded JPEG/EXIF structures and prepares the export without re-encoding image pixels.",
+          "Independent metadata readback and non-EXIF byte hashes verify copies before a download becomes available."
+        ],
+        "limit": "JPEG sample preflight, not universal archive repair. Originals remain untouched. No ZIP input, HEIC, RAW, timezone inference, or cloud processing.",
+        "caption": "Actual conflict review and export screens using synthetic sample files."
+      }
+    },
+    "kk": {
+      "reson": {
+        "category": "ӨНІМ ДИЗАЙНЫ ҚҰРАЛДАРЫ",
+        "title": "Бір нысан.\nӨз мәнеріңіз.",
+        "summary": "Авторлық колонка дизайн студиясы. Материалдар мен пропорцияларды баптау, 3D құрылымын зерттеу және браузерде сақталған нұсқаларды салыстыру.",
+        "alt": "RESON студиясындағы жаңғақ корпусымен жасалған авторлық колонка және материал баптаулары",
+        "detailAlt": "RESON құрылымы: ажыратылған корпус, диффузорлар, себеттер және динамик магниттері",
+        "input": "Корпус пішінін, әрлеуді, динамик сақиналарын, алдыңғы бетін, тұғырын және концепт өлшемдерін таңдаңыз. Бірегей атаумен нұсқаларды сақтаңыз немесе тексерілген JSON коллекциясын импорттаңыз.",
+        "output": "Авторлық 3D концепт, қайтымды бөлшектеу көрінісі, сақталған нұсқалардың суреттері, қатар салыстыру және тасымалды JSON коллекциясы.",
+        "decisions": [
+          "Three.js процедуралық геометриясы қуыс корпус, панель, диффузор, аспа, себет, магнит, артқы клеммалар мен ағаш торды жасайды. Модель көрнекі концепт болып қалады.",
+          "Көрініс өзгергенде ғана рендеринг жасалып, экраннан тыс тоқтайды. Модель мен мәтіннің бөлек аймақтары екі бағытта айналдырғанда және экран өлшемі мен бағдары өзгергенде анық көрінеді.",
+          "Коллекция деректері шектеліп, тексеріледі; импорт ауыстыру алдында қаралады. Болдырмау баптаулар мен коллекция әрекеттерін қалпына келтіреді; жады істемесе экспорт қолжетімді."
+        ],
+        "limit": "Тек сыртқы көрініс пен құрылымның иллюстрациясы. Акустикалық есеп, өлшенген жиілік сипаттамасы, электроника таңдау немесе өндірістік сызба жоқ. Браузер жады, алты нұсқа және JSON көшірмелері; бұлттық синхрондау жоқ.",
+        "caption": "RESON-ның нақты скриншоты: жаңғақ корпус, мыс сақиналар және ашық динамиктер."
+      },
+      "lumen": {
+        "category": "ИНТЕРАКТИВТІ ӨНІМ ЗЕРТТЕУЛЕРІ",
+        "title": "Бір объектив.\nҚозғалыстың тоғыз қабаты.",
+        "summary": "Авторлық объектив зерттеуі: қозғалатын диафрагма, ашылатын қап, айналдырумен ажырайтын тоғыз топ және толық қайта жинау.",
+        "alt": "LUMEN L-01 объективі: таныстыру қабының үстіндегі авторлық модель",
+        "detailAlt": "Тоғыз модельденген топқа ажыратылған LUMEN оптикалық құрылымы",
+        "input": "Бетті табиғи айналдырыңыз, тарау батырмаларын не пернетақтаны қолданыңыз және галереяны ағылшын, орыс немесе қазақ тілінде зерттеңіз.",
+        "output": "Объектив пен қаптың авторлық процедуралық модельдері, қайтымды жинау анимациясы, қозғалатын диафрагма және статикалық баламасы бар бейімделетін зерттеу.",
+        "decisions": [
+          "Объектив, оптикалық топтар, диафрагма және топсалы қап процедуралық геометриядан жасалған. Коммерциялық модельдер мен өндіруші суреттері қолданылмаған.",
+          "Ортақ айналдыру шкаласы тоғыз топты ажыратып, қайта жинайды. Қозғалыс екі бағытта үздіксіз, айналдыру үзілістерімен және экран өзгерістерімен тексерілген.",
+          "Азайтылған қозғалыс, пернетақта басқаруы, бейімделетін мәтін және WebGL жоқтағы балама зерттеуді қолжетімді етеді. Қаріптер мен ресурстар жергілікті орналастырылған."
+        ],
+        "limit": "Көрнекі ойдан шығарылған объектив. Оптикалық есеп, өндірістік сызба немесе расталған өнім сипаттамасы емес. Компьютердегі Chrome және мобильді экран эмуляциясы тексерілген; нақты құрылғыдағы Safari тексерілмеген.",
+        "caption": "LUMEN-нің нақты скриншоты: L-01 объективі және таныстыру қабы."
+      },
+      "orbit": {
+        "category": "Оқу құралдары",
+        "title": "Бір жерсерік.\nЖаңа көзқарас.",
+        "summary": "Жерсерік миссияларының студиясы: авторлық аппаратты баптаңыз, шеңберлік орбитаны зерттеңіз, құрылысын ашып, сақталған жобаларды салыстырыңыз.",
+        "alt": "ORBIT студиясының нақты интерфейсі: күн панельдері ашылған алтын түсті жерсерік және миссия баптаулары.",
+        "detailAlt": "ORBIT құрылысын зерттеу: бөлек көрсетілген жерсерік бөлшектері және оқу тарауының түсіндірмесі.",
+        "input": "Миссия үлгісін, биіктік пен орбита көлбеулігін таңдаңыз. Шартты пайдалы жүктеме мен жабынды ауыстырып, панельдерді бүктеңіз, модель уақытын басқарыңыз және миссияларға атау беріп сақтаңыз. JSON деректерін біріктіру не ауыстыру алдында тексеріңіз.",
+        "output": "Интерактивті жерсерік пен орбита жазықтығы, есептелген жылдамдық пен кезең, қайтымды құрастыру тараулары және екі миссияны салыстыруға болатын жергілікті жинақ.",
+        "decisions": [
+          "Жерсерік, сұлбалық Жер және орбита параметрлік геометриядан жасалған. Жер мен траекторияның масштабы ортақ; қозғалыстағы жерсерік белгісі көрінуі үшін үлкейтіліп, түсіндірілген.",
+          "Екі дененің шеңберлік моделі NASA/JPL тұрақтыларына және тәуелсіз тексерілген теңдеулерге сүйенеді. Көлбеулік орбита жазықтығын бұрады, соның ішінде полярлық және ретроградты орбиталар бар. Интерфейс жорамалдарды түсіндіріп, модель уақытын нақты бақылаудан ажыратады.",
+          "Сақталған жобалар қатаң тексеріледі; импорт тұтас орындалады, ауыстыру анық расталады, әрекеттерді қайтаруға болады. Бұғатталған сақтау, бүлінген деректер және басқа қойындыдағы өзгерістер көрсетіледі. Пернетақта, азайтылған қозғалыс, SVG және WebGL қалпына келуі зерттеуге қолжетімділікті сақтайды."
+        ],
+        "limit": "Оқу үшін жеңілдетілген модель: атмосфера кедергісі, Жердің айналуы, телеметрия, ұшуға дайындық бағасы және қуат есебі жоқ. Компьютердегі Chrome мен мобильді экран эмуляциясы тексерілді; нақты телефондар мен Safari тексерілмеді.",
+        "caption": "ORBIT-тің нақты скриншоты: авторлық жерсерік және миссия баптаулары."
+      },
+      "perch": {
+        "category": "КЕҢІСТІК ҚҰРАЛДАРЫ",
+        "title": "Бір бөлме.\nБірнеше мүмкіндік.",
+        "summary": "2D және 3D көріністері байланысқан жергілікті жиһаз жоспарлаушысы. Бөлмені баптап, 12 параметрлік жиһаз түрін орналастырыңыз және жылжытпас бұрын нұсқаларды салыстырыңыз.",
+        "alt": "Нақты PERCH студиясы: жиһаздалған қонақ бөлменің 3D көрінісі және өлшемдері бар 2D жоспары",
+        "detailAlt": "PERCH ішіндегі қонақ бөлменің екі тәуелсіз орналасу нұсқасын нақты салыстыру",
+        "input": "Тікбұрышты бөлме, оның өлшемдері мен есік-терезелері және орналастырғыңыз келетін жиһаз.",
+        "output": "Өңделетін орналасу нұсқалары, сыйымдылық ескертулері, JSON жобасы, өлшемдері бар SVG жоспар, 3D PNG және басып шығаруға арналған бөлме есебі.",
+        "decisions": [
+          "Бір бөлме моделі SVG жоспар мен түпнұсқа Three.js жиһазын басқарады. Сандық өңдеу, жоспарда сүйреу және 3D таңдау өзара синхрондалады.",
+          "Жиһаздың бұрылуы, бөлме шекарасы, төбе биіктігі және ішке ашылатын есіктер ескертулерде ескеріледі. Көшірмелер тәуелсіз; өзгерістерді болдырмауға және қайталауға болады.",
+          "Браузердегі жергілікті сақтау қалпына келтіру көшірмесін қамтиды. Сахна қажет кезде салынады; жоспар мен өрістер WebGL болмаса да жұмыс істейді. Толық интерфейс ағылшын, орыс және қазақ тілдерінде қолжетімді."
+        ],
+        "limit": "Тікбұрышты бөлмені жиһаздау нобайы, құрылыс немесе қауіпсіздік құжаты емес. Материалдар мен жарық шартты; ескертулер өту жолдарының талаптарға сай екенін растамайды. Бұлттық синхрондау және бірлескен жұмыс жоқ. Басқа құрылғыға көшу үшін JSON экспорттаңыз.",
+        "caption": "Жұмыс істейтін студия мен екі орналасу нұсқасының жаңа скриншоттары; жиһаздалған демо бөлме қолданылды."
+      },
+      "forme": {
+        "category": "ВИЗУАЛДЫ БАҒЫТ",
+        "title": "Референстерден\nнақты бағытқа.",
+        "summary": "Суреттерді жинау, мудборд құрастыру және оның түстері мен қаріптерін дизайн жинағына айналдыру.",
+        "alt": "Сәулет референстері, жазбалар және түстер бар FORME редакторы",
+        "detailAlt": "Түс рөлдері мен қаріп үлгісі бар FORME дизайн жинағы",
+        "input": "Суреттер, жазбалар, сілтемелер және әлі біртұтас болмаған идея.",
+        "output": "Өңделетін мудборд, PNG композициясы, дизайн токендері, CSS айнымалылары және .forme жобасы.",
+        "decisions": [
+          "Бір құжат моделі референс кітапханасын, редакторды және дизайн жинағын байланыстырады.",
+          "«Сақталды» жазуы IndexedDB транзакциясынан кейін шығады. Web Locks пен нұсқа тексеруі қойындылардағы өзгерістерді қорғайды.",
+          "Суреттер worker-де өңделеді. Архив импорты жолдарды, өлшемдерді, CRC, схеманы және суреттердің тиесілігін тексереді."
+        ],
+        "limit": "1400 × 1000 кенебі және бір браузердегі жұмыс. Бұлттағы бірлескен өңдеу мен шексіз кенеп жоқ. Жоба интерфейсі орыс тілінде.",
+        "caption": "Репозиторийдегі демо жинақпен көрсетілген нақты редактор мен дизайн жинағы."
+      },
+      "selvedge": {
+        "category": "ШЫҒАРМАШЫЛЫҚ ҚҰРАЛДАР",
+        "title": "Бір графика.\nТұтас коллекция.",
+        "summary": "Киімге графика орналастыру, түстер таңдау, нұсқаларды салыстыру және көрнекі келісу ортасы.",
+        "alt": "Футболка иллюстрациясы мен графика баптаулары бар SELVEDGE ортасы",
+        "detailAlt": "After Hours авторлық графикасымен SELVEDGE нұсқаларын салыстыру",
+        "input": "Графика және киім түсі, принт орны мен масштабы туралы шешімдер.",
+        "output": "Үйлесімді коллекция, атаулы нұсқалар, PNG шолуы, PDF макеті және өңделетін жоба файлы.",
+        "decisions": [
+          "Орналастыру сүйреуді де, сандық өрістерді де қолдайды. Сенсорлық экранда жылжыту бөлек қосылады.",
+          "Жергілікті транзакциялар мен нұсқа тексеруі басқа қойындының жұмысты қайта жазуына жол бермейді.",
+          "Canvas экспорты жоба геометриясын қолданады. Интерфейс ағылшын, орыс және қазақ тілдерінде толық қолжетімді."
+        ],
+        "limit": "Бұл — көрнекі макет, өндірістік спецификация немесе сертификатталған баспа файлы емес. Өлшемдерді, түсті және баспа тәсілін баспаханамен нақтылау керек.",
+        "caption": "Түпнұсқа демо графикасы бар нақты жұмыс және нұсқа экрандары."
+      },
+      "guidecheck": {
+        "category": "ТЕКСЕРУ ЖҮЙЕЛЕРІ",
+        "title": "Не өзгерді.\nНе тексерілді.",
+        "summary": "Нұсқаулық нұсқаларын салыстыру және адамның тексеру нәтижесін тиісті қадаммен байланыстыру.",
+        "alt": "GuideCheck жұмыс ортасында нұсқаулық нұсқалары мен тексеру күйлері",
+        "detailAlt": "Тексеру басқаруы бар мобильді GuideCheck",
+        "input": "Нұсқаулық, оның жаңа нұсқасы және өзгерісті тексерілген нәтижеден ажырату қажеттілігі.",
+        "output": "Детерминдік салыстыру, тексерулер тарихы, түзетулер және тасымалданатын сақтық көшірмелер.",
+        "decisions": [
+          "Тұрақты қадам ID-лері нұсқаларды байланыстырады. Мәтін, сілтеме, сурет және рет өзгерістері анық көрсетіледі.",
+          "Тексеру нәтижесі қадам мен нұсқаулық контексті толық өзгеріссіз қалғанда ғана көшіріледі.",
+          "Браузер нұсқасы атомарлық IndexedDB транзакцияларын қолданады. Қосымша жергілікті нұсқа деректерді SQLite-та сақтайды."
+        ],
+        "limit": "Тексерулер — адамның мәлімдемелері, автоматты верификация немесе тәуелсіз расталған дәлел емес. Бірлескен синхрондау жоқ.",
+        "caption": "Репозиторийдегі нақты браузер жұмыс ортасының суреттері."
+      },
+      "archiveguard": {
+        "category": "ФАЙЛ ТҰТАСТЫҒЫ",
+        "title": "Фотоны сақтау.\nДатаны тексеру.",
+        "summary": "JPEG түсірілім даталарын Google Photos JSON деректерімен салыстыру, қайшылықтарды шешу және тексерілген көшірмелерді экспорттау.",
+        "alt": "ArchiveGuard JPEG метадеректері мен JSON даталарын салыстырады",
+        "detailAlt": "ArchiveGuard тексерілген экспорт пакеті мен есебі",
+        "input": "Google Photos экспортынан алынған, даталары сәйкес келмеуі мүмкін JPEG және JSON файлдары.",
+        "output": "Жаңа JPEG көшірмелері, манифест және әр файл мен шешім жазылған CSV/HTML есептері.",
+        "decisions": [
+          "Күмәнді сәйкестіктер мен дата қайшылықтары нақты шешімді талап етеді. Жүктеу датасы түсірілім датасын алмастырмайды.",
+          "Worker шектелген JPEG/EXIF құрылымдарын тексеріп, пиксельдерді қайта кодтамай экспорт дайындайды.",
+          "Метадеректерді тәуелсіз қайта оқу және EXIF-тен тыс байт хештері көшірмелерді жүктеуге дейін тексереді."
+        ],
+        "limit": "JPEG үлгісін тексеру құралы, бүкіл архивті қалпына келтіру жүйесі емес. Түпнұсқалар өзгермейді. ZIP кірісі, HEIC, RAW, уақыт белдеуін болжау және бұлт өңдеуі жоқ.",
+        "caption": "Синтетикалық файлдармен көрсетілген нақты қайшылық және экспорт экрандары."
+      }
+    }
+  }
+}

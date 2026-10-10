@@ -1,0 +1,180 @@
+{
+  "checkedAt": "2026-10-10T15:41:09.478Z",
+  "results": [
+    {
+      "url": "https://github.com/seoshiro",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://sdo.gsfc.nasa.gov/gallery/copyright/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/sidereal/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/sidereal",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/sidereal/blob/main/docs/QA.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/orbit-studio/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/orbit-studio",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/orbit-studio/blob/main/docs/VERIFICATION.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://iter-navigator.vercel.app/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/iter-navigator",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/iter-navigator/blob/main/README.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/ayqyn-local/replay/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/ayqyn-local",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/ayqyn-local/blob/main/docs/LOCALIZATION_QA.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://forme-studio-coral.vercel.app/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/forme-studio",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/forme-studio/blob/main/docs/ENGINEERING.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/perch-studio/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/perch-studio",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/perch-studio/blob/main/docs/AUDITS.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/reson-studio/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/reson-studio",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/reson-studio/blob/main/docs/AUDITS.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/lumen-lens/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/lumen-lens",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/lumen-lens/blob/main/README.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/selvedge-studio/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/selvedge-studio",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/selvedge-studio/blob/main/docs/VERIFICATION.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/guidecheck/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/guidecheck",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/guidecheck/blob/main/VALIDATION.md",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://seoshiro.github.io/archiveguard/",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/archiveguard",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "url": "https://github.com/seoshiro/archiveguard/blob/main/docs/VALIDATION.md",
+      "status": 200,
+      "ok": true
+    }
+  ]
+}
