@@ -54,7 +54,7 @@ test('WCAG A/AA automated checks on map, selected state and case',async({page})=
 test('renderer sleeps when idle/offscreen; text stays still; context loss falls back',async({page})=>{
   await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('/');await page.waitForTimeout(1200);
   const name=await page.locator('h1').boundingBox();await page.mouse.move(1200,400);await page.waitForTimeout(800);expect(await page.locator('h1').boundingBox()).toEqual(name);
-  const canvas=page.locator('.space-canvas');const frames=await canvas.getAttribute('data-frames');await page.waitForTimeout(800);expect(await canvas.getAttribute('data-frames')).toEqual(frames);
+  const canvas=page.locator('.space-canvas');await expect(canvas).toHaveAttribute('data-state','idle',{timeout:10000});const frames=await canvas.getAttribute('data-frames');await page.waitForTimeout(800);expect(await canvas.getAttribute('data-frames')).toEqual(frames);
   await page.locator('#about').scrollIntoViewIfNeeded();await page.waitForTimeout(400);const offscreen=await canvas.getAttribute('data-frames');await page.waitForTimeout(400);expect(await canvas.getAttribute('data-frames')).toEqual(offscreen);
   await page.goto('/');const extension=await canvas.evaluateHandle(el=>(el as HTMLCanvasElement).getContext('webgl')?.getExtension('WEBGL_lose_context'));expect(await extension.evaluate(ext=>!!ext)).toBe(true);await extension.evaluate(ext=>ext!.loseContext());await expect(canvas).not.toHaveClass(/ready/);await page.locator('[data-select="iter"]').click();await expect(page.locator('.project-preview h2')).toHaveText('ITER');
   await extension.evaluate(ext=>ext!.restoreContext());await expect(canvas).toHaveClass(/ready/);await extension.dispose();
