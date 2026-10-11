@@ -78,12 +78,18 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
   document.addEventListener('keydown',event=>{keyboard=true;hideCursor();if(event.key==='Escape')hideTip();},options);
   document.addEventListener('focusin',event=>{if(keyboard)showTip((event.target as HTMLElement).closest('.constellation'));},options);
   document.addEventListener('focusout',()=>{if(keyboard)hideTip();},options);
-  document.addEventListener('pointerover',event=>{if(event.pointerType==='mouse'&&fine.matches&&!selecting)showTip((event.target as HTMLElement).closest('.constellation'));},options);
+  const hero=document.querySelector<HTMLElement>('.hero');
+  let cameraMoving=hero?.classList.contains('camera-flight')||false;
+  // A keyboard focus can arrive while Escape is returning the camera to the map.
+  // Reveal its card once the drawing has settled, without requiring another Tab.
+  const cameraObserver=hero?new MutationObserver(()=>{const moving=hero.classList.contains('camera-flight'),finished=cameraMoving&&!moving;cameraMoving=moving;if(keyboard&&finished)showTip((document.activeElement as HTMLElement|null)?.closest('.constellation')||null);}):null;
+  if(hero)cameraObserver?.observe(hero,{attributes:true,attributeFilter:['class']});
+  document.addEventListener('pointerover',event=>{if(event.pointerType==='mouse'&&fine.matches&&!selecting&&!keyboard)showTip((event.target as HTMLElement).closest('.constellation'));},options);
   document.addEventListener('click',hideTip,options);window.addEventListener('hashchange',hideTip,options);window.addEventListener('popstate',hideTip,options);
   window.addEventListener('scroll',()=>{hideTip();hideCursor();tx=ty=ta=0;request();},{...options,passive:true});window.addEventListener('resize',()=>{hideTip();hideCursor();},options);
   document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;hideCursor();hideTip();}else request();},options);
   fine.addEventListener('change',()=>{hideCursor();hideTip();},options);
   const observer=contact?new IntersectionObserver(entries=>{contactVisible=entries[0].isIntersecting;if(contactVisible&&!root.classList.contains('intro-pending'))contact.classList.add('contact-revealed');if(!contactVisible){tx=ty=ta=0;request();}},{threshold:.15}):null;
   if(contact)observer?.observe(contact);
-  return{entryOpened(){if(contactVisible)contact?.classList.add('contact-revealed');},motionChanged(){tx=ty=ta=0;if(!motionAllowed()){rx=x;ry=y;sx=sy=sa=0;cursor.classList.remove('is-pulsing');}request();},dispose(){controller.abort();observer?.disconnect();cancelAnimationFrame(frame);hideCursor();hideTip();clearTimeout(fade);cursor.remove();tip.remove();}};
+  return{entryOpened(){if(contactVisible)contact?.classList.add('contact-revealed');},motionChanged(){tx=ty=ta=0;if(!motionAllowed()){rx=x;ry=y;sx=sy=sa=0;cursor.classList.remove('is-pulsing');}request();},dispose(){controller.abort();observer?.disconnect();cameraObserver?.disconnect();cancelAnimationFrame(frame);hideCursor();hideTip();clearTimeout(fade);cursor.remove();tip.remove();}};
 }

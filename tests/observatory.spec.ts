@@ -34,7 +34,8 @@ test('every hover card uses real imagery, stays within viewport and avoids neigh
 test('rapid hover and project switches never accumulate cards and touch restores native cursor',async({page})=>{
   await page.goto('/');for(let i=0;i<12;i++)await page.locator(`[data-select="${i%2?'iter':'orbit'}"]`).hover();await expect(page.locator('.observatory-preview')).toHaveCount(1);await expect(page.locator('.constellation.observing')).toHaveCount(1);
   await page.locator('[data-select="orbit"]').click();await expect(page.locator('.observatory-preview')).not.toBeVisible();await page.locator('[data-target="iter"]').click();await expect(page).toHaveURL(/#atlas\/iter$/);
-  await page.keyboard.press('Escape');await page.keyboard.press('Tab');await page.locator('[data-select="sidereal"]').focus();await expect(page.locator('.observatory-preview')).toBeVisible();
+  await expect(page.locator('.hero')).toHaveAttribute('data-camera','idle');
+  await page.keyboard.press('Escape');await expect(page.locator('.hero')).toHaveClass(/camera-flight/);await page.keyboard.press('Tab');await page.locator('[data-select="sidereal"]').focus();await expect(page.locator('.observatory-preview')).toBeVisible();await expect(page.locator('.observatory-preview')).toHaveAttribute('data-project','sidereal');
   await page.locator('[data-select="sidereal"]').dispatchEvent('pointerdown',{pointerType:'touch',clientX:500,clientY:200});await expect(page.locator('.observatory-preview')).not.toBeVisible();await expect(page.locator('html')).not.toHaveClass(/cursor-active/);
 });
 

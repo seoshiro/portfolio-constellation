@@ -59,3 +59,6 @@ The independent audit caught tooltip collisions and a playback restart
 after keyboard/scroll. Both were repaired before release. Physical phones,
 Safari and native Kazakh editorial review remain unavailable; Chrome touch
 emulation is identified as emulation.
+
+
+Keyboard focus during Escape camera return is preserved: its card appears when the existing flight finishes. Only the camera-flight true-to-false transition presents the focused card; other class changes cannot revive a dismissed card. Layout-generated pointerover under a stationary mouse cannot steal keyboard mode; genuine pointer movement restores mouse mode. A scoped class observer is disconnected with the other observatory resources; no continuous polling or change to the scene timing is required.
