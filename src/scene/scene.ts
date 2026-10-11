@@ -11,7 +11,7 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initially
   let vs:WebGLShader|null=null,fs:WebGLShader|null=null;
   let frame=0,timer:ReturnType<typeof setTimeout>|undefined,entrance:ReturnType<typeof setTimeout>|undefined;
   let visible=true,dead=false,firstMeteor=true,ready=false,weak=false,slowFrames=0;
-  let revealed=initiallyRevealed;
+  let revealed=initiallyRevealed,entranceStarted=false;
   let width=1,height=1,px=0,py=0,tx=0,ty=0,previousTime=0,frames=0;
   let pose:Pose={...rest},velocity:Pose={x:0,y:0,zoom:0,focus:0};
   let selected:string|null|undefined,exploring=false;
@@ -87,11 +87,12 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initially
   document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;clearTimeout(timer);meteors.replaceChildren();}else{request();scheduleMeteor();}},options);
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){request();scheduleMeteor();}else{cancelAnimationFrame(frame);frame=0;clearTimeout(timer);meteors.replaceChildren();}},{threshold:.01});observer.observe(hero);
   const resizer=new ResizeObserver(measure),previewSizer=new ResizeObserver(layoutPreview);resizer.observe(hero);previewSizer.observe(aside);measure();initialize();
-  function enter(){if(dead||!revealed||!ready)return;if(motionAllowed()){hero.classList.add('scene-enter');entrance=setTimeout(()=>hero.classList.remove('scene-enter'),1050);}scheduleMeteor();}
+  function prepareReveal(){if(dead||!ready||entranceStarted)return;entranceStarted=true;if(motionAllowed()){hero.classList.add('scene-enter');entrance=setTimeout(()=>hero.classList.remove('scene-enter'),1050);}}
+  function enter(){if(dead||!revealed||!ready)return;prepareReveal();scheduleMeteor();}
   // The atlas is already measured and initialized. Font downloads must not
   // consume its visible entrance or postpone the first meteor behind an intro.
   ready=true;enter();
-  return{reveal(){if(revealed)return;revealed=true;enter();},motionChanged:resetMotion,select(id:string|null,isExploring:boolean){if(selected===id&&exploring===isExploring)return;selected=id;exploring=isExploring;clearTimeout(timer);meteors.replaceChildren();const to=id?target(id):{...rest};hero.dataset.cameraTarget=id||'map';
+  return{prepareReveal,reveal(){if(revealed)return;revealed=true;enter();},motionChanged:resetMotion,select(id:string|null,isExploring:boolean){if(selected===id&&exploring===isExploring)return;selected=id;exploring=isExploring;clearTimeout(timer);meteors.replaceChildren();const to=id?target(id):{...rest};hero.dataset.cameraTarget=id||'map';
     if(revealed&&motionAllowed()&&(id||pose.focus>.001)){aside.inert=true;flight={from:{...pose},to,velocity:{...velocity},start:performance.now(),duration:flightDuration};hero.classList.add('camera-flight');hero.dataset.camera='moving';hero.dataset.flightProgress='0';if(id)aside.style.opacity='0';}
     else{pose=to;flight=null;aside.style.opacity=id?'1':'0';aside.style.transform='none';finish();}request();},dispose(){dead=true;controller.abort();observer.disconnect();resizer.disconnect();previewSizer.disconnect();cancelAnimationFrame(frame);clearTimeout(timer);clearTimeout(entrance);destroyGL();meteors.replaceChildren();}};
 }

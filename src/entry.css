@@ -1,5 +1,6 @@
 /* A timed title sequence, never a pretend progress indicator. */
 .entry-intro{display:none}
+:root{scrollbar-gutter:stable}
 .entry-intro .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .intro-pending #site-content{visibility:hidden;pointer-events:none}
 .intro-pending:has(.entry-intro.is-leaving) #site-content{visibility:visible}

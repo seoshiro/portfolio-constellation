@@ -6,6 +6,8 @@ The owner explicitly requested an approximately 3–4 second entrance. This is a
 
 The normal deadline is **3500ms** from the early local bootstrap; the final **480ms** crossfades the overlay. HTML, fonts, images and the application load in parallel. The introduction does not await those resources. Slower browser scheduling can extend the observed deadline; there is no hardware timing guarantee.
 
+The scene entrance is prepared before that fade makes it visible and is not restarted when access opens. A consistent root scrollbar gutter prevents a visible width/name change when scrolling unlocks. The meteor countdown still begins at final open. See the [handoff fix and verification](HANDOFF.md).
+
 It is shown once per tab session. Completion or skipping stores atlas-entry-seen in optional sessionStorage. Reload, logo, language, case navigation and Back/Forward then bypass it. A fresh tab/session can show it again. An automatic saved-language or lang-query redirect does not consume the first introduction: its destination preserves the project, URL/hash and locale and displays the sequence. A transient first-entry query handoff also works with denied storage and is removed by the destination bootstrap before paint.
 
 If storage is unavailable, same-origin referrers, reload and back_forward navigation provide an internal-navigation fallback. Independent direct visits without that evidence may show it again. No cookie, backend or identifier is used.

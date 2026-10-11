@@ -8,6 +8,8 @@ RU / EN / KK have useful static routes. Language retains the selected project, s
 
 The 2026-10-11 light/motion refinement uses thinner connections and soft stellar cores, a fitted 1280ms camera flight, gradual fading of other groups, a larger clickable real screenshot, brighter tapered meteors and a quieter Sun. The existing fonts and 3500ms introduction are retained. See [motion details and verification](docs/MOTION.md).
 
+The subsequent [entry handoff fix](docs/HANDOFF.md) removes the first-arrival star/line reset and scrollbar layout jump while retaining the same duration, design and meteor timing. Its six added regressions run with the existing forty-one production browser scenarios.
+
 Node 24, pinned dependencies/actions, local fonts/assets. No backend, analytics or paid services.
 
 ```sh

@@ -1,6 +1,14 @@
 # Verification — Windows / Chrome
 
-## Current light/motion refinement — 2026-10-11
+## Current intro handoff fix - 2026-10-11
+
+Local lint, strict TypeScript, eleven unit tests, production build/artifact checks and all forty-seven Chrome browser scenarios passed. The final run took 3.2 minutes, with no retries, skips or flaky results. There are forty HTML artifacts and 105,828 uncompressed JavaScript bytes against the 125,000-byte limit. All six new handoff regressions and the forty-one existing entry, navigation, motion, font, layout, fallback and accessibility scenarios run together.
+
+Actual before/after frames reproduce the old visible star/line reset and the classic-scrollbar width shift. The corrected build prepares the scene before the overlay fade reveals it, avoids restarting it at3500ms and preserves a consistent root scrollbar gutter. Independent final installed-Chrome observations cover fourteen modes and 360/390/768/1440px, including Escape, reduced motion, stored pause, flat fallback, direct KK selection/EN case, late Onest and real scrollbars. Visible opacity, actual hero width, the complete name rectangle and scroll remain stable through handoff; no extra resize redraw or page error was observed. Intro duration and the first post-intro meteor remain preserved.
+
+The temporary-gutter attempt was rejected by independent QA before release. Its failed intermediate evidence is preserved separately from the final PASS. Root clientWidth can change when a real scrollbar becomes visible even if its space is reserved, so the regression contract measures actual scene and name geometry rather than mistaking that API change for a visual shift. Private frames, recordings, telemetry, audit and exact CI/live evidence are in preflight-evidence/entry-handoff-2026-10-11. Public font, screenshot and project-data files are unchanged. See [handoff details](HANDOFF.md).
+
+## Previous light/motion refinement - 2026-10-11
 
 Local lint, strict TypeScript, eleven content/state/camera unit tests, build and artifact checks passed. All forty-one production Chrome scenarios passed in 2.9 minutes. The production artifact has forty static HTML routes and 105,692 uncompressed JavaScript bytes against its 125,000-byte budget.
 

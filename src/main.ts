@@ -26,7 +26,7 @@ let paused=get('atlas-motion')==='off';
 const allowed=()=>!media.matches&&!saveData&&!paused;
 const hero=document.querySelector<HTMLElement>('.hero');
 let scene:ReturnType<typeof createScene>|null=null;
-const entry=createEntry(()=>{scene?.reveal();restoreFocus();});
+const entry=createEntry(()=>{scene?.reveal();restoreFocus();},()=>scene?.prepareReveal());
 scene=hero?createScene(hero,allowed,!entry.active):null;
 const motion=document.querySelector<HTMLButtonElement>('.motion')!;
 function updateMotion(){document.documentElement.classList.toggle('reduced',!allowed());motion.setAttribute('aria-pressed',String(!allowed()));motion.setAttribute('aria-label',allowed()?c.motionOn:c.motionOff);motion.querySelector('span')!.textContent=allowed()?'Ⅱ':'✧';motion.disabled=media.matches||saveData;scene?.motionChanged();}
