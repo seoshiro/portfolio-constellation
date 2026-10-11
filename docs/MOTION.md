@@ -8,7 +8,7 @@ Selecting a project translates and scales its actual SVG geometry over 1080ms. T
 
 Far, middle and near procedural star planes project at different depths, with a quieter solar plane and the project geometry in front. Pointer movement is subtle and stops after settling. The Sun dims when a constellation is chosen. Hover/focus reveals the real project headline and a short line-light cue; the card keeps the real screenshot.
 
-After fonts are ready and the scene is revealed, the first pointed meteor is scheduled in 2300–2800ms. Since the 2026-10-11 requested [entry introduction](ENTRY.md), its visible countdown begins after the overlay finishes/skips. Following cues are 7000–14000ms apart; travel takes 850–1080ms, then its head disappears before the fading tail. Paths avoid UI rectangles. Only one meteor exists at a time. Camera travel postpones the next cue.
+After the scene is revealed, the first pointed meteor is scheduled in 2300–2800ms. Since the 2026-10-11 requested [entry introduction](ENTRY.md), its visible countdown begins after the overlay finishes/skips and does not wait for a slow font download. Following cues are 7000–14000ms apart; travel takes 850–1080ms, then its head disappears before the fading tail. Paths avoid UI rectangles. Only one meteor exists at a time. Camera travel postpones the next cue.
 
 Reduced motion, Save-Data and the pause button remove meteors and snap the camera to its accessible destination. Hidden/offscreen scenes stop rendering and clear meteor timers. WebGL loss has the existing image/HTML fallback and resource cleanup. DPR stays at most 1.35 with a 1.6M-pixel cap; sustained slow frames reduce resolution further. The renderer does not have a perpetual time loop.
 

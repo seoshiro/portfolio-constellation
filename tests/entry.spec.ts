@@ -92,3 +92,35 @@ test('a saved language redirect does not consume the first introduction',async({
   await page.goto('/');await expect(page).toHaveURL(/\/kk\/$/);await expect(page.locator('.entry-intro')).toBeVisible();
   await opened(page);await expect(page.locator('html')).toHaveAttribute('lang','kk');await expect(page.locator('h1')).toBeVisible();
 });
+
+test('an eight-second font download does not postpone the visible meteor countdown',async({page})=>{
+  await page.route('**/fonts/Onest/*',async route=>{await new Promise(resolve=>setTimeout(resolve,8000));await route.continue();});
+  await page.goto('/',{waitUntil:'domcontentloaded'});await opened(page);
+  const proof=await page.evaluate(()=>new Promise<{delay:number;fontLoaded:boolean}>(resolve=>{
+    const observer=new MutationObserver(()=>{if(document.querySelector('.meteor')){observer.disconnect();resolve({delay:performance.now()-window.__atlasEntry!.opened,fontLoaded:document.fonts.check('16px Onest')});}});
+    observer.observe(document.querySelector('.meteors')!,{childList:true});
+  }));expect(proof.delay).toBeGreaterThanOrEqual(2250);expect(proof.delay).toBeLessThan(4000);expect(proof.fontLoaded).toBe(false);
+  await page.evaluate(()=>document.fonts.ready);
+});
+
+test('first query-language entry survives denied storage and removes its handoff parameter',async({page})=>{
+  await page.addInitScript(()=>{for(const key of ['localStorage','sessionStorage'])Object.defineProperty(window,key,{get(){throw new Error('Storage denied');}});});
+  await page.goto('/en/projects/iter.html?lang=kk#details');await expect(page).toHaveURL(/\/kk\/projects\/iter.html#details$/);
+  await expect(page.locator('.entry-intro')).toBeVisible();await opened(page);await expect(page.locator('h1')).toHaveText('ITER');
+});
+
+test('first saved-language entry survives denied sessionStorage',async({page})=>{
+  await page.addInitScript(()=>{localStorage.setItem('atlas-language','kk');Object.defineProperty(window,'sessionStorage',{get(){throw new Error('Session storage denied');}});});
+  await page.goto('/');await expect(page).toHaveURL(/\/kk\/$/);await expect(page.locator('.entry-intro')).toBeVisible();await opened(page);
+  await expect(page.locator('html')).toHaveAttribute('lang','kk');
+});
+
+test('a cached page resumed after leaving mid-intro reveals its scene without replaying the dialog',async({page})=>{
+  await page.goto('/?flat');await expect(page.locator('.entry-intro')).toBeVisible();
+  // Playwright disables Chrome BFCache by default; exercise its actual retained
+  // page lifecycle handlers without claiming a physical browser cache test.
+  await page.evaluate(()=>{window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true}));window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true}));});
+  await opened(page);await expect(page.locator('.entry-intro')).not.toBeVisible();await expect(page.locator('#site-content')).not.toHaveAttribute('inert');
+  await page.waitForSelector('.meteor',{timeout:5000});await page.locator('[data-select="orbit"]').click();await expect(page.locator('.hero')).toHaveAttribute('data-camera','moving');await expect(page.locator('.hero')).toHaveAttribute('data-camera','idle');
+  await expect(page.locator('.project-preview h2')).toHaveText('ORBIT');
+});

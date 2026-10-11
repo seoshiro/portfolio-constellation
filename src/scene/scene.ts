@@ -82,7 +82,9 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initially
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){request();scheduleMeteor();}else{cancelAnimationFrame(frame);frame=0;clearTimeout(timer);meteors.replaceChildren();}},{threshold:.01});observer.observe(hero);
   const resizer=new ResizeObserver(measure);resizer.observe(hero);measure();initialize();
   function enter(){if(dead||!revealed||!ready)return;if(motionAllowed()){hero.classList.add('scene-enter');entrance=setTimeout(()=>hero.classList.remove('scene-enter'),1050);}scheduleMeteor();}
-  void document.fonts.ready.then(()=>{if(dead)return;ready=true;enter();});
+  // The atlas is already measured and initialized. Font downloads must not
+  // consume its visible entrance or postpone the first meteor behind an intro.
+  ready=true;enter();
   return{reveal(){if(revealed)return;revealed=true;enter();},motionChanged:resetMotion,select(id:string|null,isExploring:boolean){if(selected===id&&exploring===isExploring)return;selected=id;exploring=isExploring;clearTimeout(timer);meteors.replaceChildren();const to=id?target(id):{...rest};hero.dataset.cameraTarget=id||'map';
     if(revealed&&motionAllowed()&&(id||pose.focus>.001)){aside.inert=true;flight={from:{...pose},to,velocity:{...velocity},start:performance.now(),duration:1080};hero.classList.add('camera-flight');hero.dataset.camera='moving';if(id)aside.style.opacity='0';}
     else{pose=to;flight=null;aside.style.opacity=id?'1':'0';aside.style.transform='none';finish();}request();},dispose(){dead=true;controller.abort();observer.disconnect();resizer.disconnect();cancelAnimationFrame(frame);clearTimeout(timer);clearTimeout(entrance);destroyGL();meteors.replaceChildren();}};

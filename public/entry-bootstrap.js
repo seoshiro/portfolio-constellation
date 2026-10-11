@@ -5,6 +5,12 @@
     seen=!!navigation&&(navigation.type==='back_forward'||navigation.type==='reload');
     try{seen=seen||!!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){}
   }
+  // Automatic locale redirects can cross documents even when storage is
+  // denied. This transient handoff is removed before the destination paints.
+  var url=new URL(location.href);
+  if(url.searchParams.get('_atlas_entry')==='first'){
+    seen=false;url.searchParams.delete('_atlas_entry');history.replaceState(history.state,'',url.href);
+  }
   if(seen)return;
   var root=document.documentElement;
   root.classList.add('intro-pending');root.dataset.entry='active';

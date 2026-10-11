@@ -15,8 +15,9 @@ const get=(key:string,session=false)=>{try{return (session?sessionStorage:localS
 const set=(key:string,value:string,session=false)=>{try{(session?sessionStorage:localStorage).setItem(key,value);}catch{/* preference is optional */}};
 const explicit=validLocale(new URLSearchParams(location.search).get('lang'));
 const stored=validLocale(get('atlas-language'));
-if(explicit&&explicit!==locale){const url=new URL(localePath(explicit),location.origin);url.hash=location.hash;url.search=location.search;url.searchParams.delete('lang');location.replace(url.href);}
-else if(location.pathname==='/'&&!explicit&&stored&&stored!=='ru'){location.replace(rootHref(stored)+location.search+location.hash);}
+function replaceLocale(url:URL){if(document.documentElement.classList.contains('intro-pending'))url.searchParams.set('_atlas_entry','first');location.replace(url.href);}
+if(explicit&&explicit!==locale){const url=new URL(localePath(explicit),location.origin);url.hash=location.hash;url.search=location.search;url.searchParams.delete('lang');replaceLocale(url);}
+else if(location.pathname==='/'&&!explicit&&stored&&stored!=='ru'){replaceLocale(new URL(rootHref(stored)+location.search+location.hash,location.origin));}
 set('atlas-language',locale);
 document.documentElement.classList.add('enhanced');
 const media=matchMedia('(prefers-reduced-motion: reduce)');
@@ -50,7 +51,7 @@ document.addEventListener('click',event=>{const target=event.target as HTMLEleme
 });
 document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(id){set('atlas-focus',id,true);location.href=rootHref(locale)+((featuredIds as readonly string[]).includes(id)?'#atlas/'+id:'#catalog');return;}const current=parseHash(location.hash);if(current.exploring){navigate('');if(current.selected)hero?.querySelector<HTMLElement>(`[data-select="${current.selected}"]`)?.focus({preventScroll:true});}});
 window.addEventListener('popstate',()=>{applyState();updateLanguages();});window.addEventListener('hashchange',()=>{applyState();updateLanguages();});
-window.addEventListener('pageshow',()=>{applyState();updateLanguages();});window.addEventListener('pagehide',event=>{if(!event.persisted)scene?.dispose();});
+window.addEventListener('pageshow',()=>{applyState();updateLanguages();if(!entry.active)scene?.reveal();});window.addEventListener('pagehide',event=>{if(!event.persisted)scene?.dispose();});
 function wireImages(root:ParentNode){for(const img of root.querySelectorAll<HTMLImageElement>('img:not([alt=""])')){const fallback=()=>{img.classList.add('failed');if(!img.parentElement?.querySelector('.image-error')){const span=document.createElement('span');span.className='image-error';span.textContent=c.failed;img.insertAdjacentElement('afterend',span);}};img.addEventListener('error',fallback,{once:true});if(img.complete&&!img.naturalWidth)fallback();}}
 wireImages(document);applyState();updateLanguages();
 function restoreFocus(){const returnFocus=get('atlas-focus',true);if(hero&&returnFocus){if(parseHash(location.hash).selected===returnFocus){hero.querySelector<HTMLElement>(`[data-select="${returnFocus}"]`)?.focus({preventScroll:true});set('atlas-focus','',true);}else if(location.hash==='#catalog'){document.querySelector<HTMLElement>(`[data-catalog="${returnFocus}"]`)?.focus();set('atlas-focus','',true);}}}
