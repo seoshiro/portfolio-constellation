@@ -16,7 +16,7 @@ test('rapid selections, reload, history, case Escape and focus return',async({pa
   await page.reload();await expect(page.locator('h1')).toHaveText('SIDEREAL');
   await page.keyboard.press('Escape');await expect(page).toHaveURL(/#atlas\/sidereal$/);await expect(page.locator('[data-select="sidereal"]')).toBeFocused();
   await page.keyboard.press('Escape');await expect(page.locator('.hero-intro')).toBeVisible();await expect(page.locator('[data-select="sidereal"]')).toBeFocused();
-  await page.locator('.wordmark').first().click();await expect(page.locator('h1')).toHaveText('BeibarsIleskhan✧');
+  await page.locator('.wordmark').first().click();await expect(page.locator('h1')).toHaveText('BeibarsIleskhan');await expect(page.locator('h1 .name-star svg')).toHaveCount(1);
 });
 
 test('language keeps the selection, section, case and preference',async({page})=>{
@@ -31,8 +31,8 @@ test('keyboard selection works and every case has static complete content',async
   for(const locale of locales)for(const p of projects){const response=await request.get(caseHref(p.id,locale));expect(response.status()).toBe(200);const html=await response.text();expect(html).toContain('<main');expect(html).toContain(p.source);expect(html).toContain(p.live);expect(html).toContain('case-decisions');expect(html).toContain('case-details');}
 });
 
-test('HTML and real project links remain useful without JavaScript',async({browser})=>{
-  const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const page=await context.newPage();await page.goto('http://127.0.0.1:5318/');
+test('HTML and real project links remain useful without JavaScript',async({browser,baseURL})=>{
+  const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const page=await context.newPage();await page.goto(baseURL!+'/');
   await expect(page.locator('h1')).toBeVisible();await expect(page.locator('#catalog .project')).toHaveCount(6);
   await page.locator('[data-select="iter"]').click();await expect(page.locator('h1')).toHaveText('ITER');await expect(page.locator('.case-actions a')).toHaveCount(2);await context.close();
 });
@@ -42,12 +42,12 @@ test('fallback, denied storage and image failure preserve navigation',async({pag
   await page.route('**/assets/sidereal.webp',route=>route.abort());await page.goto('/?flat#atlas/sidereal');await expect(page.locator('.space-canvas')).not.toHaveClass(/ready/);await expect(page.locator('.image-error').first()).toBeVisible();await page.locator('.project-preview [data-case]').click();await expect(page.locator('h1')).toHaveText('SIDEREAL');await expect(page.locator('.case-actions a').first()).toBeVisible();
 });
 
-for(const width of [360,390,768,1440,1920])test(`layout and touch at ${width}px in three languages`,async({browser})=>{
+for(const width of [360,390,768,1440,1920])test(`layout and touch at ${width}px in three languages`,async({browser,baseURL})=>{
   const context=await browser.newContext({viewport:{width,height:width<800?900:1080},hasTouch:width<800,reducedMotion:'reduce'});const page=await context.newPage();
-  for(const locale of locales){const prefix=locale==='ru'?'':locale+'/';await page.goto(`http://127.0.0.1:5318/${prefix}`);await expect(page.locator('.constellation')).toHaveCount(6);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  for(const locale of locales){const prefix=locale==='ru'?'':locale+'/';await page.goto(`${baseURL}/${prefix}`);await expect(page.locator('.constellation')).toHaveCount(6);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
     if(width<800)await page.locator('[data-select="ayqyn"]').tap();else await page.locator('[data-select="ayqyn"]').click();await expect(page.locator('.project-preview h2')).toHaveText('AYQYN');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
     await page.locator('.project-preview [data-case]').click();await expect(page.locator('h1')).toHaveText('AYQYN');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-    await page.goto(`http://127.0.0.1:5318/${prefix}projects/archiveguard.html`);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    await page.goto(`${baseURL}/${prefix}projects/archiveguard.html`);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   }await context.close();
 });
 
@@ -82,8 +82,8 @@ test('secondary case Escape returns focus to catalogue and legacy work anchor re
   await page.goto('/#work');await expect(page).toHaveURL(/#catalog$/);
 });
 
-test('credits remain localized with JS, query redirect and static fallback',async({page,browser})=>{
+test('credits remain localized with JS, query redirect and static fallback',async({page,browser,baseURL})=>{
   await page.goto('/en/credits.html');await page.locator('[data-locale="kk"]').click();await expect(page).toHaveURL(/\/kk\/credits.html$/);
   await page.goto('/en/credits.html?lang=ru');await expect(page).toHaveURL(/\/credits.html$/);await expect(page.locator('html')).toHaveAttribute('lang','ru');
-  const context=await browser.newContext({javaScriptEnabled:false});const fallback=await context.newPage();await fallback.goto('http://127.0.0.1:5318/en/credits.html');await fallback.locator('[data-locale="kk"]').click();await expect(fallback).toHaveURL(/\/kk\/credits.html$/);await context.close();
+  const context=await browser.newContext({javaScriptEnabled:false});const fallback=await context.newPage();await fallback.goto(baseURL!+'/en/credits.html');await fallback.locator('[data-locale="kk"]').click();await expect(fallback).toHaveURL(/\/kk\/credits.html$/);await context.close();
 });

@@ -1,0 +1,39 @@
+.star-accent{display:inline-block;width:12px;height:12px;margin-left:12px;vertical-align:-1px;color:var(--warm);opacity:.7}
+.star-accent svg,.name-star svg,.contact-star svg{display:block;width:100%;height:100%;overflow:visible}
+.star-accent path,.name-star path,.contact-star path{fill:none;stroke:currentColor;stroke-width:1.1;vector-effect:non-scaling-stroke}
+.name-star{width:23px;height:23px}
+.contact-star{width:230px;height:230px;color:var(--warm);opacity:.25;transform:translate(var(--star-x,0px),var(--star-y,0px)) rotate(var(--star-turn,0deg));pointer-events:none}
+.enhanced .contact-star path{stroke-dasharray:1;stroke-dashoffset:1;opacity:0;transition:stroke-dashoffset .8s ease-out,opacity .8s ease-out}
+.enhanced .contact-revealed .contact-star path{stroke-dashoffset:0;opacity:1}
+.constellation:hover .connections line,.constellation:focus-visible .connections line{animation:none}
+.constellation .connections,.constellation .halo,.constellation .core,.constellation .constellation-label{transition:stroke .2s,fill .2s,filter .2s,opacity .2s,color .2s}
+.constellation.observing .connections{stroke:var(--warm);opacity:.94}
+.constellation.observing .halo{opacity:.38}.constellation.observing .core{filter:drop-shadow(0 0 1.8px #edc99a88)}
+.constellation.observing .constellation-label{color:#fff0d5}
+.constellation.observing .light-pulse{animation:observatory-pulse .42s ease-out both}
+@keyframes observatory-pulse{0%{opacity:0;stroke-dashoffset:1}24%{opacity:.58}100%{opacity:0;stroke-dashoffset:-.2}}
+.observatory-preview{position:fixed;z-index:45;width:218px;padding:9px;display:grid;grid-template-columns:78px 1fr;gap:10px;background:#080b10f5;border:1px solid #edc99a52;box-shadow:0 8px 26px #0008;pointer-events:none;color:var(--text);opacity:0;transition:opacity .16s ease-out}.observatory-preview.is-shown{opacity:1}
+.observatory-preview[hidden]{display:none}.observatory-preview img{width:78px;height:79px;object-fit:cover;object-position:top;border:1px solid var(--line)}
+.observatory-preview b{display:block;font-size:12px;letter-spacing:.04em;font-weight:600;margin-bottom:5px}.observatory-preview small{display:block;font-size:11px;line-height:1.35;color:var(--muted)}
+.observatory-preview em{display:block;font-size:10px;font-style:normal;color:var(--warm);margin-top:7px;line-height:1.3}
+.project-copy{min-width:0}.catalog-constellation{position:absolute;top:17px;right:17px;width:76px;height:76px;background:#06080bdf;border:1px solid #edc99a33;border-radius:50%;padding:9px;pointer-events:none;transition:filter .25s,border-color .25s}
+.catalog-constellation line{stroke:var(--warm);stroke-width:.85;fill:none;opacity:.55}.catalog-constellation circle{fill:#fff2d6}
+.project:has(a:hover) .catalog-constellation,.project:focus-within .catalog-constellation{filter:drop-shadow(0 0 7px #edc99a44);border-color:#edc99a88}
+.project:has(a:hover) .catalog-constellation line,.project:focus-within .catalog-constellation line{opacity:1}
+.project-featured{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);align-items:center;gap:52px;padding-bottom:38px;border-bottom:1px solid var(--line)}
+.project-featured .project-heading{margin-top:0}.project-featured .project-heading h3{font-size:clamp(32px,3.2vw,54px)}.project-featured .project-summary{font-size:18px;line-height:1.65}.project-featured .project-visual img{aspect-ratio:1.85}
+.atlas-cursor{position:fixed;inset:0;z-index:110;pointer-events:none;visibility:hidden}.atlas-cursor.is-visible{visibility:visible}
+.cursor-core,.cursor-ring,.cursor-impulse,.cursor-caption{position:absolute;left:0;top:0;pointer-events:none}.cursor-core{width:7px;height:7px;margin:-3.5px;z-index:2}.cursor-core svg{display:block;width:100%;height:100%;overflow:visible}.cursor-core path{fill:#fff6df;stroke:#06080b;stroke-width:1;vector-effect:non-scaling-stroke;paint-order:stroke fill}
+.cursor-ring{width:26px;height:26px;margin:-13px;border:1px solid #edc99aa8;border-radius:50%;transition:width .16s,height .16s,margin .16s,border-color .16s,box-shadow .16s}
+.is-link .cursor-ring{width:36px;height:36px;margin:-18px;border-color:#ffe0ad;box-shadow:0 0 9px #edc99a22}.is-down .cursor-ring{width:22px;height:22px;margin:-11px}
+.cursor-caption{font-size:11px;line-height:1.3;letter-spacing:.04em;color:#fff0d6;background:#06080bdd;padding:4px 6px;border:1px solid #edc99a38;white-space:nowrap}.cursor-caption:empty{display:none}
+.cursor-impulse{width:26px;height:26px;border:1px solid #edc99a;border-radius:50%;opacity:0}.is-pulsing .cursor-impulse{animation:cursor-impulse .42s ease-out both}
+@keyframes cursor-impulse{from{opacity:.65;scale:.7}to{opacity:0;scale:2.4}}
+@media(hover:hover) and (pointer:fine){.cursor-active,.cursor-active *{cursor:none!important}.cursor-text,.cursor-text *{cursor:text!important}}
+@media(max-width:800px){.project-featured{gap:25px;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.project-featured .project-summary{font-size:15px}.catalog-constellation{width:60px;height:60px;top:12px;right:12px}.contact-star{width:200px;height:200px}}
+@media(max-width:600px){.project-featured{display:block;padding-bottom:28px}.project-featured .project-heading{margin-top:24px}.project-featured .project-heading h3{font-size:30px}.project-featured .project-summary{font-size:16px}}
+.reduced .constellation.observing .light-pulse,.reduced .is-pulsing .cursor-impulse{animation:none}.reduced .cursor-ring,.reduced .contact-star path,.reduced .constellation .connections,.reduced .constellation .halo,.reduced .constellation .core,.reduced .constellation .constellation-label,.reduced .catalog-constellation{transition:none}
+.reduced .observatory-preview{transition:none}.reduced .contact-star{transform:none}.reduced .contact-star path{stroke-dashoffset:0;opacity:1}
+@media(prefers-reduced-motion:reduce){.constellation.observing .light-pulse,.is-pulsing .cursor-impulse{animation:none!important}.cursor-ring,.contact-star path,.catalog-constellation{transition:none}.contact-star{transform:none}.enhanced .contact-star path{stroke-dashoffset:0;opacity:1}}
+
+.project-visual,.preview-image{position:relative}.project-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;pointer-events:none}.demo-playing>.project-video{opacity:1}.demo-playing>img{visibility:hidden}

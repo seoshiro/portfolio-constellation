@@ -1,5 +1,15 @@
 # Verification — Windows / Chrome
 
+## Current observatory refinement - 2026-10-11
+
+Local lint, strict TypeScript, eleven unit tests, build/artifact checks and all56 distinct production browser scenarios passed. The existing47 passed on the frozen final application; all9 new regressions then passed together in46.2 seconds after correcting test-side CSS-unit parsing and settling automatic scroll before genuine hover. No application timing threshold was relaxed and no test retry/skip was enabled. Initial53-pass/3-failure observations and final results are distinguished in private evidence. The build has40 useful HTML artifacts and 115,053 uncompressed JavaScript bytes against125,000. All35 external destinations returned HTTP200.
+
+The independent final audit verifies actual cursor coordinates and finite settling, text drag/native I-beam, keyboard/touch/reduced modes, collision-free own/neighbor/footer/caption tooltip geometry, data-identical miniatures, contact reveal/drift, selected layouts and Axe A/AA, playback stop after keyboard/scroll, video request-error fallback, a controlled stale play completion, and independent decoding of both actual5.2-second silent demos. Its initial tooltip collisions and pointerover-driven playback restart were fixed before release. The existing3500ms entry and stable handoff remain independently verified.
+
+Actual private screenshots cover hero, all six hover cards, selected state, full case, catalogue, about and contact at360/390/768/1440/1920px. Private first-entry, hover and open/return recordings are stored outside both repositories in preflight-evidence/observatory-2026-10-11; private evidence is not a public asset. Only the two separately authorized clean actual SIDEREAL/ORBIT application demos are public. The previous project copy, static screenshots, fonts, scene/camera, intro code and exact original archive were verified unchanged. See [observatory behavior and demo provenance](OBSERVATORY.md).
+
+Source and root CI repeat the full56-scenario suite for the pinned release. The root release record and private final report identify exact SHAs/CI/live checks. Physical phones, Safari and native Kazakh editorial review remain unavailable; touch is Chrome emulation. Hidden-tab checks are handler observations rather than physical tab-switch benchmarks. Library upload, when unsupported by its current Windows helper, does not change the private status or location of QA videos.
+
 ## Current intro handoff fix - 2026-10-11
 
 Local lint, strict TypeScript, eleven unit tests, production build/artifact checks and all forty-seven Chrome browser scenarios passed. The final run took 3.2 minutes, with no retries, skips or flaky results. There are forty HTML artifacts and 105,828 uncompressed JavaScript bytes against the 125,000-byte limit. All six new handoff regressions and the forty-one existing entry, navigation, motion, font, layout, fallback and accessibility scenarios run together.

@@ -4,9 +4,12 @@ import {preview} from './ui/render.ts';
 import {parseHash,selectionHash} from './state.ts';
 import {createScene} from './scene/scene.ts';
 import {createEntry} from './entry.ts';
+import {createObservatory} from './ui/observatory.ts';
+import {createDemoMedia} from './ui/demo-media.ts';
 import './style.css';
 import './motion.css';
 import './entry.css';
+import './observatory.css';
 const locale=document.documentElement.lang as Locale,c=copy[locale];
 const id=document.body.dataset.project||null;
 const localePath=(l:Locale)=>id?caseHref(id,l):rootHref(l)+(location.pathname.endsWith('credits.html')?'credits.html':'');
@@ -26,10 +29,14 @@ let paused=get('atlas-motion')==='off';
 const allowed=()=>!media.matches&&!saveData&&!paused;
 const hero=document.querySelector<HTMLElement>('.hero');
 let scene:ReturnType<typeof createScene>|null=null;
-const entry=createEntry(()=>{scene?.reveal();restoreFocus();},()=>scene?.prepareReveal());
+let demoMedia:ReturnType<typeof createDemoMedia>|null=null;
+let observatory:ReturnType<typeof createObservatory>|null=null;
+const entry=createEntry(()=>{scene?.reveal();observatory?.entryOpened();restoreFocus();},()=>scene?.prepareReveal());
 scene=hero?createScene(hero,allowed,!entry.active):null;
+observatory=createObservatory(locale,allowed);
+demoMedia=createDemoMedia(allowed);
 const motion=document.querySelector<HTMLButtonElement>('.motion')!;
-function updateMotion(){document.documentElement.classList.toggle('reduced',!allowed());motion.setAttribute('aria-pressed',String(!allowed()));motion.setAttribute('aria-label',allowed()?c.motionOn:c.motionOff);motion.querySelector('span')!.textContent=allowed()?'Ⅱ':'✧';motion.disabled=media.matches||saveData;scene?.motionChanged();}
+function updateMotion(){document.documentElement.classList.toggle('reduced',!allowed());motion.setAttribute('aria-pressed',String(!allowed()));motion.setAttribute('aria-label',allowed()?c.motionOn:c.motionOff);motion.querySelector('span')!.textContent=allowed()?'Ⅱ':'✧';motion.disabled=media.matches||saveData;scene?.motionChanged();observatory?.motionChanged();demoMedia?.motionChanged();}
 motion.addEventListener('click',()=>{paused=!paused;set('atlas-motion',paused?'off':'on');updateMotion();});media.addEventListener('change',updateMotion);updateMotion();
 function updateLanguages(){for(const a of document.querySelectorAll<HTMLAnchorElement>('[data-locale]')){const l=a.dataset.locale as Locale;const target=new URL(id?caseHref(id,l):rootHref(l)+(location.pathname.endsWith('credits.html')?'credits.html':''),location.origin);target.hash=location.hash;if(new URLSearchParams(location.search).has('flat'))target.search='?flat';a.href=target.href;}}
 function applyState(){if(!hero)return;if(location.hash==='#work'){history.replaceState(null,'',location.pathname+location.search+'#catalog');document.querySelector('#catalog')?.scrollIntoView();}const state=parseHash(location.hash);hero.classList.toggle('exploring',state.exploring);hero.classList.toggle('has-selection',!!state.selected);
@@ -51,7 +58,7 @@ document.addEventListener('click',event=>{const target=event.target as HTMLEleme
 });
 document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(id){set('atlas-focus',id,true);location.href=rootHref(locale)+((featuredIds as readonly string[]).includes(id)?'#atlas/'+id:'#catalog');return;}const current=parseHash(location.hash);if(current.exploring){navigate('');if(current.selected)hero?.querySelector<HTMLElement>(`[data-select="${current.selected}"]`)?.focus({preventScroll:true});}});
 window.addEventListener('popstate',()=>{applyState();updateLanguages();});window.addEventListener('hashchange',()=>{applyState();updateLanguages();});
-window.addEventListener('pageshow',()=>{applyState();updateLanguages();if(!entry.active){scene?.reveal();if(document.documentElement.dataset.entryReason==='pagehide'){set('atlas-entry-seen','1',true);document.documentElement.dataset.entryReason='resumed';document.querySelector<HTMLElement>('#main')?.focus({preventScroll:true});}}});window.addEventListener('pagehide',event=>{if(!event.persisted)scene?.dispose();});
+window.addEventListener('pageshow',()=>{applyState();updateLanguages();if(!entry.active){scene?.reveal();observatory?.entryOpened();if(document.documentElement.dataset.entryReason==='pagehide'){set('atlas-entry-seen','1',true);document.documentElement.dataset.entryReason='resumed';document.querySelector<HTMLElement>('#main')?.focus({preventScroll:true});}}});window.addEventListener('pagehide',event=>{if(!event.persisted){scene?.dispose();observatory?.dispose();demoMedia?.dispose();}});
 function wireImages(root:ParentNode){for(const img of root.querySelectorAll<HTMLImageElement>('img:not([alt=""])')){const fallback=()=>{img.classList.add('failed');if(!img.parentElement?.querySelector('.image-error')){const span=document.createElement('span');span.className='image-error';span.textContent=c.failed;img.insertAdjacentElement('afterend',span);}};img.addEventListener('error',fallback,{once:true});if(img.complete&&!img.naturalWidth)fallback();}}
 wireImages(document);applyState();updateLanguages();
 function restoreFocus(){const returnFocus=get('atlas-focus',true);if(hero&&returnFocus){if(parseHash(location.hash).selected===returnFocus){hero.querySelector<HTMLElement>(`[data-select="${returnFocus}"]`)?.focus({preventScroll:true});set('atlas-focus','',true);}else if(location.hash==='#catalog'){document.querySelector<HTMLElement>(`[data-catalog="${returnFocus}"]`)?.focus();set('atlas-focus','',true);}}}

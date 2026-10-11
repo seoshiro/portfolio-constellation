@@ -10,6 +10,8 @@ The 2026-10-11 light/motion refinement uses thinner connections and soft stellar
 
 The subsequent [entry handoff fix](docs/HANDOFF.md) removes the first-arrival star/line reset and scrollbar layout jump while retaining the same duration, design and meteor timing. Its six added regressions run with the existing forty-one production browser scenarios.
 
+The [observatory refinement](docs/OBSERVATORY.md) adds a precise desktop star cursor, collision-safe real-image hover/focus cards, data-derived catalogue drawings with a wide SIDEREAL lead row, and a subtle shared contact star. Two expressly authorized silent recordings of the actual SIDEREAL and ORBIT demos play only on mouse hover; touch and reduced motion keep their real static posters. Portfolio QA media stays private. Nine further browser regressions preserve the existing forty-seven.
+
 Node 24, pinned dependencies/actions, local fonts/assets. No backend, analytics or paid services.
 
 ```sh
