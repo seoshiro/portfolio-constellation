@@ -3,7 +3,7 @@ import {quality} from './quality.ts';
 import {destination,fittedZoom,project,rest,travel,type Pose} from './camera.ts';
 
 interface Drawing{link:HTMLAnchorElement;svg:SVGSVGElement;x:number;y:number;w:number;h:number;cx:number;cy:number;gw:number;gh:number}
-export function createScene(hero:HTMLElement,motionAllowed:()=>boolean){
+export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initiallyRevealed=true){
   const canvas=hero.querySelector<HTMLCanvasElement>('.space-canvas')!,sun=hero.querySelector<HTMLElement>('.sun')!,glow=hero.querySelector<HTMLElement>('.solar-glow')!;
   const meteors=hero.querySelector<HTMLElement>('.meteors')!,aside=hero.querySelector<HTMLElement>('.project-preview')!;
   const controller=new AbortController(),options={signal:controller.signal};
@@ -11,6 +11,7 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean){
   let vs:WebGLShader|null=null,fs:WebGLShader|null=null;
   let frame=0,timer:ReturnType<typeof setTimeout>|undefined,entrance:ReturnType<typeof setTimeout>|undefined;
   let visible=true,dead=false,firstMeteor=true,ready=false,weak=false,slowFrames=0;
+  let revealed=initiallyRevealed;
   let width=1,height=1,px=0,py=0,tx=0,ty=0,previousTime=0,frames=0;
   let pose:Pose={...rest},velocity:Pose={x:0,y:0,zoom:0,focus:0};
   let selected:string|null|undefined,exploring=false;
@@ -61,7 +62,7 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean){
     if(dt>65&&flight&&!weak&&++slowFrames>3){weak=true;hero.classList.add('quiet-quality');sizeCanvas();}
     if(flight||Math.abs(tx-px)+Math.abs(ty-py)>.006){canvas.dataset.state='settling';request();}else{canvas.dataset.state='idle';previousTime=0;}
   }
-  function meteor(){if(!motionAllowed()||flight||!visible||document.hidden||dead)return;
+  function meteor(){if(!revealed||!motionAllowed()||flight||!visible||document.hidden||dead)return;
     const r=hero.getBoundingClientRect(),obstacles=Array.from(hero.querySelectorAll<HTMLElement>('.hero-intro,.atlas-heading,.project-preview,.constellation-label,.atlas-projects')).filter(el=>!el.hidden&&getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden').map(el=>el.getBoundingClientRect());
     let path:{x:number;y:number;dx:number;dy:number}|undefined;
     for(let attempt=0;attempt<40&&!path;attempt++){const x=width*(.72+Math.random()*.24),y=height*(width<=600?.32+Math.random()*.07:.06+Math.random()*.28),dx=-Math.min(width*.32,470),dy=Math.min(height*.16,170);
@@ -71,7 +72,7 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean){
     item.innerHTML=`<svg viewBox="0 -14 ${length+8} 28" width="${length+8}" height="28"><defs><linearGradient id="trail-${frames}" x1="0" x2="1"><stop stop-color="#e6bd7c" stop-opacity="0"/><stop offset=".5" stop-color="#f4d8af" stop-opacity=".28"/><stop offset="1" stop-color="#fff8e8"/></linearGradient></defs><path class="meteor-tail" d="M0 0L${length} -1.15L${length} 1.15Z" fill="url(#trail-${frames})"/><circle class="meteor-head" cx="${length}" cy="0" r="${distant?1:1.65}" fill="#fffaf0"/></svg>`;
     meteors.replaceChildren(item);item.addEventListener('animationend',event=>{if(event.target===item)item.remove();},{once:true});firstMeteor=false;hero.dataset.meteors=String(Number(hero.dataset.meteors||0)+1);scheduleMeteor();
   }
-  function scheduleMeteor(){clearTimeout(timer);if(!ready||!motionAllowed()||flight||!visible||document.hidden||dead)return;timer=setTimeout(meteor,firstMeteor?2300+Math.random()*500:7000+Math.random()*7000);}
+  function scheduleMeteor(){clearTimeout(timer);if(!revealed||!ready||!motionAllowed()||flight||!visible||document.hidden||dead)return;timer=setTimeout(meteor,firstMeteor?2300+Math.random()*500:7000+Math.random()*7000);}
   function resetMotion(){tx=ty=0;if(!motionAllowed()){px=py=0;meteors.replaceChildren();hero.classList.remove('scene-enter');if(flight){pose={...flight.to};aside.style.opacity=selected?'1':'0';aside.style.transform='none';finish();}}request();scheduleMeteor();}
   hero.addEventListener('pointermove',event=>{if(!motionAllowed()||event.pointerType!=='mouse')return;const r=hero.getBoundingClientRect();tx=(event.clientX-r.left)/r.width*2-1;ty=(event.clientY-r.top)/r.height*2-1;request();},options);
   hero.addEventListener('pointerleave',()=>{tx=ty=0;request();},options);
@@ -80,8 +81,9 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean){
   document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;clearTimeout(timer);meteors.replaceChildren();}else{request();scheduleMeteor();}},options);
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){request();scheduleMeteor();}else{cancelAnimationFrame(frame);frame=0;clearTimeout(timer);meteors.replaceChildren();}},{threshold:.01});observer.observe(hero);
   const resizer=new ResizeObserver(measure);resizer.observe(hero);measure();initialize();
-  void document.fonts.ready.then(()=>{if(dead)return;ready=true;if(motionAllowed()){hero.classList.add('scene-enter');entrance=setTimeout(()=>hero.classList.remove('scene-enter'),1050);}scheduleMeteor();});
-  return{motionChanged:resetMotion,select(id:string|null,isExploring:boolean){if(selected===id&&exploring===isExploring)return;selected=id;exploring=isExploring;clearTimeout(timer);meteors.replaceChildren();const to=id?target(id):{...rest};hero.dataset.cameraTarget=id||'map';
-    if(motionAllowed()&&(id||pose.focus>.001)){aside.inert=true;flight={from:{...pose},to,velocity:{...velocity},start:performance.now(),duration:1080};hero.classList.add('camera-flight');hero.dataset.camera='moving';if(id)aside.style.opacity='0';}
+  function enter(){if(dead||!revealed||!ready)return;if(motionAllowed()){hero.classList.add('scene-enter');entrance=setTimeout(()=>hero.classList.remove('scene-enter'),1050);}scheduleMeteor();}
+  void document.fonts.ready.then(()=>{if(dead)return;ready=true;enter();});
+  return{reveal(){if(revealed)return;revealed=true;enter();},motionChanged:resetMotion,select(id:string|null,isExploring:boolean){if(selected===id&&exploring===isExploring)return;selected=id;exploring=isExploring;clearTimeout(timer);meteors.replaceChildren();const to=id?target(id):{...rest};hero.dataset.cameraTarget=id||'map';
+    if(revealed&&motionAllowed()&&(id||pose.focus>.001)){aside.inert=true;flight={from:{...pose},to,velocity:{...velocity},start:performance.now(),duration:1080};hero.classList.add('camera-flight');hero.dataset.camera='moving';if(id)aside.style.opacity='0';}
     else{pose=to;flight=null;aside.style.opacity=id?'1':'0';aside.style.transform='none';finish();}request();},dispose(){dead=true;controller.abort();observer.disconnect();resizer.disconnect();cancelAnimationFrame(frame);clearTimeout(timer);clearTimeout(entrance);destroyGL();meteors.replaceChildren();}};
 }

@@ -2,7 +2,7 @@
 
 Original portfolio for Beibars Ileskhan at [seoshiro.github.io](https://seoshiro.github.io/). Six manually designed constellations open real previews; eleven complete cases and an ordinary HTML catalogue work independently of decorative WebGL.
 
-RU / EN / KK have useful static routes. Language retains the selected project, section or case. Original procedural space, an attributed NASA/SDO solar image, three star-depth planes, a separate solar plane and constellation camera moves provide depth. A pointed meteor appears about 2.3–2.8 seconds after fonts are ready; later cues are 7–14 seconds apart. Text stays still. Motion respects reduced motion and data saving and can be paused.
+RU / EN / KK have useful static routes. Language retains the selected project, section or case. A 3.5-second constellation introduction appears once per tab session, can be skipped, and opens the existing atlas or direct case. Content loads in parallel; reduced motion keeps a static entrance. Original procedural space, an attributed NASA/SDO solar image, three star-depth planes, a separate solar plane and constellation camera moves provide depth. A pointed meteor appears about 2.3–2.8 seconds after the scene opens and fonts are ready; later cues are 7–14 seconds apart. Text stays still. Motion respects reduced motion and data saving and can be paused. See [entry behavior and fail-open](docs/ENTRY.md).
 
 ## Local work
 
@@ -30,6 +30,7 @@ Preview: http://127.0.0.1:5318/. Windows QA uses installed Chrome; CI uses Playw
 - src/data: project copy, localization and authored constellation geometries.
 - src/ui and scripts/generate.ts: useful static page/preview markup and all routes.
 - src/state.ts / src/main.ts: URLs, history, focus, language and preferences.
+- src/entry.ts / src/ui/intro.ts / public/entry-bootstrap.js: timed introduction, optional session preference and independent static-content recovery.
 - src/scene: rendering quality, visibility, context loss and cleanup.
 - public: real screenshots, local fonts and licenses.
 - tests: content/state and production browser verification.

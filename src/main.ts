@@ -3,8 +3,10 @@ import {caseHref,rootHref,validLocale,featuredIds,type Locale} from './data/proj
 import {preview} from './ui/render.ts';
 import {parseHash,selectionHash} from './state.ts';
 import {createScene} from './scene/scene.ts';
+import {createEntry} from './entry.ts';
 import './style.css';
 import './motion.css';
+import './entry.css';
 const locale=document.documentElement.lang as Locale,c=copy[locale];
 const id=document.body.dataset.project||null;
 const localePath=(l:Locale)=>id?caseHref(id,l):rootHref(l)+(location.pathname.endsWith('credits.html')?'credits.html':'');
@@ -22,7 +24,9 @@ const saveData=(navigator as Navigator&{connection?:{saveData:boolean}}).connect
 let paused=get('atlas-motion')==='off';
 const allowed=()=>!media.matches&&!saveData&&!paused;
 const hero=document.querySelector<HTMLElement>('.hero');
-const scene=hero?createScene(hero,allowed):null;
+let scene:ReturnType<typeof createScene>|null=null;
+const entry=createEntry(()=>{scene?.reveal();restoreFocus();});
+scene=hero?createScene(hero,allowed,!entry.active):null;
 const motion=document.querySelector<HTMLButtonElement>('.motion')!;
 function updateMotion(){document.documentElement.classList.toggle('reduced',!allowed());motion.setAttribute('aria-pressed',String(!allowed()));motion.setAttribute('aria-label',allowed()?c.motionOn:c.motionOff);motion.querySelector('span')!.textContent=allowed()?'Ⅱ':'✧';motion.disabled=media.matches||saveData;scene?.motionChanged();}
 motion.addEventListener('click',()=>{paused=!paused;set('atlas-motion',paused?'off':'on');updateMotion();});media.addEventListener('change',updateMotion);updateMotion();

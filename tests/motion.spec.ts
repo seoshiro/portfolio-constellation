@@ -1,5 +1,9 @@
 import {test,expect} from '@playwright/test';
 
+// The separate entry suite tests first arrival. Existing navigation/motion
+// regressions run after the one-time title sequence has been seen.
+test.beforeEach(async({page})=>{await page.addInitScript(()=>{try{sessionStorage.setItem('atlas-entry-seen','1');}catch{/* denied-storage coverage uses the referrer fallback */}});});
+
 test.use({reducedMotion:'no-preference'});
 const ids=['sidereal','orbit','iter','ayqyn','forme','perch'];
 const idle=async(page:import('@playwright/test').Page)=>expect(page.locator('.hero')).toHaveAttribute('data-camera','idle',{timeout:10000});
