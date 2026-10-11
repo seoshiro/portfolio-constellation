@@ -59,13 +59,20 @@ for(const width of [360,390,768,1440])test(`all six camera targets fit at ${widt
 });
 
 test('meteors have a pointed fading tail, first cue and a sparse second cue; pause cancels them',async({page})=>{
+  // Record insertion timestamps in the browser. Test-runner IPC can arrive late
+  // under software-GPU load and must not shorten the measured cue interval.
+  await page.addInitScript(()=>{
+    type Cue={time:number;angle:string;dx:string;duration:string;tail:boolean;head:boolean};
+    const proof:Cue[]=[];(window as unknown as Window&{meteorProof:Cue[]}).meteorProof=proof;let previous:Element|null=null;
+    const observer=new MutationObserver(()=>{const el=document.querySelector<HTMLElement>('.meteor');if(!el||el===previous)return;previous=el;proof.push({time:performance.now(),angle:el.style.getPropertyValue('--angle'),dx:el.style.getPropertyValue('--dx'),duration:el.style.getPropertyValue('--duration'),tail:!!el.querySelector('.meteor-tail'),head:!!el.querySelector('.meteor-head')});if(proof.length===2)observer.disconnect();});observer.observe(document,{childList:true,subtree:true});
+  });
   await page.goto('/');await page.evaluate(()=>document.fonts.ready);
-  await page.waitForSelector('.meteor',{timeout:6000});
-  const first=await page.locator('.meteor').evaluate(el=>({time:performance.now(),angle:el.style.getPropertyValue('--angle'),dx:el.style.getPropertyValue('--dx'),duration:el.style.getPropertyValue('--duration'),tail:!!el.querySelector('.meteor-tail'),head:!!el.querySelector('.meteor-head')}));
+  await page.waitForFunction(()=>(window as unknown as Window&{meteorProof:unknown[]}).meteorProof.length>0,undefined,{timeout:6000});
+  const first=await page.evaluate(()=>(window as unknown as Window&{meteorProof:{time:number;angle:string;dx:string;duration:string;tail:boolean;head:boolean}[]}).meteorProof[0]);
   expect(first.tail&&first.head).toBe(true);expect(parseFloat(first.dx)).toBeLessThan(0);expect(parseFloat(first.angle)).toBeGreaterThan(90);expect(parseFloat(first.duration)).toBeGreaterThanOrEqual(1150);expect(parseFloat(first.duration)).toBeLessThan(1450);
   await expect(page.locator('.meteor')).toHaveCount(0,{timeout:2000});
   await expect(page.locator('.hero')).toHaveAttribute('data-meteors','2',{timeout:15000});
-  const second=await page.evaluate(()=>performance.now());expect(second-first.time).toBeGreaterThanOrEqual(6900);expect(second-first.time).toBeLessThan(15500);
+  const second=await page.evaluate(()=>(window as unknown as Window&{meteorProof:{time:number}[]}).meteorProof[1].time);expect(second-first.time).toBeGreaterThanOrEqual(6900);expect(second-first.time).toBeLessThan(15500);
   await page.locator('.motion').click();await expect(page.locator('.meteor')).toHaveCount(0);await page.waitForTimeout(1800);await expect(page.locator('.hero')).toHaveAttribute('data-meteors','2');
 });
 

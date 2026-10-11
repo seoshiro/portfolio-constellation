@@ -8,6 +8,8 @@ The selected-state matrix checks every featured project in RU/EN/KK at 360, 390,
 
 Private before/after pixels, Chrome video, independent review, CI and exact live revision evidence are retained outside both repositories in preflight-evidence/light-motion-2026-10-11. These records distinguish browser emulation from physical-device testing. Fonts, project screenshots, project content and the 3500ms introduction are preserved. See [current behavior](MOTION.md).
 
+The first source CI passed 39 of 41 browser scenarios. With two concurrent software-GPU workers, the entry callback was observed at 4230ms against its unchanged 4200ms upper limit; a meteor interval sampled through delayed test-runner IPC appeared as 6735ms against its unchanged 6900ms lower limit. CI now uses one worker to isolate timing, and meteor insertion timestamps are recorded by a browser-side MutationObserver installed before navigation. Timing bounds, application code and retry policy are unchanged. The original failed CI/log is preserved in the private release evidence; final exact-revision CI and live results are separate gates.
+
 ## Previous motion/typography refinement - 2026-10-10
 
 The final local run passed lint, strict TypeScript, ten content/state/camera unit tests, build, artifact checks and **24 production Chrome browser scenarios** (1.7 minutes). The static release has 40 HTML routes and 100,733 uncompressed JavaScript bytes against a 125,000-byte limit.
