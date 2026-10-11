@@ -12,7 +12,7 @@ test('camera geometry and late card reveal survive interrupted selection in flat
   await page.goto('/?flat');await page.evaluate(()=>document.fonts.ready);
   const name=await page.locator('h1').boundingBox();
   // Observe inside the browser: software GPU/IPC latency must not turn a 200ms
-  // test-side sleep into a measurement taken after the whole 1080ms flight.
+  // test-side sleep into a measurement taken after the whole 1280ms flight.
   const proof=await page.evaluate(()=>new Promise<{samples:{elapsed:number;zoom:number;opacity:number}[];retarget:{before:number;after:number;elapsed:number}}>(resolve=>{
     const hero=document.querySelector<HTMLElement>('.hero')!,aside=hero.querySelector<HTMLElement>('.project-preview')!;
     const started=performance.now(),samples:{elapsed:number;zoom:number;opacity:number}[]=[];let retarget={before:0,after:0,elapsed:0};
@@ -44,6 +44,15 @@ for(const width of [360,390,768,1440])test(`all six camera targets fit at ${widt
       });expect(bounds.left).toBeGreaterThanOrEqual(-1);expect(bounds.right).toBeLessThanOrEqual(width+1);expect(bounds.top).toBeGreaterThanOrEqual(65);expect(bounds.bottom).toBeLessThanOrEqual(width<600?650:1024);
       expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
       await expect(page.locator('.project-preview h2')).toHaveText(id.toUpperCase());
+      await expect(page.locator(`[data-select="${id}"] .spike`)).toHaveCount(0);
+      const composition=await page.evaluate(id=>{
+        const selected=document.querySelector<HTMLElement>(`[data-select="${id}"]`)!,hero=document.querySelector<HTMLElement>('.hero')!,card=document.querySelector<HTMLElement>('.project-preview')!;
+        const image=card.querySelector('img')!.getBoundingClientRect(),c=card.getBoundingClientRect(),h=hero.getBoundingClientRect(),footer=hero.querySelector('.atlas-footer')!.getBoundingClientRect();
+        return{stroke:Number.parseFloat(getComputedStyle(selected.querySelector('.connections')!).strokeWidth),imageWidth:image.width,imageHeight:image.height,cardBottom:c.bottom,heroBottom:h.bottom,footerTop:footer.top,others:[...hero.querySelectorAll('.constellation:not(.is-selected) svg')].map(svg=>Number(getComputedStyle(svg).opacity))};
+      },id);
+      expect(composition.stroke).toBeLessThan(.39);expect(composition.imageWidth).toBeGreaterThan(240);expect(composition.imageHeight).toBeGreaterThan(135);
+      expect(composition.cardBottom).toBeLessThan(composition.heroBottom);expect(composition.others.every(alpha=>alpha<.04)).toBe(true);
+      if(width<=600)expect(composition.cardBottom).toBeLessThan(composition.footerTop-20);
     }
     await page.locator('.atlas-all').click();await expect(page).toHaveURL(/#catalog$/);
   }
@@ -53,11 +62,22 @@ test('meteors have a pointed fading tail, first cue and a sparse second cue; pau
   await page.goto('/');await page.evaluate(()=>document.fonts.ready);
   await page.waitForSelector('.meteor',{timeout:6000});
   const first=await page.locator('.meteor').evaluate(el=>({time:performance.now(),angle:el.style.getPropertyValue('--angle'),dx:el.style.getPropertyValue('--dx'),duration:el.style.getPropertyValue('--duration'),tail:!!el.querySelector('.meteor-tail'),head:!!el.querySelector('.meteor-head')}));
-  expect(first.tail&&first.head).toBe(true);expect(parseFloat(first.dx)).toBeLessThan(0);expect(parseFloat(first.angle)).toBeGreaterThan(90);expect(parseFloat(first.duration)).toBeLessThan(1200);
+  expect(first.tail&&first.head).toBe(true);expect(parseFloat(first.dx)).toBeLessThan(0);expect(parseFloat(first.angle)).toBeGreaterThan(90);expect(parseFloat(first.duration)).toBeGreaterThanOrEqual(1150);expect(parseFloat(first.duration)).toBeLessThan(1450);
   await expect(page.locator('.meteor')).toHaveCount(0,{timeout:2000});
   await expect(page.locator('.hero')).toHaveAttribute('data-meteors','2',{timeout:15000});
   const second=await page.evaluate(()=>performance.now());expect(second-first.time).toBeGreaterThanOrEqual(6900);expect(second-first.time).toBeLessThan(15500);
   await page.locator('.motion').click();await expect(page.locator('.meteor')).toHaveCount(0);await page.waitForTimeout(1800);await expect(page.locator('.hero')).toHaveAttribute('data-meteors','2');
+});
+
+test('the large real preview opens its case by touch and Escape restores the selected project',async({browser,baseURL})=>{
+  const context=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,reducedMotion:'reduce'});
+  await context.addInitScript(()=>sessionStorage.setItem('atlas-entry-seen','1'));
+  try{const page=await context.newPage();for(const locale of ['ru','en','kk']){
+    const prefix=locale==='ru'?'':locale+'/';await page.goto(baseURL+'/'+prefix+'#atlas/iter');await idle(page);
+    await page.locator('.preview-image').tap();await expect(page).toHaveURL(new RegExp('/'+prefix+'projects/iter.html$'));
+    await expect(page.locator('h1')).toHaveText('ITER');await page.keyboard.press('Escape');await expect(page).toHaveURL(new RegExp('/'+prefix+'#atlas/iter$'));
+    await expect(page.locator('[data-select="iter"]')).toBeFocused();
+  }}finally{await context.close();}
 });
 
 test('pausing during flight finishes accessibly; reduced motion preserves scroll',async({page})=>{

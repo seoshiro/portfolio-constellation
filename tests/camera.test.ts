@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {destination,project,rest,travel,fittedZoom} from '../src/scene/camera.ts';
+import {depths,destination,flightDuration,project,rest,travel,fittedZoom} from '../src/scene/camera.ts';
 test('The camera projects the actual target center and respects fit limits',()=>{
   const center={x:1180,y:650},target={x:960,y:450};const zoom=fittedZoom(300,360,650,550);assert.ok(zoom>=1.5&&zoom<=2.4);assert.ok(300*zoom<=650&&360*zoom<=550);
   const pose=destination(center,target,zoom);assert.deepEqual(project(center,pose),target);
@@ -11,3 +11,10 @@ test('A rapid retarget starts at the visible pose; arrival has no overshoot',()=
   const almost=travel(visible,second,velocity,1079,1080);assert.ok(Math.abs(almost.x-second.x)<.01);assert.ok(Math.abs(almost.zoom-second.zoom)<.0001);
 });
 test('Foreground and distant stars have distinct projected motion',()=>{const point={x:300,y:200},pose={x:-220,y:80,zoom:2,focus:1};const far=project(point,pose,.28),near=project(point,pose,1.12);assert.ok(Math.abs(near.x-point.x)>Math.abs(far.x-point.x));assert.ok(Math.abs(near.y-point.y)>Math.abs(far.y-point.y));});
+test('A deliberate flight starts and arrives gently while foreground parallax remains distinct',()=>{
+  const to=destination({x:950,y:190},{x:960,y:450},2.35),zero={x:0,y:0,zoom:0,focus:0};
+  const beginning=travel(rest,to,zero,10,flightDuration),ending=travel(rest,to,zero,flightDuration-10,flightDuration);
+  assert.ok(Math.abs(beginning.x-rest.x)<.02);assert.ok(Math.abs(ending.x-to.x)<.02);
+  const point={x:300,y:200},far=project(point,to,depths.far),near=project(point,to,depths.near);
+  assert.ok(Math.hypot(near.x-point.x,near.y-point.y)>Math.hypot(far.x-point.x,far.y-point.y)*4);
+});

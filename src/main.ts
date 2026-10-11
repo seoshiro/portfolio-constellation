@@ -45,7 +45,7 @@ function navigate(hash:string){history.pushState(null,'',hash||location.pathname
 document.addEventListener('click',event=>{const target=event.target as HTMLElement;const selection=target.closest<HTMLElement>('.constellation[data-select],.atlas-projects button[data-target]');if(selection&&hero){event.preventDefault();navigate(selectionHash(selection.dataset.select||selection.dataset.target!));return;}
   const explore=target.closest('[data-explore]');const atlasNav=target.closest<HTMLAnchorElement>('[data-nav="atlas"]');if(hero&&(explore||atlasNav)){event.preventDefault();navigate('#atlas');hero.scrollIntoView({behavior:allowed()?'smooth':'instant'});return;}
   if(target.closest('.map-clear')){const selected=parseHash(location.hash).selected;navigate('');if(selected)hero?.querySelector<HTMLElement>(`[data-select="${selected}"]`)?.focus({preventScroll:true});}
-  const caseLink=target.closest<HTMLAnchorElement>('[data-case]');if(caseLink)set('atlas-focus',caseLink.dataset.case!,true);
+  const caseLink=target.closest<HTMLAnchorElement>('[data-case],[data-case-image]');if(caseLink)set('atlas-focus',(caseLink.dataset.case||caseLink.dataset.caseImage)!,true);
   const close=target.closest<HTMLAnchorElement>('[data-close-case]');if(close)set('atlas-focus',close.dataset.closeCase!,true);
   const lang=target.closest<HTMLAnchorElement>('[data-locale]');if(lang)set('atlas-language',lang.dataset.locale!);
 });

@@ -1,6 +1,14 @@
 # Verification — Windows / Chrome
 
-## Current motion/typography refinement — 2026-10-10
+## Current light/motion refinement — 2026-10-11
+
+Local lint, strict TypeScript, eleven content/state/camera unit tests, build and artifact checks passed. All forty-one production Chrome scenarios passed in 2.9 minutes. The production artifact has forty static HTML routes and 105,692 uncompressed JavaScript bytes against its 125,000-byte budget.
+
+The selected-state matrix checks every featured project in RU/EN/KK at 360, 390, 768 and 1440px, including actual star/label bounds, thinner lines, removed cross spikes, enlarged image dimensions, fading background groups and card/footer separation. A touch regression opens the enlarged screenshot and verifies Escape/focus in all three languages. Existing 1920px/tablet, entry, reduced-motion, keyboard/history, no-JS, hidden/offscreen/context-loss and Axe checks remain in the same full run. All 35 external destinations responded HTTP 200 in this pass.
+
+Private before/after pixels, Chrome video, independent review, CI and exact live revision evidence are retained outside both repositories in preflight-evidence/light-motion-2026-10-11. These records distinguish browser emulation from physical-device testing. Fonts, project screenshots, project content and the 3500ms introduction are preserved. See [current behavior](MOTION.md).
+
+## Previous motion/typography refinement - 2026-10-10
 
 The final local run passed lint, strict TypeScript, ten content/state/camera unit tests, build, artifact checks and **24 production Chrome browser scenarios** (1.7 minutes). The static release has 40 HTML routes and 100,733 uncompressed JavaScript bytes against a 125,000-byte limit.
 
