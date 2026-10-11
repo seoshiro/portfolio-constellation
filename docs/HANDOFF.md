@@ -9,3 +9,10 @@ The fix changes only the handoff timing and consistent scrollbar reservation. It
 Six additional production browser regressions observe continuous visible star/line opacity, stable name position, scroll and width for timed/skipped desktop/mobile entry, a real classic scrollbar, warm-cache entry and a subsequent reload. They supplement the 41 existing scenarios. Real before/after images and videos, telemetry, exact CI/live proof and the independent audit remain private in the task's preflight-evidence/entry-handoff-2026-10-11 folder.
 
 Physical phones, Safari, weak physical GPUs and native Kazakh editorial review remain unverified. Chrome viewport/touch emulation does not claim physical-device coverage.
+
+
+## Cold-font early Skip correction
+
+The initial published observatory source f5731a2024c9f0f5c192b4bddb0b61599307c088 passed all 56 checks in source/root CI, but the complete Windows live run found one genuine cold-cache failure: 390px early Skip revealed Arial before Manrope arrived, moving the name width from 188.078125 to 198.828125px. The original 55-pass/1-failure live report, trace and pixels are retained privately. No assertion, timing bound or retry policy was weakened.
+
+The hero now installs a 2564-byte binary-backed variable subset of the existing Manrope 4.505 before entry setup. It contains exactly the name glyphs, preserves their original outlines/advances and 200–800 weight axis, and renders the same weight 525. A separate face avoids a still-loading CSS face taking priority. Binary decoding is synchronous; it does not wait on a download, change CSP, add an asset delay or change the 3500ms intro/handoff/meteor timers. The full local font and its SIL OFL 1.1 license are retained; root HTML also preloads Manrope for ordinary/no-JS fallback. Two additional 360/390px regressions deliberately hold the full font download, skip immediately, then require every visible letter to stay fixed before and after that late font completes. All prior 56 scenarios retain their assertions; the full suite now has 58. Exact CI/live outcomes remain recorded separately.

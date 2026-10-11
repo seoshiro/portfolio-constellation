@@ -74,3 +74,53 @@ test('a fresh intro with warm fonts remains stable and the next reload does not 
   expect(await page.evaluate(()=>document.fonts.check('525 100px Manrope')&&document.fonts.check('400 16px Onest'))).toBe(true);
   await page.reload();await expect(page.locator('.entry-intro')).not.toBeVisible();expect(await page.evaluate(()=>window.__atlasEntry)).toBeUndefined();
 });
+
+for(const width of [360,390])test(`${width}px cold Manrope keeps every name glyph fixed after early Skip`,async({page})=>{
+  await page.setViewportSize({width,height:844});await observe(page);
+  let release!:()=>void,requested=false,received=false;
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  await page.route('**/fonts/Manrope/Manrope.woff2',async route=>{requested=true;await gate;await route.continue();});
+  page.on('response',response=>{if(response.url().endsWith('/fonts/Manrope/Manrope.woff2'))received=true;});
+  await page.addInitScript(()=>{
+    type Glyphs={character:string;x:number;y:number;width:number;height:number}[];
+    const proof:{samples:Glyphs[];done:boolean;fullLoaded:boolean}={samples:[],done:false,fullLoaded:false};
+    (window as unknown as Window&{coldNameProof:typeof proof}).coldNameProof=proof;
+    function sample(){
+      const h=document.querySelector('.hero-intro h1'),content=document.querySelector('#site-content'),state=window.__atlasEntry;
+      if(h&&content&&state?.opened&&getComputedStyle(content).visibility==='visible'){
+        const glyphs:Glyphs=[];
+        for(const node of h.childNodes)if(node.nodeType===Node.TEXT_NODE)for(let i=0;i<node.textContent!.length;i++){
+          const range=document.createRange();range.setStart(node,i);range.setEnd(node,i+1);const box=range.getBoundingClientRect();
+          glyphs.push({character:node.textContent![i],x:box.x,y:box.y,width:box.width,height:box.height});
+        }
+        proof.samples.push(glyphs);
+      }
+      if(state?.opened&&performance.now()-state.opened>1450)proof.done=true;else requestAnimationFrame(sample);
+    }
+    requestAnimationFrame(sample);
+  });
+  try{
+    await page.goto('/',{waitUntil:'domcontentloaded'});
+    // Start the existing full CSS face while its network request is held.
+    // No font-ready wait may precede Skip or the first visible measurement.
+    await page.evaluate(()=>{void document.fonts.load('525 54px Manrope','Beibars Ileskhan').then(()=>{(window as unknown as Window&{coldNameProof:{fullLoaded:boolean}}).coldNameProof.fullLoaded=true;});});
+    expect(requested).toBe(true);expect(received).toBe(false);
+    await page.locator('.entry-skip').click();
+    await page.waitForFunction(()=>(window as unknown as Window&{coldNameProof:{samples:unknown[]}}).coldNameProof.samples.length>=6);
+    expect(received).toBe(false);release();
+    await page.waitForFunction(()=>(window as unknown as Window&{coldNameProof:{fullLoaded:boolean}}).coldNameProof.fullLoaded);
+    expect(received).toBe(true);await stable(page);
+    await page.waitForFunction(()=>(window as unknown as Window&{coldNameProof:{done:boolean}}).coldNameProof.done);
+    const samples=await page.evaluate(()=>(window as unknown as Window&{coldNameProof:{samples:{character:string;x:number;y:number;width:number;height:number}[][]}}).coldNameProof.samples);
+    expect(samples.length).toBeGreaterThan(15);expect(samples[0].map(glyph=>glyph.character).join('')).toBe('BeibarsIleskhan');
+    expect(samples.every(sample=>sample.length===samples[0].length)).toBe(true);
+    let maximumDeviation=0,worst='';
+    for(const sample of samples)for(let i=0;i<sample.length;i++)for(const key of ['x','y','width','height']as const){
+      const deviation=Math.abs(sample[i][key]-samples[0][i][key]);
+      if(deviation>maximumDeviation){maximumDeviation=deviation;worst=`glyph ${i} ${key}`;}
+    }
+    // The same <.05px bound as precision-1 toBeCloseTo, applied to every
+    // sample/glyph/axis without thousands of redundant reporter steps.
+    expect(maximumDeviation,worst).toBeLessThan(.05);
+  }finally{release();}
+});

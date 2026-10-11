@@ -6,12 +6,14 @@ import {createScene} from './scene/scene.ts';
 import {createEntry} from './entry.ts';
 import {createObservatory} from './ui/observatory.ts';
 import {createDemoMedia} from './ui/demo-media.ts';
+import {installNameFont} from './ui/name-font.ts';
 import './style.css';
 import './motion.css';
 import './entry.css';
 import './observatory.css';
 const locale=document.documentElement.lang as Locale,c=copy[locale];
 const id=document.body.dataset.project||null;
+installNameFont();
 const localePath=(l:Locale)=>id?caseHref(id,l):rootHref(l)+(location.pathname.endsWith('credits.html')?'credits.html':'');
 
 const get=(key:string,session=false)=>{try{return (session?sessionStorage:localStorage).getItem(key);}catch{return null;}};
