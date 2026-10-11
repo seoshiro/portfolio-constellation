@@ -32,7 +32,14 @@ test('every hover card uses real imagery, stays within viewport and avoids neigh
 });
 
 test('rapid hover and project switches never accumulate cards and touch restores native cursor',async({page})=>{
-  await page.goto('/');for(let i=0;i<12;i++)await page.locator(`[data-select="${i%2?'iter':'orbit'}"]`).hover();await expect(page.locator('.observatory-preview')).toHaveCount(1);await expect(page.locator('.constellation.observing')).toHaveCount(1);
+  await page.goto('/');await page.evaluate(()=>document.fonts.ready);await expect(page.locator('.hero')).toHaveAttribute('data-camera','idle');await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
+  // Locator.hover can issue its own scroll-to-center during each movement.
+  // This scenario isolates a genuine rapid mouse burst; scroll dismissal is
+  // verified separately. The final hit-test proves the mouse stayed on ITER.
+  const centers=await Promise.all(['orbit','iter'].map(async id=>{const b=(await page.locator(`[data-select="${id}"]`).boundingBox())!;return{x:b.x+b.width/2,y:b.y+b.height/2};}));
+  for(let i=0;i<12;i++)await page.mouse.move(centers[i%2].x,centers[i%2].y);
+  expect(await page.evaluate(({x,y})=>document.elementFromPoint(x,y)?.closest('.constellation')?.getAttribute('data-select'),centers[1])).toBe('iter');
+  await expect(page.locator('.observatory-preview')).toHaveCount(1);await expect(page.locator('.constellation.observing')).toHaveCount(1);await expect(page.locator('.constellation.observing')).toHaveAttribute('data-select','iter');await expect(page.locator('.observatory-preview')).toBeVisible();await expect(page.locator('.observatory-preview')).toHaveAttribute('data-project','iter');
   await page.locator('[data-select="orbit"]').click();await expect(page.locator('.observatory-preview')).not.toBeVisible();await page.locator('[data-target="iter"]').click();await expect(page).toHaveURL(/#atlas\/iter$/);
   await expect(page.locator('.hero')).toHaveAttribute('data-camera','idle');
   await page.keyboard.press('Escape');await expect(page.locator('.hero')).toHaveClass(/camera-flight/);await page.keyboard.press('Tab');await page.locator('[data-select="sidereal"]').focus();await expect(page.locator('.observatory-preview')).toBeVisible();await expect(page.locator('.observatory-preview')).toHaveAttribute('data-project','sidereal');
