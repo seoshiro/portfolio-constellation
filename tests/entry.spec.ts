@@ -123,4 +123,6 @@ test('a cached page resumed after leaving mid-intro reveals its scene without re
   await opened(page);await expect(page.locator('.entry-intro')).not.toBeVisible();await expect(page.locator('#site-content')).not.toHaveAttribute('inert');
   await page.waitForSelector('.meteor',{timeout:5000});await page.locator('[data-select="orbit"]').click();await expect(page.locator('.hero')).toHaveAttribute('data-camera','moving');await expect(page.locator('.hero')).toHaveAttribute('data-camera','idle');
   await expect(page.locator('.project-preview h2')).toHaveText('ORBIT');
+  expect(await page.evaluate(()=>sessionStorage.getItem('atlas-entry-seen'))).toBe('1');
+  await page.locator('.project-preview [data-case]').click();await expect(page).toHaveURL(/projects\/orbit.html$/);await absent(page);await page.reload();await absent(page);
 });
