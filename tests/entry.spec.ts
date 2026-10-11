@@ -5,14 +5,13 @@ test.use({reducedMotion:'no-preference'});
 const opened=async(page:Page)=>expect(page.locator('html')).not.toHaveClass(/intro-pending/,{timeout:6500});
 const absent=async(page:Page)=>{await expect(page.locator('.entry-intro')).not.toBeVisible();expect(await page.evaluate(()=>!!window.__atlasEntry)).toBe(false);};
 
-test('first entry lasts 3.5s, releases focus and starts the first visible meteor afterwards',async({page})=>{
+test('first entry lasts 3.5s, releases focus and starts the first visible meteor afterwards',async({page,browser})=>{
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('/');await expect(page.locator('.entry-intro')).toBeVisible();
   await expect(page.locator('#site-content')).toHaveAttribute('inert');
   await expect(page.locator('.entry-skip')).toBeFocused();
   await page.keyboard.press('Tab');await expect(page.locator('.entry-skip')).toBeFocused();
   await expect(page.locator('.meteor')).toHaveCount(0);
-  const axe=await new AxeBuilder({page:page as unknown as ConstructorParameters<typeof AxeBuilder>[0]['page']}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(axe.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))).toEqual([]);
   await opened(page);
   const timing=await page.evaluate(()=>window.__atlasEntry!.opened-window.__atlasEntry!.started);
   expect(timing).toBeGreaterThanOrEqual(3450);expect(timing).toBeLessThan(4200);
@@ -23,6 +22,15 @@ test('first entry lasts 3.5s, releases focus and starts the first visible meteor
     const observer=new MutationObserver(()=>{if(hero.querySelector('.meteor')){observer.disconnect();resolve(performance.now()-window.__atlasEntry!.opened);}});
     observer.observe(hero,{subtree:true,childList:true});
   }));expect(delay).toBeGreaterThanOrEqual(2250);expect(delay).toBeLessThan(4000);expect(errors).toEqual([]);
+  // Axe walks the entire DOM synchronously. Run it in a separate first-entry
+  // context so its CPU work cannot postpone the deadline being measured above.
+  const accessible=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
+  try{
+    const entryPage=await accessible.newPage();await entryPage.goto(new URL('/en/projects/iter.html',page.url()).href);
+    await expect(entryPage.locator('.entry-intro')).toBeVisible();
+    const axe=await new AxeBuilder({page:entryPage as unknown as ConstructorParameters<typeof AxeBuilder>[0]['page']}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(axe.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))).toEqual([]);
+    await expect(entryPage.locator('.entry-intro')).toBeVisible();
+  }finally{await accessible.close();}
 });
 
 for(const width of [360,390])test(`entry is composed for ${width}px touch screens`,async({page})=>{
