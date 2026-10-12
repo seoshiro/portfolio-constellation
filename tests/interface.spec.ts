@@ -51,8 +51,10 @@ test('audio request/unsupported context failures fall back to silent useful navi
 
 test('a stale visibility resume rejection cannot override a newer explicit sound choice',async({page})=>{
  await observeAudio(page);await page.goto('/');await soundToggle(page);await expect.poll(async()=>(await audioState(page)).loops).toBe(1);await emulateHidden(page,true);
- await page.evaluate(()=>{const context=window.__audio.contexts[0],resume=context.resume.bind(context);context.resume=()=>{context.resume=resume;return new Promise((_,reject)=>setTimeout(()=>reject(new Error('Old resume rejected')),300));};});
- await emulateHidden(page,false);await soundToggle(page);await soundToggle(page);await page.waitForTimeout(500);await expect(page.locator('body')).toHaveAttribute('data-sound','on');await expect(page.locator('.sound-status')).toHaveText('');expect((await audioState(page)).state).toBe('running');expect((await audioState(page)).loops).toBe(1);
+ // Hold the old response until the newer choice is established. A wall-clock
+ // rejection can beat Playwright's clicks on a slow runner and test a different order.
+ await page.evaluate(()=>{const context=window.__audio.contexts[0],resume=context.resume.bind(context);context.resume=()=>{context.resume=resume;return new Promise((_,reject)=>window.addEventListener('reject-stale-resume',()=>reject(new Error('Old resume rejected')),{once:true}));};});
+ await emulateHidden(page,false);await page.waitForTimeout(600);await expect(page.locator('body')).toHaveAttribute('data-sound','on');await soundToggle(page);await soundToggle(page);await expect.poll(async()=>(await audioState(page)).state).toBe('running');await page.evaluate(async()=>{dispatchEvent(new Event('reject-stale-resume'));await Promise.resolve();await Promise.resolve();});await expect(page.locator('body')).toHaveAttribute('data-sound','on');await expect(page.locator('.sound-status')).toHaveText('');expect((await audioState(page)).state).toBe('running');expect((await audioState(page)).loops).toBe(1);
 });
 
 test('disposing during a real score decode leaves the context closed and cannot restart a loop',async({page})=>{
