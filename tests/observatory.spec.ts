@@ -42,6 +42,8 @@ test('rapid hover and project switches never accumulate cards and touch restores
   await expect(page.locator('.observatory-preview')).toHaveCount(1);await expect(page.locator('.constellation.observing')).toHaveCount(1);await expect(page.locator('.constellation.observing')).toHaveAttribute('data-select','iter');await expect(page.locator('.observatory-preview')).toBeVisible();await expect(page.locator('.observatory-preview')).toHaveAttribute('data-project','iter');
   await page.locator('[data-select="orbit"]').click();await expect(page.locator('.observatory-preview')).not.toBeVisible();await page.locator('[data-target="iter"]').click();await expect(page).toHaveURL(/#atlas\/iter$/);
   await expect(page.locator('.hero')).toHaveAttribute('data-camera','idle');
+  // Keep the real mouse outside the moving map during keyboard/touch checks.
+  await page.mouse.move(8,8);
   await page.keyboard.press('Escape');await expect(page.locator('.hero')).toHaveClass(/camera-flight/);await page.keyboard.press('Tab');await page.locator('[data-select="sidereal"]').focus();await expect(page.locator('.observatory-preview')).toBeVisible();await expect(page.locator('.observatory-preview')).toHaveAttribute('data-project','sidereal');
   await page.locator('[data-select="sidereal"]').dispatchEvent('pointerdown',{pointerType:'touch',clientX:500,clientY:200});await expect(page.locator('.observatory-preview')).not.toBeVisible();await expect(page.locator('html')).not.toHaveClass(/cursor-active/);
 });
