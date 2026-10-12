@@ -1,0 +1,24 @@
+@view-transition{navigation:auto}
+.case-cover img{view-transition-name:case-media}
+.case-summary>.sr-only,.case-io .sr-only,.case-decisions .sr-only,.case-details .sr-only{user-select:none}
+::view-transition{pointer-events:none}
+::view-transition-group(root){animation-duration:180ms}
+::view-transition-group(case-media){animation-duration:500ms;animation-timing-function:cubic-bezier(.16,1,.3,1)}
+::view-transition-old(case-media),::view-transition-new(case-media){height:100%;object-fit:contain;animation-duration:500ms}
+.project-visual>img,.project-visual>.project-video{transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) scale(var(--preview-scale,1));transform-origin:center;transition:transform 450ms cubic-bezier(.16,1,.3,1);object-fit:contain}
+.project-visual:hover>img{transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) scale(var(--preview-scale,1))}
+.project-heading h3 a{position:relative;transition:color 220ms}.project-heading h3 a:after{content:'';position:absolute;left:0;right:0;bottom:-5px;height:1px;background:var(--warm);scale:0 1;transform-origin:left;transition:scale 300ms ease-out}
+.project-arrow{transition:translate 300ms ease-out}.project:focus-within .project-heading h3 a{color:#fff5e4}.project:focus-within .project-heading h3 a:after{scale:1 1}.project:focus-within .project-arrow{translate:3px -3px}
+@media(hover:hover) and (pointer:fine){.project:has(a:hover) .project-visual{--preview-scale:1.025}.project:has(a:hover) .project-heading h3 a{color:#fff5e4}.project:has(a:hover) .project-heading h3 a:after{scale:1 1}.project:has(a:hover) .project-arrow{translate:3px -3px}}
+.case-summary{position:relative}.case-glyph{opacity:1}.typing-indicator{position:absolute;right:0;bottom:-9px;width:5px;height:5px;background:var(--warm);border-radius:50%;opacity:0;pointer-events:none}
+.case-arrival .case-hero{animation:case-title 180ms ease-out both}
+.case-shared .case-hero{animation:none}
+.case-arrival .case-intro h1{animation:case-title 350ms ease-out both;animation-delay:var(--case-delay,0ms)}
+.case-arrival .case-glyph{animation:case-letter 150ms ease-out both;animation-delay:calc(var(--case-delay,0ms) + var(--letter)*1650ms/max(1,var(--letters) - 1))}
+.case-arrival .typing-indicator{animation:typing-indicator 1800ms ease-out both;animation-delay:var(--case-delay,0ms)}
+.intro-pending .case-intro h1,.intro-pending .case-glyph,.intro-pending .typing-indicator{animation-play-state:paused}
+@keyframes case-title{from{opacity:0}to{opacity:1}}
+@keyframes case-letter{from{opacity:0}to{opacity:1}}
+@keyframes typing-indicator{0%,90%{opacity:.7}100%{opacity:0}}
+.reduced .case-cover img{view-transition-name:none}.reduced .project-visual>img,.reduced .project-visual>.project-video{transform:none!important}.reduced .case-glyph,.reduced .case-intro h1{animation:none!important;opacity:1}.reduced .typing-indicator{animation:none!important;opacity:0}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}.project-visual>img,.project-visual>.project-video{transform:none!important}.case-glyph,.case-intro h1{animation:none!important;opacity:1}.typing-indicator{animation:none!important;opacity:0}}

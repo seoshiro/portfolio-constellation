@@ -18,6 +18,8 @@ Original SHA a06ece34d9a084d529cfa406f22b0436a746ae98 is preserved at [archive/p
 
 For an application regression, pin the last verified constellation SHA through a normal root commit and confirm CI plus version.json.
 
+The catalogue/case motion refinement can be rolled back to source `2e3a2f5c4b6f467ca98ef02fef631eae0cdc9f5b`, previously published by root `84f737be1909f2f26083e0ea2c47371202671472`. It preserves the prior navigation, original opt-in music, fonts and angular cursor. See [catalogue and case motion](CATALOGUE-MOTION.md).
+
 The integrated navigation/audio refinement can be rolled back to source `0a60cdfd24796cb97da616c00b5900776ada6806`, previously published by root `a0d488f4ee88b852e119122fb067f3d1fc2e3953`. That revision preserves the audited open-corner cursor and prior observatory/intro corrections. See [navigation, audio and verification](ATMOSPHERE.md).
 
 The observatory refinement can be rolled back to source `0ee178b95b28f400e99a55b10a9c3b5a3e49ac69`, previously published by root `e9d90d947331e9a5b7b5af857e64fa9bf23aa7ed`. That release preserves the verified introduction/handoff and earlier light/camera refinements. Set both source pin fields to that exact SHA in a normal commit and repeat CI/live verification.

@@ -16,6 +16,8 @@ Node 24, pinned dependencies/actions, local fonts/assets. No backend, analytics 
 
 The [integrated navigation and original atmosphere](docs/ATMOSPHERE.md) adds a 70px sticky desktop header, a native mobile menu, an explicit opt-in CC0 instrumental loop with six quiet project motifs, title-row catalogue geometries and three truthful About examples with actual image fragments. Sound and motion remain independent; first arrival is silent. Fifteen added browser regressions bring the full suite to 77; actual PCM verification brings unit tests to 12. Private browser recordings include the actual application sound; physical headphone/speaker listening remains unavailable.
 
+The [catalogue and case motion refinement](docs/CATALOGUE-MOTION.md) adds finite card reveals, restrained media hover, native image transitions, layout-stable grapheme typing and exact catalogue return. Twelve added regressions bring the full browser suite to 89. Motion remains optional; full static copy stays accessible. Private continuous browser video records the actual open/return transition.
+
 ```sh
 npm ci --ignore-scripts
 npm run dev

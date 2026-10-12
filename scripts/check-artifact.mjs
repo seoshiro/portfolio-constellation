@@ -4,6 +4,7 @@ const walk=async dir=>(await Promise.all((await readdir(dir)).map(async name=>{c
 const files=await walk('dist');const html=files.filter(p=>p.endsWith('.html'));const issues=[];
 for(const path of html){const text=await readFile(path,'utf8');for(const [,url]of text.matchAll(/(?:href|src)="([^"]+)"/g)){if(!url.startsWith('/')||url.startsWith('//'))continue;let target=url.split('#')[0].split('?')[0];if(target.endsWith('/'))target+='index.html';try{await stat('dist'+target);}catch{issues.push({path,url,reason:'Missing internal artifact'});}}
  if(!text.includes('Content-Security-Policy')||!text.includes('portfolio-build'))issues.push({path,reason:'Missing release/security metadata'});
+ if(text.includes('id="atlas"'))for(const id of ['sidereal','orbit','iter','ayqyn','forme','perch'])if(!text.includes(`<template id="preview-${id}">`))issues.push({path,reason:'Missing static preview template',id});
  if(/<script(?![^>]+src=)/.test(text)||/https?:\/\/[^"'<>\s]+\.(?:js|css)/.test(text))issues.push({path,reason:'Inline or remote executable code'});
  if(text.includes('AURA')||text.includes('�'))issues.push({path,reason:'Excluded content or encoding failure'});
 }
