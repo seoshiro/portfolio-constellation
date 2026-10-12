@@ -1,0 +1,13 @@
+# Observatory reticle - 2026-10-12
+
+The owner requested a different cursor silhouette. Only its appearance and finite movement change from source 3493fbb: a precise 3px light dot and four open fine corners replace the star and circular ring. The 22px frame opens to 30px on links; modest 38ms easing never leaves it more than 6px from the exact point. A small 220ms corner echo replaces the large circular click wave. The cursor's HUD caption is visually hidden; its localized internal state and the actual localized project-card actions remain.
+
+Native text selection/I-beam, touch without a custom pointer, keyboard focus, intro, pointer leave, window blur and screen edges are retained or explicitly covered. The fixed layer cannot receive pointer events or expand the page's scroll width. Reduced motion has no frame inertia, transitions or click echo. Cursor and contact settling terminate when idle; contact keeps its existing 65ms easing and geometry.
+
+Manrope/Onest and the exact synchronous name subset, 3500ms intro/handoff, scene, project data, catalogue, contacts and both existing public SIDEREAL/ORBIT demos are preserved. No other project source is edited. CSS preservation compares every noncursor rule/selector/declaration against 3493fbb; other modules and public files retain their exact tracked content.
+
+Four new cursor regressions supplement the prior 58 scenarios, with their timing/assertion bounds and retry policy intact. The targeted Windows/live set covers 21 cursor/observatory/handoff scenarios; the existing source/root CI runs the full 62. Final outcomes and exact SHAs are recorded in the publisher release record and private preflight evidence, rather than being assumed before completion.
+
+Actual before/after frames and a short recording are private under preflight-evidence/cursor-reticle-2026-10-12. The initial before-capture helper accidentally pressed a real project hit area and then attempted to hover its correctly hidden hero description; its partial evidence is retained and is not an application failure. Final after capture uses unlinked header space for press. Native physical phones, Safari and hardware window-focus testing are unavailable; Chrome touch and blur/leave handler observations are identified as emulation. The earlier unavailable Library upload helper is not bypassed.
+
+The focused audit reproduced an inherited text-selection latch when the button was released in another document, leaving the original document without pointerup. Mousemove now reconciles selecting only when buttons===0, preserving held-button drags and selected text. A real two-document CDP-input regression covers this return; no native hardware OS-blur claim is made.

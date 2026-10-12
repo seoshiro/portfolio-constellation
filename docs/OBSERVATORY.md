@@ -3,17 +3,21 @@
 The existing composition, Manrope/Onest typography, six project drawings,
 eleven truthful cases and 3500 ms entry/handoff remain the baseline.
 
-On a primary fine mouse pointer, a seven-pixel four-ray star tracks the exact
-pointer position. A 26-pixel gold ring eases towards it and widens over links.
-The localized caption distinguishes exploring a constellation from opening
-a real preview. Text selection uses the native I-beam; touch, keyboard and
-the introduction retain native interaction. Click impulses and ring lag
-respect the motion preference. No persistent animation loop is added.
+On a primary fine mouse pointer, an exact three-pixel light dot sits inside
+four fine open corner strokes. The frame is 22px normally and 30px on links,
+with 180ms opening; its 38ms easing is capped at 6px displacement, including
+between pointer events and RAF. The cursor has no visible HUD label. Real
+localized card actions remain. Text selection uses the native I-beam; touch,
+keyboard and introduction retain native interaction. A 220ms corner echo
+finishes after clicking. Reduced motion snaps the frame and disables the
+echo/transitions. Window blur and pointer leave restore the native cursor.
+The viewport clips the decorative corners without moving the exact dot.
+No persistent animation loop is added. See [cursor-only refinement](CURSOR.md).
 
 Hover or keyboard focus highlights one constellation, pulses its lines once
 for 420 ms and shows an actual static screenshot with a localized action.
 A single tooltip searches unoccupied viewport boundaries, including its own
-drawing, neighbouring groups, name, header, footer and cursor caption. It
+drawing, neighbouring groups, name, header and footer. It
 fades in/out over 160 ms; rapid changes reuse the same element. If a narrow
 viewport has no clear rectangle, the thumbnail stays hidden while the
 highlight, native focus outline, title and ordinary case link remain usable.
@@ -21,7 +25,7 @@ highlight, native focus outline, title and ordinary case link remain usable.
 The catalogue miniatures read exactly the same points and edges as the map.
 SIDEREAL leads with a wide desktop row; the remaining five cards retain their
 grid and the mobile catalogue stacks naturally. One shared SVG star marks
-the name, section accents, pointer and contact. The contact outline reveals
+the name, section accents and contact. The contact outline reveals
 on entry and follows the mouse by at most four pixels and 4.5 degrees.
 Reduced motion keeps it static and already drawn.
 

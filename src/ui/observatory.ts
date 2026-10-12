@@ -1,24 +1,32 @@
 import {observatoryCopy} from '../data/observatory-copy.ts';
 import type {Locale} from '../data/projects.ts';
-import {starMark} from './star.ts';
 
 export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
   const copy=observatoryCopy[locale],controller=new AbortController(),options={signal:controller.signal};
   const fine=matchMedia('(hover: hover) and (pointer: fine)'),root=document.documentElement;
   const cursor=document.createElement('div');cursor.className='atlas-cursor';cursor.setAttribute('aria-hidden','true');
-  cursor.innerHTML=`<span class="cursor-core">${starMark}</span><span class="cursor-ring"></span><span class="cursor-impulse"></span><span class="cursor-caption"></span>`;
+  const corners='<svg viewBox="-15 -15 30 30" aria-hidden="true"><path d="M-8-14H-14V-8"/><path d="M8-14H14V-8"/><path d="M14 8V14H8"/><path d="M-8 14H-14V8"/></svg>';
+  cursor.innerHTML=`<span class="cursor-core"></span><span class="cursor-frame">${corners}</span><span class="cursor-impulse">${corners}</span><span class="cursor-caption"></span>`;
   const tip=document.createElement('div');tip.className='observatory-preview';tip.setAttribute('aria-hidden','true');tip.hidden=true;
   document.body.append(cursor,tip);
-  const core=cursor.querySelector<HTMLElement>('.cursor-core')!,ring=cursor.querySelector<HTMLElement>('.cursor-ring')!,caption=cursor.querySelector<HTMLElement>('.cursor-caption')!,impulse=cursor.querySelector<HTMLElement>('.cursor-impulse')!;
+  const core=cursor.querySelector<HTMLElement>('.cursor-core')!,reticle=cursor.querySelector<HTMLElement>('.cursor-frame')!,caption=cursor.querySelector<HTMLElement>('.cursor-caption')!,impulse=cursor.querySelector<HTMLElement>('.cursor-impulse')!;
   const contact=document.querySelector<HTMLElement>('.contact'),contactStar=contact?.querySelector<HTMLElement>('.contact-star');
   let frame=0,fade=0,last=0,x=0,y=0,rx=0,ry=0,active=false,keyboard=false,selecting=false,contactVisible=false;
   let sx=0,sy=0,sa=0,tx=0,ty=0,ta=0,observing:HTMLElement|null=null;
   const request=()=>{if(!frame&&!document.hidden)frame=requestAnimationFrame(draw);};
+  function placeReticle(){
+    // A precise dot is authoritative. The decorative frame can trail by at
+    // most six pixels, including between pointer events and the next RAF.
+    if(!motionAllowed()){rx=x;ry=y;}
+    const distance=Math.hypot(x-rx,y-ry);
+    if(distance>6){rx=x-(x-rx)*6/distance;ry=y-(y-ry)*6/distance;}
+    reticle.style.transform=`translate(${rx}px,${ry}px)`;
+  }
   function draw(time:number){
     frame=0;const dt=last?Math.min(64,time-last):16;last=time;
-    const smooth=motionAllowed()?1-Math.exp(-dt/65):1;
-    rx+=(x-rx)*smooth;ry+=(y-ry)*smooth;sx+=(tx-sx)*smooth;sy+=(ty-sy)*smooth;sa+=(ta-sa)*smooth;
-    ring.style.transform=`translate(${rx}px,${ry}px)`;
+    const smooth=motionAllowed()?1-Math.exp(-dt/65):1,cursorSmooth=motionAllowed()?1-Math.exp(-dt/38):1;
+    rx+=(x-rx)*cursorSmooth;ry+=(y-ry)*cursorSmooth;sx+=(tx-sx)*smooth;sy+=(ty-sy)*smooth;sa+=(ta-sa)*smooth;
+    placeReticle();
     contactStar?.style.setProperty('--star-x',sx.toFixed(2)+'px');contactStar?.style.setProperty('--star-y',sy.toFixed(2)+'px');contactStar?.style.setProperty('--star-turn',sa.toFixed(2)+'deg');
     const settling=(active?Math.abs(x-rx)+Math.abs(y-ry):0)+Math.abs(tx-sx)+Math.abs(ty-sy)+Math.abs(ta-sa);
     if(settling>.15)request();else last=0;
@@ -54,7 +62,7 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
   function move(event:PointerEvent){
     if(root.classList.contains('intro-pending')){hideCursor();hideTip();return;}
     if(event.pointerType!=='mouse'||!fine.matches){hideCursor();if(!keyboard)hideTip();return;}
-    keyboard=false;x=event.clientX;y=event.clientY;const target=event.target as HTMLElement;
+    keyboard=false;if(selecting&&event.buttons===0)selecting=false;x=event.clientX;y=event.clientY;const target=event.target as HTMLElement;
     const text=target.closest('input,textarea,[contenteditable="true"],p,h1,h2,h3,figcaption,.project-summary,.case-context');
     const link=target.closest<HTMLElement>('a,button,summary,[role="button"]');
     const isText=selecting||!!text&&!link;
@@ -63,6 +71,7 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
     else{
       if(!active){rx=x;ry=y;}active=true;root.classList.add('cursor-active');cursor.classList.add('is-visible');cursor.classList.toggle('is-link',!!link);
       core.style.transform=`translate(${x}px,${y}px)`;
+      placeReticle();
       const map=target.closest<HTMLElement>('.constellation');caption.textContent=map?copy.explore:target.closest('.project-preview a,.project-visual')?copy.open:'';
       caption.style.transform=`translate(${Math.min(x+22,innerWidth-124)}px,${Math.max(12,Math.min(y+18,innerHeight-30))}px)`;
       showTip(map);if(observing)placeTip(observing);
@@ -72,10 +81,11 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
   }
   document.addEventListener('pointermove',move,{...options,passive:true});
   document.addEventListener('pointerout',event=>{if(!event.relatedTarget){hideCursor();hideTip();tx=ty=ta=0;request();}},options);
-  document.addEventListener('pointerdown',event=>{keyboard=false;if(event.pointerType!=='mouse'){hideCursor();hideTip();return;}if(!active)return;cursor.classList.add('is-down');if(motionAllowed()){impulse.style.left=(event.clientX-13)+'px';impulse.style.top=(event.clientY-13)+'px';cursor.classList.remove('is-pulsing');void cursor.offsetWidth;cursor.classList.add('is-pulsing');}},options);
+  document.addEventListener('pointerdown',event=>{keyboard=false;if(event.pointerType!=='mouse'){hideCursor();hideTip();return;}if(!active)return;cursor.classList.add('is-down');if(motionAllowed()){impulse.style.left=(event.clientX-10)+'px';impulse.style.top=(event.clientY-10)+'px';cursor.classList.remove('is-pulsing');void cursor.offsetWidth;cursor.classList.add('is-pulsing');}},options);
   document.addEventListener('pointerup',()=>{selecting=false;cursor.classList.remove('is-down');},options);
   document.addEventListener('selectstart',()=>{selecting=true;hideCursor();root.classList.add('cursor-text');hideTip();},options);
   document.addEventListener('keydown',event=>{keyboard=true;hideCursor();if(event.key==='Escape')hideTip();},options);
+  window.addEventListener('blur',hideCursor,options);
   document.addEventListener('focusin',event=>{if(keyboard)showTip((event.target as HTMLElement).closest('.constellation'));},options);
   document.addEventListener('focusout',()=>{if(keyboard)hideTip();},options);
   const hero=document.querySelector<HTMLElement>('.hero');

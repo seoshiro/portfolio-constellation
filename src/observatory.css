@@ -22,18 +22,21 @@
 .project:has(a:hover) .catalog-constellation line,.project:focus-within .catalog-constellation line{opacity:1}
 .project-featured{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);align-items:center;gap:52px;padding-bottom:38px;border-bottom:1px solid var(--line)}
 .project-featured .project-heading{margin-top:0}.project-featured .project-heading h3{font-size:clamp(32px,3.2vw,54px)}.project-featured .project-summary{font-size:18px;line-height:1.65}.project-featured .project-visual img{aspect-ratio:1.85}
-.atlas-cursor{position:fixed;inset:0;z-index:110;pointer-events:none;visibility:hidden}.atlas-cursor.is-visible{visibility:visible}
-.cursor-core,.cursor-ring,.cursor-impulse,.cursor-caption{position:absolute;left:0;top:0;pointer-events:none}.cursor-core{width:7px;height:7px;margin:-3.5px;z-index:2}.cursor-core svg{display:block;width:100%;height:100%;overflow:visible}.cursor-core path{fill:#fff6df;stroke:#06080b;stroke-width:1;vector-effect:non-scaling-stroke;paint-order:stroke fill}
-.cursor-ring{width:26px;height:26px;margin:-13px;border:1px solid #edc99aa8;border-radius:50%;transition:width .16s,height .16s,margin .16s,border-color .16s,box-shadow .16s}
-.is-link .cursor-ring{width:36px;height:36px;margin:-18px;border-color:#ffe0ad;box-shadow:0 0 9px #edc99a22}.is-down .cursor-ring{width:22px;height:22px;margin:-11px}
-.cursor-caption{font-size:11px;line-height:1.3;letter-spacing:.04em;color:#fff0d6;background:#06080bdd;padding:4px 6px;border:1px solid #edc99a38;white-space:nowrap}.cursor-caption:empty{display:none}
-.cursor-impulse{width:26px;height:26px;border:1px solid #edc99a;border-radius:50%;opacity:0}.is-pulsing .cursor-impulse{animation:cursor-impulse .42s ease-out both}
-@keyframes cursor-impulse{from{opacity:.65;scale:.7}to{opacity:0;scale:2.4}}
+.atlas-cursor{position:fixed;inset:0;z-index:110;overflow:hidden;pointer-events:none;visibility:hidden}.atlas-cursor.is-visible{visibility:visible}
+.cursor-core,.cursor-frame,.cursor-impulse,.cursor-caption{position:absolute;left:0;top:0;pointer-events:none}.cursor-core{width:3px;height:3px;margin:-1.5px;z-index:2;border-radius:50%;background:#fff9ec;box-shadow:0 0 0 1px #06080b99}
+.cursor-frame{width:22px;height:22px;margin:-11px;opacity:.55;transition:width .18s cubic-bezier(.2,.6,.2,1),height .18s cubic-bezier(.2,.6,.2,1),margin .18s cubic-bezier(.2,.6,.2,1),opacity .18s ease-out}
+.cursor-frame svg,.cursor-impulse svg{display:block;width:100%;height:100%}.cursor-frame path,.cursor-impulse path{fill:none;stroke:#e7e0ce;stroke-width:1;vector-effect:non-scaling-stroke;stroke-linecap:butt}
+.is-link .cursor-frame{width:30px;height:30px;margin:-15px;opacity:.84}.is-down .cursor-frame{width:18px;height:18px;margin:-9px}
+/* Keep localized action state for existing interaction consumers; the new
+   silhouette deliberately has no visible HUD label. Real card actions stay. */
+.cursor-caption{display:none}
+.cursor-impulse{width:20px;height:20px;opacity:0}.is-pulsing .cursor-impulse{animation:cursor-impulse .22s ease-out both}
+@keyframes cursor-impulse{from{opacity:.28;scale:.9}to{opacity:0;scale:1.35}}
 @media(hover:hover) and (pointer:fine){.cursor-active,.cursor-active *{cursor:none!important}.cursor-text,.cursor-text *{cursor:text!important}}
 @media(max-width:800px){.project-featured{gap:25px;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.project-featured .project-summary{font-size:15px}.catalog-constellation{width:60px;height:60px;top:12px;right:12px}.contact-star{width:200px;height:200px}}
 @media(max-width:600px){.project-featured{display:block;padding-bottom:28px}.project-featured .project-heading{margin-top:24px}.project-featured .project-heading h3{font-size:30px}.project-featured .project-summary{font-size:16px}}
-.reduced .constellation.observing .light-pulse,.reduced .is-pulsing .cursor-impulse{animation:none}.reduced .cursor-ring,.reduced .contact-star path,.reduced .constellation .connections,.reduced .constellation .halo,.reduced .constellation .core,.reduced .constellation .constellation-label,.reduced .catalog-constellation{transition:none}
+.reduced .constellation.observing .light-pulse,.reduced .is-pulsing .cursor-impulse{animation:none}.reduced .cursor-frame,.reduced .contact-star path,.reduced .constellation .connections,.reduced .constellation .halo,.reduced .constellation .core,.reduced .constellation .constellation-label,.reduced .catalog-constellation{transition:none}
 .reduced .observatory-preview{transition:none}.reduced .contact-star{transform:none}.reduced .contact-star path{stroke-dashoffset:0;opacity:1}
-@media(prefers-reduced-motion:reduce){.constellation.observing .light-pulse,.is-pulsing .cursor-impulse{animation:none!important}.cursor-ring,.contact-star path,.catalog-constellation{transition:none}.contact-star{transform:none}.enhanced .contact-star path{stroke-dashoffset:0;opacity:1}}
+@media(prefers-reduced-motion:reduce){.constellation.observing .light-pulse,.is-pulsing .cursor-impulse{animation:none!important}.cursor-frame,.contact-star path,.catalog-constellation{transition:none}.contact-star{transform:none}.enhanced .contact-star path{stroke-dashoffset:0;opacity:1}}
 
 .project-visual,.preview-image{position:relative}.project-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;pointer-events:none}.demo-playing>.project-video{opacity:1}.demo-playing>img{visibility:hidden}

@@ -1,9 +1,9 @@
 import {test,expect,type Page} from '@playwright/test';
 test.use({reducedMotion:'no-preference'});
 test.beforeEach(async({page})=>{await page.addInitScript(()=>sessionStorage.setItem('atlas-entry-seen','1'));});
-const points=async(page:Page)=>page.evaluate(()=>{const core=document.querySelector('.cursor-core')!.getBoundingClientRect(),ring=document.querySelector('.cursor-ring')!.getBoundingClientRect();return{core:[core.x+core.width/2,core.y+core.height/2],ring:[ring.x+ring.width/2,ring.y+ring.height/2]};});
+const points=async(page:Page)=>page.evaluate(()=>{const core=document.querySelector('.cursor-core')!.getBoundingClientRect(),ring=document.querySelector('.cursor-frame')!.getBoundingClientRect();return{core:[core.x+core.width/2,core.y+core.height/2],ring:[ring.x+ring.width/2,ring.y+ring.height/2]};});
 
-test('cursor stays native during first entry and becomes precise with bounded ring lag',async({page})=>{
+test('cursor stays native during first entry and becomes precise with bounded reticle lag',async({page})=>{
   await page.addInitScript(()=>sessionStorage.removeItem('atlas-entry-seen'));await page.goto('/');
   await page.mouse.move(1300,800);await expect(page.locator('html')).not.toHaveClass(/cursor-active/);await expect(page.locator('.atlas-cursor')).not.toBeVisible();
   await page.locator('.entry-skip').click();await expect(page.locator('html')).not.toHaveClass(/intro-pending/);
@@ -48,7 +48,7 @@ test('rapid hover and project switches never accumulate cards and touch restores
 
 test('cursor captions and card actions are localized in RU EN KK',async({page})=>{
   for(const [locale,explore,open]of [['ru','Исследовать','Открыть'],['en','Explore','Open'],['kk','Зерттеу','Ашу']]){
-    await page.goto(`/${locale==='ru'?'':locale+'/'}?lang=${locale}`);await page.locator('[data-select="sidereal"]').hover();await expect(page.locator('.cursor-caption')).toHaveText(explore);await page.locator('[data-select="sidereal"]').click();await expect(page.locator('.project-preview')).toBeVisible();await page.waitForTimeout(1500);await page.locator('.preview-image').hover();await expect(page.locator('.cursor-caption')).toHaveText(open);
+    await page.goto(`/${locale==='ru'?'':locale+'/'}?lang=${locale}`);await page.locator('[data-select="sidereal"]').hover();await expect(page.locator('.cursor-caption')).toHaveText(explore);await expect(page.locator('.cursor-caption')).not.toBeVisible();await page.locator('[data-select="sidereal"]').click();await expect(page.locator('.project-preview')).toBeVisible();await page.waitForTimeout(1500);await page.locator('.preview-image').hover();await expect(page.locator('.cursor-caption')).toHaveText(open);await expect(page.locator('.cursor-caption')).not.toBeVisible();
   }
 });
 
