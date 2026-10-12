@@ -4,7 +4,7 @@ export const locales = ['ru','en','kk'] as const;
 export type Locale = typeof locales[number];
 export const featuredIds = ['sidereal','orbit','iter','ayqyn','forme','perch'] as const;
 export interface Project {id:string;name:string;stack:string[];live:string;source:string;evidence:string;width:number;height:number;detailWidth:number;detailHeight:number;featured:boolean}
-export interface ProjectCopy {category:string;title:string;summary:string;alt:string;detailAlt:string;input:string;output:string;decisions:string[];limit:string;caption:string}
+export interface ProjectCopy {category:string;title:string;summary:string;alt:string;detailAlt:string;input:string;output:string;decisions:string[];limit:string;caption:string;context?:string}
 const additional:Project[] = [
   {id:'sidereal',name:'SIDEREAL',stack:['TypeScript','SVG','Web Audio','LocalStorage'],live:'https://seoshiro.github.io/sidereal/',source:'https://github.com/seoshiro/sidereal',evidence:'https://github.com/seoshiro/sidereal/blob/main/docs/QA.md',width:1920,height:1080,detailWidth:390,detailHeight:844,featured:true},
   {id:'iter',name:'ITER',stack:['React','TypeScript','Three.js','SVG','Web Speech'],live:'https://iter-navigator.vercel.app/',source:'https://github.com/seoshiro/iter-navigator',evidence:'https://github.com/seoshiro/iter-navigator/blob/main/README.md',width:1440,height:1000,detailWidth:1440,detailHeight:1000,featured:true},
