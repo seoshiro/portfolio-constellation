@@ -1,3 +1,4 @@
+import {chooseLocale} from './navigation-helper.ts';
 import {test,expect,type Page} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
@@ -48,7 +49,7 @@ for(const locale of ['ru','en','kk'] as const)test(`direct ${locale} case, reloa
   await expect(page.locator('.entry-skip')).toHaveText({ru:'Перейти к портфолио↗',en:'Enter portfolio↗',kk:'Портфолиоға өту↗'}[locale]!);
   await opened(page);await expect(page).toHaveURL(new RegExp(url.replaceAll('/','\\/')+'$'));await expect(page.locator('html')).toHaveAttribute('lang',locale);await expect(page.locator('h1')).toHaveText('ITER');
   await page.reload();await absent(page);await expect(page.locator('h1')).toHaveText('ITER');
-  await page.locator('[data-locale="kk"]').click();await absent(page);await expect(page).toHaveURL(/\/kk\/projects\/iter.html$/);
+  await chooseLocale(page,'kk');await absent(page);await expect(page).toHaveURL(/\/kk\/projects\/iter.html$/);
   await page.keyboard.press('Escape');await expect(page).toHaveURL(/\/kk\/#atlas\/iter$/);await absent(page);await expect(page.locator('[data-select="iter"]')).toBeFocused();
   await page.locator('.wordmark').first().click();await absent(page);await page.goBack();await absent(page);await page.goForward();await absent(page);
   await page.locator('[data-select="orbit"]').click();await expect(page.locator('.hero')).toHaveAttribute('data-camera','idle');await page.locator('.project-preview [data-case]').click();await absent(page);await expect(page.locator('h1')).toHaveText('ORBIT');
@@ -79,7 +80,7 @@ test('denied storage still shows entry once and same-origin internal documents b
   await page.goto('/?flat');await expect(page.locator('.entry-intro')).toBeVisible();await page.locator('.entry-skip').click();await opened(page);
   await page.reload();await absent(page);
   await page.locator('[data-select="iter"]').click();await expect(page.locator('.hero')).toHaveAttribute('data-camera','idle');await page.locator('.project-preview [data-case]').click();await absent(page);
-  await page.locator('[data-locale="en"]').click();await absent(page);await page.locator('.wordmark').first().click();await absent(page);
+  await chooseLocale(page,'en');await absent(page);await page.locator('.wordmark').first().click();await absent(page);
 });
 
 test('missing application module fails open to static HTML after 4.5s',async({page})=>{

@@ -27,15 +27,18 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initially
   }catch{destroyGL();canvas.classList.remove('ready');}}
   function sizeCanvas(){const save=(navigator as Navigator&{connection?:{saveData:boolean}}).connection?.saveData;const q=quality(width,height,weak?.65:window.devicePixelRatio,save);canvas.width=q.width;canvas.height=q.height;gl?.viewport(0,0,q.width,q.height);}
   function projectDrawings(){for(const d of drawings){const center={x:d.x+d.w/2,y:d.y+d.h/2},p=project(center,pose);d.link.style.transform=`translate(${p.x-center.x+px*9}px,${p.y-center.y+py*9}px) scale(${pose.zoom})`;d.link.style.setProperty('--label-scale',String(1/pose.zoom));d.svg.style.setProperty('--line-width',(.335*Math.pow(2/pose.zoom,.35))+'px');d.svg.style.setProperty('--core-radius',(.8/Math.pow(pose.zoom,.42))+'px');}}
+  let measuredMobileTop=0;
   function measure(){
     const was=hero.classList.contains('exploring');hero.classList.remove('exploring');
-    const r=hero.getBoundingClientRect();if(drawings.length&&r.width===width&&r.height===height){if(was)hero.classList.add('exploring');return;}width=r.width;height=r.height;
+    const r=hero.getBoundingClientRect();
+    const mobileTop=Math.max(355,(hero.querySelector<HTMLElement>('.hero-intro')?.getBoundingClientRect().bottom??r.top)-r.top+30);
+    if(drawings.length&&r.width===width&&r.height===height&&(r.width>600||mobileTop===measuredMobileTop)){if(was)hero.classList.add('exploring');return;}width=r.width;height=r.height;measuredMobileTop=mobileTop;
     drawings=Array.from(hero.querySelectorAll<HTMLAnchorElement>('.constellation')).map((link,index)=>{
       for(const name of ['left','top','width','height','transform','--label-scale'])link.style.removeProperty(name);
       const svg=link.querySelector<SVGSVGElement>('svg')!;
       let a=link.getBoundingClientRect();
       if(width<=600){const order=[0,1,2,3,5,4].indexOf(index),col=order%2,row=Math.floor(order/2);const w=(width-62)/2,h=151;
-        link.style.setProperty('left',(22+col*(w+18))+'px','important');link.style.setProperty('top',(355+row*174)+'px','important');link.style.setProperty('width',w+'px','important');link.style.setProperty('height',h+'px','important');a=link.getBoundingClientRect();}
+        link.style.setProperty('left',(22+col*(w+18))+'px','important');link.style.setProperty('top',(mobileTop+row*174)+'px','important');link.style.setProperty('width',w+'px','important');link.style.setProperty('height',h+'px','important');a=link.getBoundingClientRect();}
       const box=svg.getBBox(),matrix=svg.getScreenCTM()!,point=svg.createSVGPoint();point.x=box.x+box.width/2;point.y=box.y;const top=point.matrixTransform(matrix);point.y=box.y+box.height;const bottom=point.matrixTransform(matrix);const label=link.querySelector<HTMLElement>('.constellation-label')!.getBoundingClientRect();
       const lower=Math.max(bottom.y,label.bottom),upper=Math.min(top.y,label.top);
       const item={link,svg,x:a.x-r.x,y:a.y-r.y,w:a.width,h:a.height,cx:top.x-r.x,cy:(upper+lower)/2-r.y,gw:Math.max(box.width*matrix.a,label.width),gh:lower-upper,light:drawings.find(d=>d.link.dataset.select===link.dataset.select)?.light??1};
@@ -71,7 +74,8 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initially
   function meteor(){if(!revealed||!motionAllowed()||flight||!visible||document.hidden||dead)return;
     const r=hero.getBoundingClientRect(),obstacles=Array.from(hero.querySelectorAll<HTMLElement>('.hero-intro,.atlas-heading,.project-preview,.constellation-label,.atlas-projects')).filter(el=>!el.hidden&&getComputedStyle(el).display!=='none'&&getComputedStyle(el).visibility!=='hidden').map(el=>el.getBoundingClientRect());
     let path:{x:number;y:number;dx:number;dy:number}|undefined;
-    for(let attempt=0;attempt<40&&!path;attempt++){const x=width*(.72+Math.random()*.24),y=height*(width<=600?.32+Math.random()*.07:.06+Math.random()*.28),dx=-Math.min(width*.32,470),dy=Math.min(height*.16,170);
+    const text=hero.querySelector<HTMLElement>('.hero-intro')!,mobileHome=width<=600&&text.offsetHeight>0,mobileOrigin=Math.max(height*.32,text.getBoundingClientRect().bottom-r.top+18);
+    for(let attempt=0;attempt<40&&!path;attempt++){const preferred=mobileHome&&firstMeteor&&attempt===0,x=width*(preferred?.78:.72+Math.random()*.24),y=width<=600?(mobileHome?mobileOrigin+(preferred?0:Math.random()*32):height*(.32+Math.random()*.07)):height*(.06+Math.random()*.28),dx=-Math.min(width*.32,470),dy=Math.min(height*.16,170);
       const clear=obstacles.every(o=>{for(let step=0;step<=12;step++){const sx=r.x+x+dx*step/12,sy=r.y+y+dy*step/12;if(sx>o.left-15&&sx<o.right+15&&sy>o.top-12&&sy<o.bottom+12)return false;}return true;});if(clear)path={x,y,dx,dy};}
     if(!path){scheduleMeteor();return;}const distant=!firstMeteor&&Math.random()<.42,length=(width<=600?165:260)+Math.random()*(distant?30:70),duration=1150+Math.random()*240,angle=Math.atan2(path.dy,path.dx)*180/Math.PI;
     const item=document.createElement('i');item.className='meteor';item.style.cssText=`left:${path.x-length}px;top:${path.y-14}px;width:${length+8}px;--tail:${length}px;--angle:${angle}deg;--dx:${path.dx}px;--dy:${path.dy}px;--duration:${duration}ms;--light:${distant?.48:.92}`;
@@ -86,7 +90,7 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initially
   canvas.addEventListener('webglcontextrestored',()=>{initialize();request();},options);
   document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;clearTimeout(timer);meteors.replaceChildren();}else{request();scheduleMeteor();}},options);
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){request();scheduleMeteor();}else{cancelAnimationFrame(frame);frame=0;clearTimeout(timer);meteors.replaceChildren();}},{threshold:.01});observer.observe(hero);
-  const resizer=new ResizeObserver(measure),previewSizer=new ResizeObserver(layoutPreview);resizer.observe(hero);previewSizer.observe(aside);measure();initialize();
+  const resizer=new ResizeObserver(measure),previewSizer=new ResizeObserver(layoutPreview);resizer.observe(hero);const intro=hero.querySelector<HTMLElement>('.hero-intro');if(intro)resizer.observe(intro);previewSizer.observe(aside);measure();initialize();
   function prepareReveal(){if(dead||!ready||entranceStarted)return;entranceStarted=true;if(motionAllowed()){hero.classList.add('scene-enter');entrance=setTimeout(()=>hero.classList.remove('scene-enter'),1050);}}
   function enter(){if(dead||!revealed||!ready)return;prepareReveal();scheduleMeteor();}
   // The atlas is already measured and initialized. Font downloads must not

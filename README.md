@@ -14,6 +14,8 @@ The [observatory refinement](docs/OBSERVATORY.md) adds a precise desktop star cu
 
 Node 24, pinned dependencies/actions, local fonts/assets. No backend, analytics or paid services.
 
+The [integrated navigation and original atmosphere](docs/ATMOSPHERE.md) adds a 70px sticky desktop header, a native mobile menu, an explicit opt-in CC0 instrumental loop with six quiet project motifs, title-row catalogue geometries and three truthful About examples with actual image fragments. Sound and motion remain independent; first arrival is silent. Fifteen added browser regressions bring the full suite to 77; actual PCM verification brings unit tests to 12. Private browser recordings include the actual application sound; physical headphone/speaker listening remains unavailable.
+
 ```sh
 npm ci --ignore-scripts
 npm run dev

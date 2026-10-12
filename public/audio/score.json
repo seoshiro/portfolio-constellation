@@ -1,0 +1,44 @@
+{
+  "title": "Atlas / quiet orbit",
+  "origin": "Original deterministic composition and additive synthesis created for the seoshiro portfolio; no third-party samples or reference audio copied.",
+  "license": "CC0-1.0",
+  "sampleRate": 24000,
+  "seconds": 48,
+  "channels": 2,
+  "chords": [
+    [
+      45,
+      52,
+      55,
+      59
+    ],
+    [
+      48,
+      52,
+      55,
+      62
+    ],
+    [
+      50,
+      57,
+      60,
+      64
+    ],
+    [
+      52,
+      55,
+      59,
+      62
+    ]
+  ],
+  "midiNotes": [
+    76,
+    74,
+    71,
+    72
+  ],
+  "peak": 0.55,
+  "rms": 0.1318891168429026,
+  "loopSampleStep": 0.01162356789778993,
+  "sha256": "2e219d1e5f1632e4add2c7a3386ca7f479647dadd9e980ff803975f42bc54326"
+}

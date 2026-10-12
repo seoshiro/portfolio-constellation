@@ -5,7 +5,7 @@ const walk=async dir=>(await Promise.all((await readdir(dir)).map(async name=>{c
 const files=await walk('dist');
 const paths=files.filter(p=>p.endsWith('.html'));
 const commit=process.env.PORTFOLIO_COMMIT||execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
-const policy="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'";
+const policy="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
 for(const path of paths){let html=await readFile(path,'utf8');if(!html.includes('<h1>')||!html.includes('<main'))throw new Error('Static content missing: '+path);html=html.replace('<meta charset="UTF-8">',`<meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="${policy}"><meta name="portfolio-build" content="${commit}">`);await writeFile(path,html);}
 for(const name of ['assets/space.webp','assets/sun.webp','assets/social.webp','fonts/Onest/Onest.woff2','fonts/Manrope/Manrope.woff2'])await stat('dist/'+name);
 await writeFile('dist/version.json',JSON.stringify({sourceRepository:'seoshiro/portfolio-constellation',sourceCommit:commit,concept:'Personal Atlas',builtAt:new Date().toISOString()}));

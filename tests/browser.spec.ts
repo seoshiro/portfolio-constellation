@@ -1,3 +1,4 @@
+import {chooseLocale} from './navigation-helper.ts';
 import {test,expect} from '@playwright/test';
 
 // The separate entry suite tests first arrival. Existing navigation/motion
@@ -20,10 +21,10 @@ test('rapid selections, reload, history, case Escape and focus return',async({pa
 });
 
 test('language keeps the selection, section, case and preference',async({page})=>{
-  await page.goto('/#atlas/iter');await page.locator('[data-locale="kk"]').click();await expect(page).toHaveURL(/\/kk\/#atlas\/iter$/);await expect(page.locator('html')).toHaveAttribute('lang','kk');
-  await page.locator('.project-preview [data-case]').click();await page.locator('[data-locale="en"]').click();await expect(page).toHaveURL(/\/en\/projects\/iter.html$/);
+  await page.goto('/#atlas/iter');await chooseLocale(page,'kk');await expect(page).toHaveURL(/\/kk\/#atlas\/iter$/);await expect(page.locator('html')).toHaveAttribute('lang','kk');
+  await page.locator('.project-preview [data-case]').click();await chooseLocale(page,'en');await expect(page).toHaveURL(/\/en\/projects\/iter.html$/);
   await page.goto('/');await expect(page).toHaveURL(/\/en\/$/);
-  await page.goto('/en/#about');await page.locator('[data-locale="ru"]').click();await expect(page).toHaveURL(/\/#about$/);
+  await page.goto('/en/#about');await chooseLocale(page,'ru');await expect(page).toHaveURL(/\/#about$/);
 });
 
 test('keyboard selection works and every case has static complete content',async({page,request})=>{
@@ -83,7 +84,7 @@ test('secondary case Escape returns focus to catalogue and legacy work anchor re
 });
 
 test('credits remain localized with JS, query redirect and static fallback',async({page,browser,baseURL})=>{
-  await page.goto('/en/credits.html');await page.locator('[data-locale="kk"]').click();await expect(page).toHaveURL(/\/kk\/credits.html$/);
+  await page.goto('/en/credits.html');await chooseLocale(page,'kk');await expect(page).toHaveURL(/\/kk\/credits.html$/);
   await page.goto('/en/credits.html?lang=ru');await expect(page).toHaveURL(/\/credits.html$/);await expect(page.locator('html')).toHaveAttribute('lang','ru');
-  const context=await browser.newContext({javaScriptEnabled:false});const fallback=await context.newPage();await fallback.goto(baseURL!+'/en/credits.html');await fallback.locator('[data-locale="kk"]').click();await expect(fallback).toHaveURL(/\/kk\/credits.html$/);await context.close();
+  const context=await browser.newContext({javaScriptEnabled:false});const fallback=await context.newPage();await fallback.goto(baseURL!+'/en/credits.html');await chooseLocale(fallback,'kk');await expect(fallback).toHaveURL(/\/kk\/credits.html$/);await context.close();
 });

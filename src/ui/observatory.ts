@@ -28,6 +28,7 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
     rx+=(x-rx)*cursorSmooth;ry+=(y-ry)*cursorSmooth;sx+=(tx-sx)*smooth;sy+=(ty-sy)*smooth;sa+=(ta-sa)*smooth;
     placeReticle();
     contactStar?.style.setProperty('--star-x',sx.toFixed(2)+'px');contactStar?.style.setProperty('--star-y',sy.toFixed(2)+'px');contactStar?.style.setProperty('--star-turn',sa.toFixed(2)+'deg');
+    if(observing&&!tip.hidden)placeTip(observing);
     const settling=(active?Math.abs(x-rx)+Math.abs(y-ry):0)+Math.abs(tx-sx)+Math.abs(ty-sy)+Math.abs(ta-sa);
     if(settling>.15)request();else last=0;
   }
@@ -38,7 +39,7 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
     tip.hidden=false;
     const anchor=link.querySelector<HTMLElement>('.constellation-label')!.getBoundingClientRect(),w=tip.offsetWidth,h=tip.offsetHeight,pad=12;
     const clamp=(n:number,max:number)=>Math.max(pad,Math.min(n,max-pad));
-    const obstacles=Array.from(document.querySelectorAll<HTMLElement>('.hero-intro,.header,.atlas-heading,.project-preview,.atlas-projects,.constellation,.atlas-footer,.cursor-caption')).filter(el=>!el.hidden&&getComputedStyle(el).visibility!=='hidden'&&getComputedStyle(el).display!=='none'&&+getComputedStyle(el).opacity>.1).map(el=>el.getBoundingClientRect());
+    const obstacles=Array.from(document.querySelectorAll<HTMLElement>('.hero-intro,.header,.atlas-heading,.project-preview,.atlas-projects,.constellation,.atlas-footer,.cursor-caption')).filter(el=>!el.hidden&&getComputedStyle(el).visibility!=='hidden'&&getComputedStyle(el).display!=='none'&&+getComputedStyle(el).opacity>.1).map(el=>{const r=el.getBoundingClientRect();return new DOMRect(r.x-10,r.y-10,r.width+20,r.height+20);});
     const positions=[[anchor.left+(anchor.width-w)/2,anchor.bottom+10],[anchor.left+(anchor.width-w)/2,anchor.top-h-10],[anchor.right+12,anchor.top+(anchor.height-h)/2],[anchor.left-w-12,anchor.top+(anchor.height-h)/2]];
     // Search the boundaries of occupied space as well as the label's sides.
     // Include this drawing and the footer so a clamped card never covers them.
@@ -60,7 +61,7 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
     tip.replaceChildren(template.content.cloneNode(true));tip.hidden=false;placeTip(link);tip.classList.add('is-shown');
   }
   function move(event:PointerEvent){
-    if(root.classList.contains('intro-pending')){hideCursor();hideTip();return;}
+    if(root.classList.contains('intro-pending')||root.classList.contains('menu-visible')){hideCursor();hideTip();return;}
     if(event.pointerType!=='mouse'||!fine.matches){hideCursor();if(!keyboard)hideTip();return;}
     keyboard=false;if(selecting&&event.buttons===0)selecting=false;x=event.clientX;y=event.clientY;const target=event.target as HTMLElement;
     const text=target.closest('input,textarea,[contenteditable="true"],p,h1,h2,h3,figcaption,.project-summary,.case-context');
@@ -86,6 +87,7 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
   document.addEventListener('selectstart',()=>{selecting=true;hideCursor();root.classList.add('cursor-text');hideTip();},options);
   document.addEventListener('keydown',event=>{keyboard=true;hideCursor();if(event.key==='Escape')hideTip();},options);
   window.addEventListener('blur',hideCursor,options);
+  document.addEventListener('portfolio-menu',hideCursor,options);
   document.addEventListener('focusin',event=>{if(keyboard)showTip((event.target as HTMLElement).closest('.constellation'));},options);
   document.addEventListener('focusout',()=>{if(keyboard)hideTip();},options);
   const hero=document.querySelector<HTMLElement>('.hero');
@@ -100,6 +102,7 @@ export function createObservatory(locale:Locale,motionAllowed:()=>boolean){
   document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;hideCursor();hideTip();}else request();},options);
   fine.addEventListener('change',()=>{hideCursor();hideTip();},options);
   const observer=contact?new IntersectionObserver(entries=>{contactVisible=entries[0].isIntersecting;if(contactVisible&&!root.classList.contains('intro-pending'))contact.classList.add('contact-revealed');if(!contactVisible){tx=ty=ta=0;request();}},{threshold:.15}):null;
+  const tipSizer=new ResizeObserver(()=>{if(observing&&!tip.hidden)placeTip(observing);});tipSizer.observe(tip);
   if(contact)observer?.observe(contact);
-  return{entryOpened(){if(contactVisible)contact?.classList.add('contact-revealed');},motionChanged(){tx=ty=ta=0;if(!motionAllowed()){rx=x;ry=y;sx=sy=sa=0;cursor.classList.remove('is-pulsing');}request();},dispose(){controller.abort();observer?.disconnect();cameraObserver?.disconnect();cancelAnimationFrame(frame);hideCursor();hideTip();clearTimeout(fade);cursor.remove();tip.remove();}};
+  return{entryOpened(){if(contactVisible)contact?.classList.add('contact-revealed');},motionChanged(){tx=ty=ta=0;if(!motionAllowed()){rx=x;ry=y;sx=sy=sa=0;cursor.classList.remove('is-pulsing');}request();},dispose(){controller.abort();observer?.disconnect();tipSizer.disconnect();cameraObserver?.disconnect();cancelAnimationFrame(frame);hideCursor();hideTip();clearTimeout(fade);cursor.remove();tip.remove();}};
 }
