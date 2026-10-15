@@ -2,6 +2,10 @@
 
 Sources live in seoshiro/portfolio-constellation. [seoshiro.github.io](https://seoshiro.github.io/) uses the existing root repository's Pages environment. Standalone project repositories and deployments are separate and unchanged.
 
+## Signal release recovery
+
+Before the Signal release, the verified source was `bdffb0e339ac92eb24a8ea80152a76fc44528d46`, published by root `4c8a892da5e10de01746821be8e8b648dc5c66ed`. To roll back Signal, pin that source in both existing publisher fields through a normal descendant commit and verify CI plus live version.json. Local complete-history Git bundles of both repositories were verified before release. No force push or neighbouring application changes are needed.
+
 ## Release
 
 1. Complete lint, typecheck, content/state tests, build, artifact checks, browser QA, real screenshot inspection and independent review.

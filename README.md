@@ -4,6 +4,12 @@ Original portfolio for Beibars Ileskhan at [seoshiro.github.io](https://seoshiro
 
 RU / EN / KK have useful static routes. Language retains the selected project, section or case. A 3.5-second constellation introduction appears once per tab session, can be skipped, and opens the existing atlas or direct case. Content loads in parallel; reduced motion keeps a static entrance. Original procedural space, an attributed NASA/SDO solar image, three star-depth planes, a separate solar plane and constellation camera moves provide depth. A pointed meteor appears about 2.3–2.8 seconds after the scene opens; later cues are 7–14 seconds apart. Text stays still. Motion respects reduced motion and data saving and can be paused. See [entry behavior and fail-open](docs/ENTRY.md).
 
+## Signal journey — 2026-10-15
+
+The [Signal / Personal Atlas design](DESIGN.md) connects the original constellation map to three orbital stations and an unfolding receiver. Native scroll drives a reversible 260svh desktop scene; phones use compact sequential station panels. Original Canvas artwork, a shared time-based scene state and one opt-in Web Audio context connect depth, actual scroll velocity, ambience, effects and a small optional persistent quest. Projects remain directly accessible throughout.
+
+[QA](QA_REPORT.md): 16 unit/content/state/audio tests and a fresh complete 110/110 browser run passed (331.32 seconds, no skips, retries or flaky outcomes), together with lint, types, build and artifact checks. Three polish passes fixed tablet composition, scroll/light/audio agreement and real mobile hit obstruction. A final camera fix publishes idle only after terminal light state, including resize/font measurement. Existing project facts, RU/EN/KK, fonts, cursor, loader and ordinary case navigation remain. [Credits](CREDITS.md) record the original procedural assets and existing licenses. Auditory listening, physical devices and Safari remain NOT TESTED.
+
 ## Local work
 
 The 2026-10-11 light/motion refinement uses thinner connections and soft stellar cores, a fitted 1280ms camera flight, gradual fading of other groups, a larger clickable real screenshot, brighter tapered meteors and a quieter Sun. The existing fonts and 3500ms introduction are retained. See [motion details and verification](docs/MOTION.md).
