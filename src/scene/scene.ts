@@ -32,6 +32,7 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initially
     const was=hero.classList.contains('exploring');hero.classList.remove('exploring');
     const r=hero.getBoundingClientRect();
     const mobileTop=Math.max(355,(hero.querySelector<HTMLElement>('.hero-intro')?.getBoundingClientRect().bottom??r.top)-r.top+30);
+    if(r.width<=600)hero.style.setProperty('--voyage-controls-top',`${mobileTop+3*174+20}px`);else hero.style.removeProperty('--voyage-controls-top');
     if(drawings.length&&r.width===width&&r.height===height&&(r.width>600||mobileTop===measuredMobileTop)){if(was)hero.classList.add('exploring');return;}width=r.width;height=r.height;measuredMobileTop=mobileTop;
     drawings=Array.from(hero.querySelectorAll<HTMLAnchorElement>('.constellation')).map((link,index)=>{
       for(const name of ['left','top','width','height','transform','--label-scale'])link.style.removeProperty(name);
@@ -54,7 +55,13 @@ export function createScene(hero:HTMLElement,motionAllowed:()=>boolean,initially
     if(mobile)hero.style.setProperty('--preview-top',(centerY+item.gh*zoom/2+25)+'px');return result;
   }
   function layoutPreview(){if(width>600){hero.style.removeProperty('height');return;}if(flight)return;const needed=selected?Math.max(1100,aside.offsetTop+aside.offsetHeight+130):1100;hero.style.height=needed+'px';}
-  function finish(){flight=null;hero.classList.remove('camera-flight');hero.dataset.camera='idle';hero.dataset.flightProgress='1';aside.inert=false;if(!selected)aside.hidden=true;layoutPreview();scheduleMeteor();}
+  function finish(){
+    flight=null;
+    // A resize/font measurement can finish the camera between render frames.
+    // Publish idle only after the lights represent that same terminal pose.
+    for(const d of drawings){const chosen=d.link.dataset.select===selected;d.light=chosen?1:1-pose.focus*.985;d.svg.style.opacity=String(d.light);d.link.querySelector<HTMLElement>('.constellation-label')!.style.opacity=String(chosen?1:1-pose.focus);d.link.tabIndex=selected&&!chosen?-1:0;}
+    hero.classList.remove('camera-flight');hero.dataset.flightProgress='1';aside.inert=false;if(!selected)aside.hidden=true;layoutPreview();hero.dataset.camera='idle';scheduleMeteor();
+  }
   function draw(time:number){frame=0;if(dead||!visible||document.hidden)return;
     const dt=previousTime?Math.min(100,time-previousTime):16,blend=1-Math.exp(-dt/95);previousTime=time;px+=(tx-px)*blend;py+=(ty-py)*blend;if(Math.abs(tx-px)+Math.abs(ty-py)<.006){px=tx;py=ty;}
     if(flight){const before={...pose};pose=travel(flight.from,flight.to,flight.velocity,time-flight.start,flight.duration);for(const key of ['x','y','zoom','focus']as const)velocity[key]=(pose[key]-before[key])/dt;
